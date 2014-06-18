@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en"> 
+	<head>
+		<title></title>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" type="text/css" href="">
+		<style>
+			body{
+				font-family: sans-serif;
+			}
+			label, input, fieldset{
+				margin: 10px;
+			}
+
+			label[for='names']{
+				display: none;
+				margin: 0;
+			}
+
+		</style>
+	</head>
+	<body>
+		<label for="addName">
+			<h1>Want to add some stuff to our name generator?</h1>
+			<p>hint: use commas to add more than one name-part<p>
+		</label>
+		<fieldset id="addName">
+			<label for="prefix">Add a prefix? </label>
+			<input id="prefix" type="text">
+
+			<label for="givenName">Add a given name? </label>		
+			<input id="givenName" type="text">
+
+			<br><!--I'm being lazy here-->
+
+			<label for="surname">Add a surname? </label>
+			<input id="surname" type="text">
+
+			<label for="suffix">Add a suffix? </label>
+			<input id="suffix" type="text">
+
+			<button type="button">Add Name-pieces!</button>
+		</fieldset>
+
+		<fieldset id="generateNames">
+			<label for="numOfNames">How many names would you like to make?</label>
+			<input id="numOfNames" type="text">
+			<button type="button">Generate</button>
+		</fieldset>
+
+		<label for="names"><h1>Here are your names!!</h1></label>
+		<div id="names"></div>
+
+		<script type="text/javascript" src="jquery-1.11.1.js"></script>
+		<script type="text/javascript" src="arrays.js"></script>
+	</body>
+</html>
+
