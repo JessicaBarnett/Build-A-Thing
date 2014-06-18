@@ -6,7 +6,7 @@ function NameGenerator(){
 	this.prefix = ["The exalted", "Mr", "Ms", "Dr", "the honourable", "the estranged", "the coolest of the cucumbers"];
 	this.givenName =["Alice", "Bob", "Corinne", "David", "Eloise", "Fattah", "Gwen", "Henry", "Isabella"];
 	this.surname = ["Smith", "Hamilton", "Johnson", "Anderson", "Robinson", "Hernandez"];
-	this.suffix = ["the third", "the twenty-third", "and friends", "the monarch of england", "the president of the United states", "is super awesome", "is weird", "smells"];
+	this.suffix = ["the third", "the twenty-third", "and friends", "the monarch of england", "the president of the United states", "is super awesome", "is weird", "smells", "is Batman"];
 }	
 
 //returns array
