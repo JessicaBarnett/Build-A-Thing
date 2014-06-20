@@ -33,7 +33,7 @@ function mixInto(object, mixIn){
   forEachIn(mixIn, function(propertyName, value){
     object[propertyName] = value;
   });
-};
+}
 
 /********  	PROTOTYPES   ********/
 
@@ -63,7 +63,7 @@ function mixInto(object, mixIn){
 
 	LivingThing.prototype.kick = function(){
 		console.log("You kicked the " + this.name + "!  Squish!!");
-	}
+	};
 
 	LivingThing.prototype.eat= function(){
 		this.energy++;
@@ -73,7 +73,7 @@ function mixInto(object, mixIn){
 	LivingThing.prototype.printEnergy = function(){
 		console.log("it has " + this.energy + " energy");
 		return this.energy;
-	}
+	};
 
 	LivingThing.prototype.print= function(){
 		Thing.prototype.print.apply(this);//extending Thing.print
@@ -97,7 +97,7 @@ function mixInto(object, mixIn){
 
 	Plant.prototype.printHeight = function(){
 		console.log("It is " +this.height+ " inches tall");
-	}
+	};
 
 	Plant.prototype.print= function(){
 		LivingThing.prototype.print.apply(this); //Extends LivingThing.print
@@ -148,28 +148,40 @@ function mixInto(object, mixIn){
 	Pet.prototype.print = function(){
 		console.log("This is " + this.humanName + ".");
 
-		if (this instanceof Animal)
-			Animal.prototype.print.apply(this);
-		else if(this instanceof Plant)
-			Plant.prototype.print.apply(this); 
+		Object.getPrototypeOf(this).print.apply(this);
+		// if (this instanceof Animal)
+		// 	Animal.prototype.print.apply(this);
+		// else if(this instanceof Plant)
+		// 	Plant.prototype.print.apply(this); 
 
 		console.log(this.humanName + this.isHappy());
 	};
 
-	//Extends Animal.print or Plant.print
-	Pet.prototype.eat = function(){
-		LivingThing.prototype.eat.apply(this);
-		this.happy = true;
-	}
+	//functions for Animal Prototype base
 
-	//Extends Animal.print or Plant.print
+	//Extends prototype.print
+	Pet.prototype.eat = function(){
+		Object.getPrototypeOf(this).eat.apply(this);
+		this.happy = true;
+	};
+
+	//functions for Plant Prototype Base
+	Pet.prototype.grow = function(){
+		Object.getPrototypeOf(this).grow.apply(this);
+		this.happy = true;
+	};
+
+
+	//functions for any Thing Prototype Base
+
 	Pet.prototype.kick = function(){
-		if (this instanceof Animal)
-			Animal.prototype.kick.apply(this);
-		else if(this instanceof Plant)
-			Plant.prototype.kick.apply(this); 
+		Object.getPrototypeOf(this).kick.apply(this);
+		// if (this instanceof Animal)
+		// 	Animal.prototype.kick.apply(this);
+		// else if(this instanceof Plant)
+		// 	Plant.prototype.kick.apply(this); 
 		this.happy = false;
-	}
+	};
 
 	Pet.prototype.pet = function(){
 		this.happy = true;
@@ -178,7 +190,7 @@ function mixInto(object, mixIn){
 
 	Pet.prototype.isHappy = function(){
 		return this.happy ? " is very happy!" : " is not happy : (";
-	}
+	};
 
 /*******  LINE BREAK FUNCTION TO MAKE THINGS PRETTY IN THE CONSOLE!  *******/
 
