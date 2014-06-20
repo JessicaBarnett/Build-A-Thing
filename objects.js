@@ -28,9 +28,9 @@ function forEachIn(object, action) {
 }
 
 //for multiple inheritance
+//Adds properties/methods of mixin to object
 function mixInto(object, mixIn){
   forEachIn(mixIn, function(propertyName, value){
-  	//console.log("propertyName = " + propertyName + "  Value = "+ value);
     object[propertyName] = value;
   });
 };
@@ -127,11 +127,6 @@ function mixInto(object, mixIn){
 		console.log("You kicked the " + this.name + ".  It bites you!!");
 	};
 
-	Animal.prototype.eat = function(){
-		this.energy++;
-		console.log("The " + this.name + " is eating " + this.food + "!")
-	}
-
 	Animal.prototype.move = function(){
 		this.energy-= 2;
 		console.log("The " + this.name + " is " + this.movement + "ing around!");
@@ -142,7 +137,7 @@ function mixInto(object, mixIn){
 	};
 
 
-//Pet can mix with either LivingThing, Animal or Plant.  
+//Pet can mix with either Animal or Plant.  
 //Anything with an eat, kick, and print function
 	function Pet(humanName, happy){
 		this.happy = happy;
@@ -154,7 +149,7 @@ function mixInto(object, mixIn){
 		console.log("This is " + this.humanName + ".");
 
 		if (this instanceof Animal)
-			Animal.prototype.print.apply(this); //uses the Prototype's print method first.  Could be either Plant or Animal
+			Animal.prototype.print.apply(this);
 		else if(this instanceof Plant)
 			Plant.prototype.print.apply(this); 
 
@@ -170,20 +165,18 @@ function mixInto(object, mixIn){
 	//Extends Animal.print or Plant.print
 	Pet.prototype.kick = function(){
 		if (this instanceof Animal)
-			Animal.prototype.kick.apply(this); //uses the Prototype's print method first.  Could be either Plant or Animal
+			Animal.prototype.kick.apply(this);
 		else if(this instanceof Plant)
 			Plant.prototype.kick.apply(this); 
 		this.happy = false;
 	}
 
 	Pet.prototype.pet = function(){
-		//console.log("in pet!!");
 		this.happy = true;
 		console.log("You are petting " + this.humanName + ". It is happy!");
 	};
 
 	Pet.prototype.isHappy = function(){
-		//console.log("in pet!!");
 		return this.happy ? " is very happy!" : " is not happy : (";
 	}
 
@@ -198,32 +191,32 @@ function lineBreak(text){
 lineBreak("rock");
 
 var rock = new Thing("rock", "mineral");
-rock.print();
-rock.kick();
+rock.print(); //from Thing
+rock.kick(); //from Thing
 
 lineBreak("bacteria");
 
 var bacteria = new LivingThing("bacteria", "single-cell organism", "microscopic yumminess");
-bacteria.print();
-bacteria.kick();
+bacteria.print();//from LivingThing.  extends Thing.print
+bacteria.kick();//redefined in LivingThing
 
 lineBreak("flower");
 
 var flower = new Plant("rose", "plant", "sunlight and nutrients in the soil", "20");
-flower.print() //inherited from Plant
-flower.grow(); //inherited from Plant
-flower.printHeight();
-flower.printEnergy();
-flower.kick(); //inherited from Thing
+flower.print() //from Plant.  Extends LivingThing.print (which extends Thing.print)
+flower.grow(); //from Plant
+flower.printHeight();//from Plant
+flower.printEnergy();//inherited from LivingThing 
+flower.kick(); //inherited from LivingThing (from Thing)
 
 
 lineBreak("tiger");
 
 var tiger = new Animal("Tiger", "Animal", "little children", "Leap", "jungle", "Rawr", true);
-tiger.print(); //inherited from Animal
-tiger.kick(); //inherited from Animal
-tiger.move(); //inherited from Animal
-tiger.printEnergy();
+tiger.print(); //from Animal.  Extends LivingThing.print (which extends Thing.print)
+tiger.kick(); //redefined in Animal 
+tiger.move(); //from Animal
+tiger.printEnergy();//inherited from LivingThing
 tiger.eat(); //inherited from LivingThing
 
 lineBreak("cody the cat");
@@ -233,13 +226,13 @@ var PetMixin = new Pet("Cody", true);
 
 mixInto(cody, PetMixin);
 
-cody.print(); //inherited from Pet
-cody.eat();//inherited from LivingThing
+cody.print(); //from Pet.  Extends Animal.print (which extends LivingThing.print/Thing.print)
+cody.eat();//from Pet.  Extends LivingThing.eat
 console.log(cody.isHappy());
-cody.kick(); //inherited from Animal
-console.log(cody.isHappy());
-cody.move(); //inherited from Animal
-cody.pet(); //inherited from Pet
+cody.kick(); //from Pet.  Extends Animal.kick
+console.log(cody.isHappy()); //from Pet
+cody.move(); //from Animal
+cody.pet(); //from Pet
 
 lineBreak("honey the rabbit");
 
@@ -248,12 +241,12 @@ PetMixin = new Pet("Honey", true);
 
 mixInto(honey, PetMixin);
 
-honey.print(); //inherited from Pet
-honey.kick(); //inherited from Animal
-honey.move(); //inherited from Animal
-honey.eat(); //inherited from LivingThing and Pet
-honey.pet(); //inherited from Pet
-honey.printEnergy(); //inherited from livingThing
+honey.print();//from Pet. Extends Animal.print (which extends LivingThing.print/Thing.print)
+honey.kick();//from Pet.  Extends Animal.kick
+honey.move();//from Animal
+honey.eat();//from Pet.  Extends LivingThing.eat
+honey.pet();//from Pet
+honey.printEnergy();//inherited from livingThing
 
 
 lineBreak("happy the cactus");
@@ -263,19 +256,19 @@ PetMixin = new Pet("Happy", true);
 
 mixInto(happy, PetMixin);
 
-happy.print(); //inherited from Pet 
-happy.kick();
-console.log("Happy" + happy.isHappy());
-happy.printHeight();
-happy.grow(); //inherited from Plant
-happy.printHeight();
-happy.printEnergy();
+happy.print(); //from Pet.  Extends Plant.print (which extends LivingThing.print/Thing.print)
+happy.kick();//from Pet.  Extends Plant.kick
+console.log("Happy" + happy.isHappy()); //from Pet
+happy.printHeight(); //from Plant
+happy.grow(); //from Plant
+happy.printHeight();//from Plant
+happy.printEnergy();//inherited from LivingThing
 happy.pet = function(){
 	console.log("OUCH!!!!  Why did you pet a cactus?!!");
 	Pet.prototype.pet.apply(this);
 	console.log("...and probably evil.");
 }
-happy.pet();
+happy.pet(); //from Pet
 
 
 
