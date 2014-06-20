@@ -20,19 +20,31 @@ function clone(object){
 //for each property in an object, do this action
 function forEachIn(object, action) {
   for (var propertyName in object){
-    //if (object.hasOwnProperty(propertyName))  
-    	//shouldn't really be taking this out, but the methods are getting bumped as not-own-properties
-    	//even though they are overwritten/redefined in Pet...?
+    //if (object.hasOwnProperty.call(object, propertyName))  
       action(propertyName, object[propertyName]);
   }
 }
 
 //for multiple inheritance
 //Adds properties/methods of mixin to object
+//*** Now Using mixIntoPet instead ***
 function mixInto(object, mixIn){
   forEachIn(mixIn, function(propertyName, value){
     object[propertyName] = value;
   });
+}
+
+
+//for multiple inheritance
+//Adds properties/methods of mixin to object if 
+//if they are shared by both Pet and Base Constructor, 
+//or are unique to the Pet constructor
+//allows All kinds of things to be mixed into Pet 
+function mixIntoPet(object, mixIn){
+	forEachIn(mixIn, function(propertyName, value){
+		if(object[propertyName] || mixIn.isPetProperty(propertyName))
+    		object[propertyName] = value;
+ 	});
 }
 
 /********  	PROTOTYPES   ********/
@@ -137,8 +149,7 @@ function mixInto(object, mixIn){
 	};
 
 
-//Pet can mix with either Animal or Plant.  
-//Anything with an eat, kick, and print function
+//Pet can mix with ANY object, but ideally something related to thing
 	function Pet(humanName, happy){
 		this.happy = happy;
 		this.humanName = humanName;
@@ -149,11 +160,6 @@ function mixInto(object, mixIn){
 		console.log("This is " + this.humanName + ".");
 
 		Object.getPrototypeOf(this).print.apply(this);
-		// if (this instanceof Animal)
-		// 	Animal.prototype.print.apply(this);
-		// else if(this instanceof Plant)
-		// 	Plant.prototype.print.apply(this); 
-
 		console.log(this.humanName + this.isHappy());
 	};
 
@@ -171,17 +177,14 @@ function mixInto(object, mixIn){
 		this.happy = true;
 	};
 
-
 	//functions for any Thing Prototype Base
 
 	Pet.prototype.kick = function(){
 		Object.getPrototypeOf(this).kick.apply(this);
-		// if (this instanceof Animal)
-		// 	Animal.prototype.kick.apply(this);
-		// else if(this instanceof Plant)
-		// 	Plant.prototype.kick.apply(this); 
 		this.happy = false;
 	};
+
+	//functions that will be added to all Pet Objects
 
 	Pet.prototype.pet = function(){
 		this.happy = true;
@@ -191,6 +194,13 @@ function mixInto(object, mixIn){
 	Pet.prototype.isHappy = function(){
 		return this.happy ? " is very happy!" : " is not happy : (";
 	};
+
+	//returns true if propertyname passed is a property specific to the Pet "class"
+	//only needed in the Mixin instance.  Not needed afterwards, so it won't be copied to children
+	Pet.prototype.isPetProperty = function(propertyName){
+		return (propertyName == "happy" || propertyName == "humanName" || propertyName == "pet" || propertyName == "isHappy");
+	};
+
 
 /*******  LINE BREAK FUNCTION TO MAKE THINGS PRETTY IN THE CONSOLE!  *******/
 
@@ -236,7 +246,7 @@ lineBreak("cody the cat");
 var cody = new Animal("Cat", "Animal", "Cat food", "walk", "house", "mreow");
 var PetMixin = new Pet("Cody", true);
 
-mixInto(cody, PetMixin);
+mixIntoPet(cody, PetMixin);
 
 cody.print(); //from Pet.  Extends Animal.print (which extends LivingThing.print/Thing.print)
 cody.eat();//from Pet.  Extends LivingThing.eat
@@ -251,7 +261,7 @@ lineBreak("honey the rabbit");
 var honey = new Animal("Rabbit", "Animal", "vegetables and hay", "hopp", "house", "thump");
 PetMixin = new Pet("Honey", true);
 
-mixInto(honey, PetMixin);
+mixIntoPet(honey, PetMixin);
 
 honey.print();//from Pet. Extends Animal.print (which extends LivingThing.print/Thing.print)
 honey.kick();//from Pet.  Extends Animal.kick
@@ -266,7 +276,7 @@ lineBreak("happy the cactus");
 var happy = new Plant("Cactus", "plant", "sunlight and nutrients in the soil", "8");
 PetMixin = new Pet("Happy", true);
 
-mixInto(happy, PetMixin);
+mixIntoPet(happy, PetMixin);
 
 happy.print(); //from Pet.  Extends Plant.print (which extends LivingThing.print/Thing.print)
 happy.kick();//from Pet.  Extends Plant.kick
@@ -279,8 +289,20 @@ happy.pet = function(){
 	console.log("OUCH!!!!  Why did you pet a cactus?!!");
 	Pet.prototype.pet.apply(this);
 	console.log("...and probably evil.");
-}
+};
 happy.pet(); //from Pet
+
+lineBreak("my Pet Rock");
+
+var myPetRock = new Thing("rock", "mineral");
+PetMixin = new Pet("Stormageddon", true);
+
+mixIntoPet(myPetRock, PetMixin);
+
+myPetRock.print(); //from Thing
+myPetRock.kick(); //from Thing
+console.log(myPetRock.humanName + myPetRock.isHappy()); //from Pet
+myPetRock.pet(); //from Pet
 
 
 
