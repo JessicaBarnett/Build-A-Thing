@@ -1,6 +1,12 @@
 var Generator = new NameGenerator();
 
-/******INITIAL ARRAYS*******/
+function forEach(array, action){
+  for (var i = 0; i < array.length; i++)
+    action(array[i]);
+}
+
+
+/******NAME GENERATOR OBJECT*******/
 
 function NameGenerator(){
 	this.prefix = ["The exalted", "Mr", "Ms", "Dr", "the honourable", "the estranged", "the coolest of the cucumbers"];
@@ -66,6 +72,7 @@ NameGenerator.prototype.assembleName = function(){
 	return name;
 }
 
+//takes int
 //returns array
 NameGenerator.prototype.assembleMultipleNames = function(numberOfNames){
 	var names = [];
@@ -99,65 +106,8 @@ function setUp(){
 		});
 }
 
-function forEach(array, action){
-  for (var i = 0; i < array.length; i++)
-    action(array[i]);
-}
-
 
 setUp();
-
-
-/*
-var prefix = ["The exalted", "Mr", "Ms", "Dr", "the honourable", "the estranged", "the coolest of the cucumbers"];
-var givenName = ["Alice", "Bob", "Corinne", "David", "Eloise", "Fattah", "Gwen", "Henry", "Isabella"];
-var surname = ["Smith", "Hamilton", "Johnson", "Anderson", "Robinson", "Hernandez"];
-var suffix = ["the third", "the twenty-third", "and friends", "the monarch of england", "the president of the United states", "is super awesome", "is weird", "smells"];
-
-var nameArrays = [prefix, givenName, surname, suffix];
-*/
-
-// function assembleName(array){
-// 	var name = "";
-// 	forEach(array, function(array){
-// 		 name += array[Math.floor(Math.random()*array.length)] + " ";
-// 	});
-// 	return name;
-// }
-
-// function assembleMultipleNames(numberNames, array){
-// 	for (var i = 0; i< numberNames; i++)
-// 		$("#names").append("<pre>" + assembleName(array) + "\n</pre>");
-// }
-
-
-
-// function addNamePieces(e){
-// 	var prefixInput = $("input#prefix"), givenNameInput= $("input#givenName"), 
-// 		surnameInput= $("input#surname"), suffixInput= $("input#suffix");
-
-// 	if (prefixInput.val()){
-// 		Generator.addName(Generator.prefix, prefixInput.val());
-// 		prefixInput.val("");
-// 	}
-
-// 	if (givenNameInput.val()){
-// 		Generator.addName(Generator.givenName, givenNameInput.val());
-// 		givenNameInput.val("");
-// 	}
-
-// 	if (surnameInput.val()){
-// 		Generator.addName(Generator.surname, surnameInput.val());
-// 		surnameInput.val("");
-// 	}
-
-// 	if (suffixInput.val()){
-// 		Generator.addName(Generator.suffix, suffixInput.val());
-// 		suffixInput.val("");
-// 	}
-
-// 	Generator.printAllArrays();
-// }
 
 
 
