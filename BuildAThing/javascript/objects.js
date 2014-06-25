@@ -1,5 +1,4 @@
-
-(function(){
+(function (){
 
 	/****** UTILITIES ******/
 
@@ -214,54 +213,6 @@
 		Pet.prototype.isPetProperty = function(propertyName){
 			return (propertyName == "happy" || propertyName == "humanName" || propertyName == "pet" || propertyName == "isHappy");
 		};
-
-	/*************  CONTROLLER  **************/
-
-
-
-		function ThingSimulator(){
-			//this.initializeThings();
-			this.makeThing("Thing", false, "Applesauce", "food");
-		}
-
-		// ThingsSimulator.prototype.initializeThings = function(){		
-		// 	this.nonPets = [
-		// 		new Thing("rock", "mineral"), 
-		// 		new LivingThing("bacteria", "single-cell organism", "microscopic yumminess"),
-		// 		new Plant("Rose", "plant", "sunlight and nutrients in the soil", "20"),	
-		// 		new Animal("Tiger", "Animal", "little children", "Leap", "jungle", "Rawr")
-		// 	];
-
-		// 	this.rose = new Plant("Rose", "plant", "sunlight and nutrients in the soil", "20");
-
-
-		// 	this.cody = new Animal("Cat", "Animal", "Cat food", "walk", "house", "mreow");
-		// 	this.honey = new Animal("Rabbit", "Animal", "vegetables and hay", "hopp", "house", "thump");
-		// 	this.happy = new Plant("Cactus", "plant", "sunlight and nutrients in the soil", "8");
-		// 	this.stormageddon = new Thing("rock", "mineral");
-
-		// 	var PetMixin = new Pet("Cody", true);
-		// 	mixIntoPet(this.cody, PetMixin);
-
-		// 	PetMixin = new Pet("Honey", true);
-		// 	mixIntoPet(this.honey, PetMixin);
-
-		// 	PetMixin = new Pet("Happy", true);
-		// 	mixIntoPet(this.happy, PetMixin);
-
-		// 	PetMixin = new Pet("Stormageddon", true);
-		// 	mixIntoPet(this.stormageddon, PetMixin);
-		// }
-
-	//make an object of the requested type using passed parameters
-	//problem: it could accept any # of arguments.  We don't know how many.
-	//third variable is an array, containing all parameters to pass to a new object of thingType
-	//first element in args is always the name of the new thing
-
-	ThingSimulator.prototype.makeThing = function(thingType, params){
-		this[arguments[0]] = buildAThing[thingType].apply(buildAThing[thingType], params);
-	}
-
 
 	/*******  LINE BREAK FUNCTION TO MAKE THINGS PRETTY IN THE CONSOLE!  *******/
 

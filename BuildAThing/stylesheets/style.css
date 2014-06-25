@@ -1,0 +1,10 @@
+div#select {
+  background-color: lightGreen;
+  border: 4px inset lightgray li;
+    border-display: block;
+    border-height: 5rem;
+    border-background-color: blue;
+    border-border: 2px solid black; }
+
+div#status {
+  background-color: lightblue; }

@@ -1,0 +1,46 @@
+/*all padding and borders added will cut into the width, not add to it.  
+margin will add to it*/
+* {    
+    -moz-box-sizing: border-box; 
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+/* grid with 6 columns
+ columns are 13% width with 2% gutters on each side, 
+ excepting first and last columns which have a 1% outer gutter.
+ multi-column widths cover those widths plus contained gutters.*/
+
+.container									{ width: 94%;
+											  margin-left: 3%; 
+											  margin-right: 3%; }
+
+.container .columns							{ margin-left: 2%; 
+											  margin-right: 2%; 
+											  float: left;      } 
+
+.container .columns.inverse					{ float: right;		}
+
+.columns.alpha								{ margin-left: 1%;  } 
+.columns.omega								{ margin-right: 1%; }	
+
+/*ideally every floated element (with column class) will be nested
+in a container, and that container is self-clearing.  
+But enything that is floated/not in a container can use .group*/							
+.container:after, .group 					{ content: ""; 
+											  display: table;
+											  clear: both;      } 
+
+
+.container .one.columns                     { width: 13%;  	}
+.container .two.columns                     { width: 30%;  	}
+.container .three.columns                   { width: 47%;  	} 
+.container .four.columns                    { width: 64%;  	}
+.container .five.columns                    { width: 81%;  	}
+.container .six.columns                     { width: 98%;   }
+
+/*for testing*/
+
+/*.container 	{	border: 2px dotted blue;		}
+.columns	{	background-color: rgba(50, 50, 50, .3);	}*/
+
