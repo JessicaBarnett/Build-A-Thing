@@ -1,4 +1,11 @@
 (function (){
+//so, using this thingy, if I add another js file to keep stuff organized, I won't be able to access it, right?
+//I like keeping all of my stuff out of the global scope, 
+//but I'm seeing lots of problems with this "best practice."  
+//I'm probably missing something...
+
+//thinking it might be a good idea to separate constructors into another file at this point though.  
+//scrolling through all this is getting to be a hassle. 
 
 	/****** UTILITIES ******/
 
@@ -248,6 +255,7 @@
 		};
 
 		//functions for Plant Prototype Base
+
 		Pet.prototype.grow = function(){
 			Object.getPrototypeOf(this).grow.apply(this);
 			this.happy = true;
@@ -259,6 +267,18 @@
 			Object.getPrototypeOf(this).kick.apply(this);
 			this.happy = false;
 		};
+
+		Pet.prototype.getProperties = function(){
+			return [this.humanName, this.happy].concat(Object.getPrototypeOf(this).getProperties.apply(this));
+		};
+
+		Pet.prototype.getPrintableProperties = function(){
+			return ["human Name: "+this.humanName, "happiness: "+this.isHappy()].concat(Object.getPrototypeOf(this).getPrintableProperties.apply(this));
+		};
+
+		Pet.prototype.getHeader = function(){
+			return "This is " + this.humanName + " the " + this.name; 
+		}
 
 		//functions that will be added to all Pet Objects
 
@@ -275,20 +295,8 @@
 			return true;
 		};
 
-		Pet.prototype.getProperties = function(){
-			return [this.humanName, this.happy].concat(Object.getPrototypeOf(this).getProperties.apply(this));
-		};
-
-		Pet.prototype.getPrintableProperties = function(){
-			return ["human Name: "+this.humanName, "happiness: "+this.isHappy()].concat(Object.getPrototypeOf(this).getPrintableProperties.apply(this));
-		};
-
-		Pet.prototype.getHeader = function(){
-			return "This is " + this.humanName + " the " + this.name; 
-		}
-
 		//returns true if propertyname passed is a property specific to the Pet "class"
-		//only needed in the Mixin instance.  Not needed afterwards, so it won't be copied to children
+		//only needed in the mixing process, not elsewhere
 		Pet.prototype.isPetProperty = function(propertyName){
 			return (propertyName == "happy" || propertyName == "humanName" || propertyName == "pet" || propertyName == "isHappy");
 		};
@@ -306,6 +314,52 @@
 		//add "active" class to current li
 		$(this).addClass("active");
 	});
+
+	function ThingModel(){
+
+
+
+	}
+
+	/****** DICTIONARY OBJECT *********/
+	/***** (from Eloquent JS) *******/
+
+	function Dictionary (startValues){
+	  this.values = startValues || {}; //startValues is optional
+	}
+
+	Dictionary.prototype.store = function(name, value){
+	  return this.values[name] = value;
+	};
+
+	Dictionary.prototype.lookup = function(name) {
+	  return this.values[name];
+	};
+
+	Dictionary.prototype.contains = function(name){
+	  return Object.prototype.propertyIsEnumerable.call(this.values, name);
+	};
+
+	Dictionary.prototype.each = function(action){
+	  forEachIn(this.values, action);
+	};
+
+	Dictionary.prototype.names = function(){
+	  var names = [];
+	  this.each(function(name, value) {   names.push(name);   });
+	  return names;
+	};
+
+function ThingModel(startThings){
+	Dictionary.call(this, startThings);
+}
+
+ThingModel.prototype.makeNewThing(){
+	
+	
+}
+
+
 
 	function makeStatList(thing, parent){
 		var $h2, h2contents,  $ul;
@@ -351,7 +405,10 @@
 		PetMixin = new Pet("Happy", true);
 		mixIntoPet(happy, PetMixin);
 
+		var flower = new Plant("rose", "sunlight and nutrients in the soil", "20");
+
 		makeStatList(happy, $("div#status"));
+		makeStatList(flower, $("div#status"));
 	}
 
 	function runInheritanceTests(){
