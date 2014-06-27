@@ -1,16 +1,50 @@
+h1{
+	font-size: 3rem;
+	font-weight: bold;
+	font-family: sans-serif;
+	padding: .5rem;
+	padding-bottom: 1rem;
+	text-align: center;
+}
+
 div#select{
 	background-color: lightGreen;
-	border: 4px inset lightgray
 
-	li{
-		display: block;
-		height: 5rem;;
-		background-color: blue;
-		border: 2px solid black;
+	ul{
+		height: 85vh; 
+		//why are li's height/widths changing if I remove this?  
+		//if ul has no height, shouldn't it default to the parent's height?
+		//in this case div#select's 85vh?
+		li{
+			margin: 0 auto;
+			display: inline-block;
+			height: 20%; //4rem;
+			width: 27%; //4rem;
+			margin: .5rem;
+			background-color: blue;
+			border: 2px solid black;
+
+			@media screen and (min-width: 320px) and (max-width: 480px){
+			height: 12%;
+			width: 30%;
+			}
+
+			&.active{
+				background-color: tomato;
+			}
+
+		}
 	}
 
 }
 
 div#status{
 	background-color: lightblue;
+}
+
+div#status, div#select{
+	box-shadow: 5px 5px gray;
+	height: 85vh;
+	padding: 2%;
+
 }

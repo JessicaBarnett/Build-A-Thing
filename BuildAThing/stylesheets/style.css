@@ -1,10 +1,34 @@
+h1 {
+  font-size: 3rem;
+  font-weight: bold;
+  font-family: sans-serif;
+  padding: .5rem;
+  padding-bottom: 1rem;
+  text-align: center; }
+
 div#select {
-  background-color: lightGreen;
-  border: 4px inset lightgray li;
-    border-display: block;
-    border-height: 5rem;
-    border-background-color: blue;
-    border-border: 2px solid black; }
+  background-color: lightGreen; }
+  div#select ul {
+    height: 85vh; }
+    div#select ul li {
+      margin: 0 auto;
+      display: inline-block;
+      height: 20%;
+      width: 27%;
+      margin: .5rem;
+      background-color: blue;
+      border: 2px solid black; }
+      @media screen and (min-width: 320px) and (max-width: 480px) {
+        div#select ul li {
+          height: 12%;
+          width: 30%; } }
+      div#select ul li.active {
+        background-color: tomato; }
 
 div#status {
   background-color: lightblue; }
+
+div#status, div#select {
+  box-shadow: 5px 5px gray;
+  height: 85vh;
+  padding: 2%; }

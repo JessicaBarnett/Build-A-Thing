@@ -58,9 +58,9 @@
 
 	/********  	PROTOTYPES   ********/
 
-		function Thing(name, type){
+		function Thing(name){
 			this.name = name;
-			this.type = type;
+			this.type = "Thing";
 		}
 
 		Thing.prototype.print = function(){
@@ -71,10 +71,49 @@
 			console.log("You kicked the " + this.name + "!  Thunk!");
 		};
 
+		Thing.prototype.getProperties = function(){
+			return [this.name, this.type];
+		};
+
+		Thing.prototype.getPrintableProperties = function(){
+			return ["name: "+this.name, "type: "+this.type];
+		};
+
+		Thing.prototype.getHeader = function(){
+			return "This is a " + this.name;
+		};
+
+
+	//Mineral inherits Thing
+		function Mineral(name, shape){
+			Thing.call(this, name);
+			this.type = "Mineral";
+			this.shape = shape;
+		}
+
+		Mineral.prototype.print = function(){
+			Thing.prototype.print.apply(this);
+			console.log("It has a " + this.shape + " shape.");
+		};
+
+		Mineral.prototype = clone(Thing.prototype);
+		Mineral.prototype.constructor = Mineral;
+
+		Mineral.prototype.getProperties = function(){
+			return Thing.prototype.getProperties.apply(this).concat([this.shape]);
+		};
+
+		Mineral.prototype.getPrintableProperties = function(){
+			//return Thing.prototype.getPropertyStrings.apply(this).concat(["shape: "+this.shape]);
+			return ["name: "+this.name, "type: "+this.type, "shape: "+this.shape]; //mush easier to read
+		};
+
+
 	//livingThing inherits Thing
 
-		function LivingThing(name, type, food){
-			Thing.call(this, name, type);
+		function LivingThing(name, food){
+			Thing.call(this, name);
+			this.type = "LivingThing";
 			this.food = food;
 			this.energy = 10;
 		}
@@ -101,10 +140,19 @@
 			console.log("It eats " + this.food + " and has " + this.energy + " energy.");
 		};
 
+		LivingThing.prototype.getProperties = function(){
+			return [this.name, this.type, this.food, this.energy];
+		};
+
+		LivingThing.prototype.getPrintableProperties = function(){
+			return ["name: "+this.name, "type: "+this.type, "food: "+this.food, "energy: "+this.energy];
+		};
+
 	//Plant inherits LivingThing (And thus Thing)
 
-		function Plant(name, type, food, height){
-			LivingThing.call(this, name, type, food);
+		function Plant(name, food, height){
+			LivingThing.call(this, name, food);
+			this.type = "Plant";
 			this.height = height;
 		}
 		Plant.prototype = clone(LivingThing.prototype);
@@ -125,10 +173,19 @@
 			this.printHeight();
 		};
 
+		Plant.prototype.getProperties = function(){
+			return [this.name, this.type, this.food, this.energy, this.height];
+		};
+
+		Plant.prototype.getPrintableProperties = function(){
+			return ["name: "+this.name, "type: "+this.type, "food: "+this.food, "energy: "+this.energy, "height: "+this.height];
+		};
+
 	//Animal inherits LivingThing (and thus Thing)
 
-		function Animal(name, type, food, movement, habitat, sound){
-			LivingThing.call(this, name, type, food);
+		function Animal(name, food, movement, habitat, sound){
+			LivingThing.call(this, name, food);
+			this.type = "Animal";
 			this.movement = movement;
 			this.habitat = habitat;
 			this.sound = sound;
@@ -157,11 +214,21 @@
 			console.log("You hear a mysterious \'" + this.sound + "\' coming from the " + this.habitat +".");
 		};
 
+		Animal.prototype.getProperties = function(){
+			return [this.name, this.type, this.food, this.energy, this.movement, this.habitat, this.sound];
+		};
+
+		Animal.prototype.getPrintableProperties = function(){
+			return ["name: "+this.name, "type: "+this.type, "food: "+this.food, "energy: "+this.energy, 
+					"movement: "+this.movement+"ing", "habitat: "+this.habitat, "sound: "+this.sound];
+		};
+
 
 	//Pet can mix with ANY object, but ideally something related to thing
 		function Pet(humanName, happy){
 			this.happy = happy;
 			this.humanName = humanName;
+			//this.type = "Pet " + this.type; //coming up as undefined?
 		}
 
 		//Extends Animal.print or Plant.print
@@ -201,12 +268,24 @@
 		};
 
 		Pet.prototype.isHappy = function(){
-			return this.happy ? " is very happy!" : " is not happy : (";
+			return this.happy ? this.humanName+" is very happy!" : this.humanName+" is not happy : (";
 		};
 
 		Pet.prototype.isPet = function(){
 			return true;
 		};
+
+		Pet.prototype.getProperties = function(){
+			return [this.humanName, this.happy].concat(Object.getPrototypeOf(this).getProperties.apply(this));
+		};
+
+		Pet.prototype.getPrintableProperties = function(){
+			return ["human Name: "+this.humanName, "happiness: "+this.isHappy()].concat(Object.getPrototypeOf(this).getPrintableProperties.apply(this));
+		};
+
+		Pet.prototype.getHeader = function(){
+			return "This is " + this.humanName + " the " + this.name; 
+		}
 
 		//returns true if propertyname passed is a property specific to the Pet "class"
 		//only needed in the Mixin instance.  Not needed afterwards, so it won't be copied to children
@@ -214,107 +293,175 @@
 			return (propertyName == "happy" || propertyName == "humanName" || propertyName == "pet" || propertyName == "isHappy");
 		};
 
-	/*******  LINE BREAK FUNCTION TO MAKE THINGS PRETTY IN THE CONSOLE!  *******/
 
-	function lineBreak(text){
-		console.log("******************  "+text+"  ********************");
+	//******** CLICK EVENTS *********//
+
+	$("li.thing").on("click", function(){
+		//go through each li in ul.  if it has an "active" class, remove it
+		$("ul").find("li").each(function(/*index, element*/){
+			if ($(this).hasClass("active")) //element.hasClass instead of "this"?
+				$(this).removeClass("active");
+		});
+
+		//add "active" class to current li
+		$(this).addClass("active");
+	});
+
+	function makeStatList(thing, parent){
+		var $h2, h2contents,  $ul;
+		var $parent = $("div#status");
+		var $listItems = [];
+
+		$parent.empty();
+
+		//create + add h2 
+
+		h2contents = thing.getHeader();
+		$h2 = $("<h2>" + h2contents + "</h2>");
+		$parent.append($h2);
+
+		//create ul
+		$ul = $("<ul></ul>");
+
+		//adds ul to parent
+		$parent.append($ul);
+
+		//pull printable properties from Thing Objects
+		//convert them into html elements and append them to the statList(ul)
+		$listItems = thing.getPrintableProperties();
+
+		console.log($listItems);
+
+		forEach($listItems, function(element){
+			$ul.append($("<li>" + element + "</li>")); 
+		});
+
+
+
 	}
 
-	/******* NOW TO MAKE SOME THINGS  *******/
-
-	lineBreak("rock");
-
-	var rock = new Thing("rock", "mineral");
-	rock.print(); //from Thing
-	rock.kick(); //from Thing
-
-	lineBreak("bacteria");
-
-	var bacteria = new LivingThing("bacteria", "single-cell organism", "microscopic yumminess");
-	bacteria.print();//from LivingThing.  extends Thing.print
-	bacteria.kick();//redefined in LivingThing
-
-	lineBreak("flower");
-
-	var flower = new Plant("rose", "plant", "sunlight and nutrients in the soil", "20");
-	flower.print() //from Plant.  Extends LivingThing.print (which extends Thing.print)
-	flower.grow(); //from Plant
-	flower.printHeight();//from Plant
-	flower.printEnergy();//inherited from LivingThing 
-	flower.kick(); //inherited from LivingThing (from Thing)
+	//********  TESTS  ********//
 
 
-	lineBreak("tiger");
+	//runInheritanceTests();
+	runDOMtests();
 
-	var tiger = new Animal("Tiger", "Animal", "little children", "Leap", "jungle", "Rawr", true);
-	tiger.print(); //from Animal.  Extends LivingThing.print (which extends Thing.print)
-	tiger.kick(); //redefined in Animal 
-	tiger.move(); //from Animal
-	tiger.printEnergy();//inherited from LivingThing
-	tiger.eat(); //inherited from LivingThing
+	function runDOMtests(){
+		var happy = new Plant("Cactus", "sunlight and nutrients in the soil", "8");
+		PetMixin = new Pet("Happy", true);
+		mixIntoPet(happy, PetMixin);
 
-	lineBreak("cody the cat");
+		makeStatList(happy, $("div#status"));
+	}
 
-	var cody = new Animal("Cat", "Animal", "Cat food", "walk", "house", "mreow");
-	var PetMixin = new Pet("Cody", true);
+	function runInheritanceTests(){
 
-	mixIntoPet(cody, PetMixin);
+		/*******  LINE BREAK FUNCTION TO MAKE THINGS PRETTY IN THE CONSOLE!  *******/
 
-	cody.print(); //from Pet.  Extends Animal.print (which extends LivingThing.print/Thing.print)
-	cody.eat();//from Pet.  Extends LivingThing.eat
-	console.log(cody.isHappy());
-	cody.kick(); //from Pet.  Extends Animal.kick
-	console.log(cody.isHappy()); //from Pet
-	cody.move(); //from Animal
-	cody.pet(); //from Pet
+		function lineBreak(text){
+			console.log("******************  "+text+"  ********************");
+		}
 
-	lineBreak("honey the rabbit");
+		/******* NOW TO MAKE SOME THINGS  *******/
 
-	var honey = new Animal("Rabbit", "Animal", "vegetables and hay", "hopp", "house", "thump");
-	PetMixin = new Pet("Honey", true);
+		lineBreak("rock");
 
-	mixIntoPet(honey, PetMixin);
+		var something = new Thing("Best Thing Ever");
+		something.print(); //from Thing
+		something.kick(); //from Thing
 
-	honey.print();//from Pet. Extends Animal.print (which extends LivingThing.print/Thing.print)
-	honey.kick();//from Pet.  Extends Animal.kick
-	honey.move();//from Animal
-	honey.eat();//from Pet.  Extends LivingThing.eat
-	honey.pet();//from Pet
-	honey.printEnergy();//inherited from livingThing
+		var rock = new Mineral("rock", "spider-like");
+		rock.print(); //from Thing
+		rock.kick(); //from Thing
+
+		lineBreak("bacteria");
+
+		var bacteria = new LivingThing("bacteria", "microscopic yumminess");
+		bacteria.print();//from LivingThing.  extends Thing.print
+		bacteria.kick();//redefined in LivingThing
+
+		lineBreak("flower");
+
+		var flower = new Plant("rose", "sunlight and nutrients in the soil", "20");
+		flower.print() //from Plant.  Extends LivingThing.print (which extends Thing.print)
+		flower.grow(); //from Plant
+		flower.printHeight();//from Plant
+		flower.printEnergy();//inherited from LivingThing 
+		flower.kick(); //inherited from LivingThing (from Thing)
 
 
-	lineBreak("happy the cactus");
+		lineBreak("tiger");
 
-	var happy = new Plant("Cactus", "plant", "sunlight and nutrients in the soil", "8");
-	PetMixin = new Pet("Happy", true);
+		var tiger = new Animal("Tiger", "little children", "Leap", "jungle", "Rawr", true);
+		tiger.print(); //from Animal.  Extends LivingThing.print (which extends Thing.print)
+		tiger.kick(); //redefined in Animal 
+		tiger.move(); //from Animal
+		tiger.printEnergy();//inherited from LivingThing
+		tiger.eat(); //inherited from LivingThing
 
-	mixIntoPet(happy, PetMixin);
+		lineBreak("cody the cat");
 
-	happy.print(); //from Pet.  Extends Plant.print (which extends LivingThing.print/Thing.print)
-	happy.kick();//from Pet.  Extends Plant.kick
-	console.log("Happy" + happy.isHappy()); //from Pet
-	happy.printHeight(); //from Plant
-	happy.grow(); //from Plant
-	happy.printHeight();//from Plant
-	happy.printEnergy();//inherited from LivingThing
-	happy.pet = function(){
-		console.log("OUCH!!!!  Why did you pet a cactus?!!");
-		Pet.prototype.pet.apply(this);
-		console.log("...and probably evil.");
-	};
-	happy.pet(); //from Pet
+		var cody = new Animal("Cat", "Cat food", "walk", "house", "mreow");
+		var PetMixin = new Pet("Cody", true);
 
-	lineBreak("my Pet Rock");
+		mixIntoPet(cody, PetMixin);
 
-	var myPetRock = new Thing("rock", "mineral");
-	PetMixin = new Pet("Stormageddon", true);
+		cody.print(); //from Pet.  Extends Animal.print (which extends LivingThing.print/Thing.print)
+		cody.eat();//from Pet.  Extends LivingThing.eat
+		console.log(cody.isHappy());
+		cody.kick(); //from Pet.  Extends Animal.kick
+		console.log(cody.isHappy()); //from Pet
+		cody.move(); //from Animal
+		cody.pet(); //from Pet
 
-	mixIntoPet(myPetRock, PetMixin);
+		lineBreak("honey the rabbit");
 
-	myPetRock.print(); //from Thing
-	myPetRock.kick(); //from Thing
-	console.log(myPetRock.humanName + myPetRock.isHappy()); //from Pet
-	myPetRock.pet(); //from Pet
+		var honey = new Animal("Rabbit", "vegetables and hay", "hopp", "house", "thump");
+		PetMixin = new Pet("Honey", true);
+
+		mixIntoPet(honey, PetMixin);
+
+		honey.print();//from Pet. Extends Animal.print (which extends LivingThing.print/Thing.print)
+		honey.kick();//from Pet.  Extends Animal.kick
+		honey.move();//from Animal
+		honey.eat();//from Pet.  Extends LivingThing.eat
+		honey.pet();//from Pet
+		honey.printEnergy();//inherited from livingThing
+
+
+		lineBreak("happy the cactus");
+
+		var happy = new Plant("Cactus", "sunlight and nutrients in the soil", "8");
+		PetMixin = new Pet("Happy", true);
+
+		mixIntoPet(happy, PetMixin);
+
+		happy.print(); //from Pet.  Extends Plant.print (which extends LivingThing.print/Thing.print)
+		happy.kick();//from Pet.  Extends Plant.kick
+		console.log("Happy" + happy.isHappy()); //from Pet
+		happy.printHeight(); //from Plant
+		happy.grow(); //from Plant
+		happy.printHeight();//from Plant
+		happy.printEnergy();//inherited from LivingThing
+		happy.pet = function(){
+			console.log("OUCH!!!!  Why did you pet a cactus?!!");
+			Pet.prototype.pet.apply(this);
+			console.log("...and probably evil.");
+		};
+		happy.pet(); //from Pet
+
+		lineBreak("my Pet Rock");
+
+		var myPetRock = new Mineral("rock", "upside-down");
+		PetMixin = new Pet("Stormageddon", true);
+
+		mixIntoPet(myPetRock, PetMixin);
+
+		myPetRock.print(); //from Thing
+		myPetRock.kick(); //from Thing
+		console.log(myPetRock.humanName + myPetRock.isHappy()); //from Pet
+		myPetRock.pet(); //from Pet
+	}
 
 })();
 
