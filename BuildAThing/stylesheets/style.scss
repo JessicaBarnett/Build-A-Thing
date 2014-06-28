@@ -17,21 +17,26 @@ div#select{
 		//in this case div#select's 85vh?
 		li{
 			margin: 0 auto;
+			padding: 1rem;
 			display: inline-block;
 			height: 20%; //4rem;
 			width: 27%; //4rem;
 			margin: .5rem;
 			background-color: blue;
-			border: 2px solid black;
 
 			@media screen and (min-width: 320px) and (max-width: 480px){
-			height: 12%;
-			width: 30%;
+				height: 12%;
+				width: 30%;
 			}
 
 			&.active{
 				background-color: tomato;
 			}
+
+			&:hover{
+				border: 5px solid white;
+			}
+
 
 		}
 	}
@@ -47,4 +52,22 @@ div#status, div#select{
 	height: 85vh;
 	padding: 2%;
 
+}
+
+
+label, input, select{
+	display: block;
+	margin: .5rem .2rem .2rem .5rem;
+}
+
+select{
+	width: 6rem;
+}
+
+
+
+input[type="radio"]{
+	display: inline-block;
+	float: left;
+	//width: 4rem;
 }

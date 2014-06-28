@@ -12,7 +12,7 @@
 		<div id="main" class="container">
 			<div id="select" class="three columns alpha">
 				<ul class="container">
-						<li class="thing one columns"></li>
+						<li class="thing one columns newThing">Make A New Thing!</li>
 						<li class="thing one columns"></li>
 						<li class="thing one columns"></li>
 						<li class="thing one columns"></li>
@@ -28,45 +28,98 @@
 
 			</div>
 			<div id="status" class="three columns omega">
-				<p>YOU SHOULDN'T SEE THIS!!!</p>
+				<h2>Make a New Thing!</h2>
+				<fieldset>
+					<select id="thingTypes">
+						<option selected value="Thing">Thing</option>
+						<option value="Mineral">Mineral</option>
+						<option value="LivingThing">Living Thing</option>
+						<option value="Plant">Plant</option>
+						<option value="Animal">Animal</option>
+					</select>
+					<label for="isPet">Is this thing a pet?</label>
+						<input type="radio" name="isPet" value="pet">
+						<label for="isPet">Yes!</label>
+						<input type="radio" name="isPet" value="notPet">
+						<label for="isPet">No</label>
+					
+					<label for="name">Name: </label>
+					<input id="name" type="text" >	
+
+					<label for="shape">Shape: </label>
+					<input id="shape" type="text">
+
+					<label for="food">Food: </label>
+					<input id="food" type="text">	
+
+					<label for="height">How tall is this thing?  (in inches)</label>
+					<input id="height" type="text">	
+
+					<label for="movement">How does this thing move?</label>
+					<input id="movement" type="text">	
+
+					<label for="habitat">Where does this thing live?</label>
+					<input id="habitat" type="text">
+
+					<label for="sound">What sound does this thing make?</label>	
+					<input id="sound" type="text">
+
+					<label for="humanName">What is this Pet's human name?</label>
+					<input id="humanName" type="text">	
+
+					<label for="isHappy">Is this a happy Pet?</label>
+						<input type="radio" name="isHappy" value="happy"> 
+						<label for="isHappy">Yes!</label>
+						<input type="radio" name="isHappy" value="notHappy">
+						<label for="isHappy">No... :(</label>
+				</fieldset>
 			</div>
 		</div>
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+		<script src="javascript/utils.js"></script>
 		<script src="javascript/objects.js"></script>
+		<script src="javascript/controller.js"></script>
+		<script src="javascript/tests.js"></script>
 		<!--<script type="text/javascript" src="javascript/objects.js"></script>-->
 	</body>
 </html>
 
 <!--
 
+Thing Templates
 
-				<h2>Tiger</h2>
-				<ul>name, type, habitat, mvement, sound
-					<li>name: Tiger </li>
-					<li>Type: Animal</li>
-					<li>habitat: Jungle</li>
-					<li>movement: running</li>
-					<li>sound: rawr!!</li>
-					<li>Food: little children</li>
-					<button>Kick Tiger?</button>
-					<button>Feed Tiger?</button>
-					<button>Watch Tiger Move?</button>
-					<button>Hear Tiger's Sound?</button>
 
-				</ul>
+	<h2>Tiger</h2>
+	<ul>name, type, habitat, mvement, sound
+		<li>name: Tiger </li>
+		<li>Type: Animal</li>
+		<li>habitat: Jungle</li>
+		<li>movement: running</li>
+		<li>sound: rawr!!</li>
+		<li>Food: little children</li>
+		<button>Kick Tiger?</button>
+		<button>Feed Tiger?</button>
+		<button>Watch Tiger Move?</button>
+		<button>Hear Tiger's Sound?</button>
 
-				<h2>Happy the Cactus</h2>
-				<ul id="StatList">
-					<li>name: cactus</li>
-					<li>human Name: Happy</li>
-					<li>type: plant </li>
-					<li>Food: plant stuff</li>
-					<li>Energy: 10</li>
-					<li>Height: 10</li>
-					<button>Kick Happy?</button>
-					<button>Feed Happy?</button>
-					<button>Grow Happy?</button>
-					<button>Pet Happy?</button>
-				</ul>
+	</ul>
+
+	<h2>Happy the Cactus</h2>
+	<ul id="StatList">
+		<li>name: cactus</li>
+		<li>human Name: Happy</li>
+		<li>type: plant </li>
+		<li>Food: plant stuff</li>
+		<li>Energy: 10</li>
+		<li>Height: 10</li>
+		<button>Kick Happy?</button>
+		<button>Feed Happy?</button>
+		<button>Grow Happy?</button>
+		<button>Pet Happy?</button>
+	</ul>
+
+Make-A-Thing Form Template
+	
+
 
 -->
