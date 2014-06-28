@@ -28,19 +28,14 @@ div#select{
 				height: 12%;
 				width: 30%;
 			}
-
 			&.active{
 				background-color: tomato;
 			}
-
 			&:hover{
 				border: 5px solid white;
 			}
-
-
 		}
 	}
-
 }
 
 div#status{
@@ -51,9 +46,7 @@ div#status, div#select{
 	box-shadow: 5px 5px gray;
 	height: 85vh;
 	padding: 2%;
-
 }
-
 
 label, input, select{
 	display: block;
@@ -63,8 +56,6 @@ label, input, select{
 select{
 	width: 6rem;
 }
-
-
 
 input[type="radio"]{
 	display: inline-block;

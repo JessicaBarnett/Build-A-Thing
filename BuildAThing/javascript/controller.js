@@ -118,10 +118,33 @@ View.prototype.printThing = function (thing, parent){
 		});
 	}
 
-View.prototype.showForm = function(){
+View.prototype.refreshForm = function(){
+	var type = $("select#thingTypes").val();
+	// get thingType from select box
+	
+	$("#variableFields").children().hide();
 
+	$("#name").show();
+	$("label[for=name]").show();
+
+	if(type === "Mineral")
+		$(".mineral").show();
+	else if (type === "LivingThing" || type === "Animal" || type === "Plant")
+	{	$(".livingThing").show();
+
+		if(type === "Plant")
+			$(".plant").show();
+		else if(type === "Animal")
+			$(".animal").show();
+	}
 }
 
+
+//********* CONTROLLER OBJECTS **********/
+
+var thingModel = new ThingModel();
+var pageView = new View();
+$(".makeThing").hide();
 
 
 //******** CLICK EVENTS *********//
@@ -136,14 +159,61 @@ $("li.thing").on("click", function(){
 	//add "active" class to current li
 	$(this).addClass("active");
 
-//	if ($(this).hasClass("newThing"))
-
-
+	if ($(this).hasClass("newThing"))
+	{	$(".makeThing").show();		
+		pageView.refreshForm()
+	}
+	else
+		$(".makeThing").hide();
 });
 
+$("select#thingTypes").change(pageView.refreshForm);
 
-//********* EVERYTHING ELSE **********/
 
-var newView = new View();
 
+//some function for handling which text fields show when the thing type field changes
+
+/*
+
+get thingType
+	get proto with that type
+	loop through its properties
+		if propertyname matches fieldName, show it
+		else hide it
+
+
+
+if thingType = Thing
+	show name
+
+if Mineral
+	show name, shape
+
+if LivingThing
+	show name, food
+
+if Plant
+	show name, food, height
+
+if animal
+	show name, food, movement, habitat, sound
+
+skipping pet for now
 	
+
+
+
+
+/*
+	PARAMETERS CHEATSHEET 
+	I wrote them, but even I can't even remember what they all are
+
+	Thing: name
+	Mineral: name, shape
+	LivingThing: name, food
+	Plant: name, food, height (in inches)
+	Animal: name, food, movement, habitat, sound 
+	Pet: humanName, isHappy? 
+*/
+
+

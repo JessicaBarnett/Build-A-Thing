@@ -53,3 +53,21 @@
 	  for (var i = 0; i < array.length; i++)
 	    action(array[i]);
 	}
+
+	//because I can't find a better way to convert a string into a function call
+	//don't want to use window["string"] because I don't intend to keep this all 
+	//in the global scope.  
+	function stringToObject(thingName){
+		if (thingName === "Thing")
+			return new Thing();
+		else if (thingName === "Mineral")
+			return new Mineral();
+		else if (thingName === "LivingThing")
+			return new LivingThing();
+		else if (thingName === "Plant")
+			return new Plant();
+		else if (thingName === "Animal")
+			return new Animal();
+		else
+			throw new Error("incorrect thingName: " + thingName);
+	}

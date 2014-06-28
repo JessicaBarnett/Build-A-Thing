@@ -28,8 +28,8 @@
 
 			</div>
 			<div id="status" class="three columns omega">
-				<h2>Make a New Thing!</h2>
-				<fieldset>
+				<h2 class="makeThing">Make a New Thing!</h2>
+				<fieldset class="makeThing">
 					<select id="thingTypes">
 						<option selected value="Thing">Thing</option>
 						<option value="Mineral">Mineral</option>
@@ -37,41 +37,46 @@
 						<option value="Plant">Plant</option>
 						<option value="Animal">Animal</option>
 					</select>
-					<label for="isPet">Is this thing a pet?</label>
+					<div>
+						<label for="isPet">Is this thing a pet?</label>
 						<input type="radio" name="isPet" value="pet">
 						<label for="isPet">Yes!</label>
 						<input type="radio" name="isPet" value="notPet">
 						<label for="isPet">No</label>
-					
-					<label for="name">Name: </label>
-					<input id="name" type="text" >	
+					</div>
+					<fieldset id="variableFields">
+						<label for="name">Name: </label>
+						<input id="name" type="text" >	
 
-					<label for="shape">Shape: </label>
-					<input id="shape" type="text">
+						<label for="shape" class="mineral">Shape: </label>
+						<input id="shape" class="mineral" type="text">
 
-					<label for="food">Food: </label>
-					<input id="food" type="text">	
+						<label for="food" class="livingThing">Food: </label>
+						<input id="food" class="livingThing" type="text">	
 
-					<label for="height">How tall is this thing?  (in inches)</label>
-					<input id="height" type="text">	
+						<label for="height" class="plant" >How tall is this thing?  (in inches)</label>
+						<input id="height" class="plant" type="text">	
 
-					<label for="movement">How does this thing move?</label>
-					<input id="movement" type="text">	
+						<label for="movement" class="animal">How does this thing move?</label>
+						<input id="movement"  class="animal" type="text">	
 
-					<label for="habitat">Where does this thing live?</label>
-					<input id="habitat" type="text">
+						<label for="habitat" class="animal">Where does this thing live?</label>
+						<input id="habitat" class="animal" type="text">
 
-					<label for="sound">What sound does this thing make?</label>	
-					<input id="sound" type="text">
+						<label for="sound" class="animal">What sound does this thing make?</label>	
+						<input id="sound" class="animal" type="text">
 
-					<label for="humanName">What is this Pet's human name?</label>
-					<input id="humanName" type="text">	
+						<label for="humanName" class="pet">What is this Pet's human name?</label>
+						<input id="humanName" class="pet" type="text">	
 
-					<label for="isHappy">Is this a happy Pet?</label>
-						<input type="radio" name="isHappy" value="happy"> 
-						<label for="isHappy">Yes!</label>
-						<input type="radio" name="isHappy" value="notHappy">
-						<label for="isHappy">No... :(</label>
+						<div class="pet">
+							<label for="isHappy" class="pet">Is this a happy Pet?</label>
+								<input type="radio" name="isHappy" value="happy"> 
+								<label for="isHappy">Yes!</label>
+								<input type="radio" name="isHappy" value="notHappy">
+								<label for="isHappy">No... :(</label>
+						</div>
+					</fieldset>
 				</fieldset>
 			</div>
 		</div>
