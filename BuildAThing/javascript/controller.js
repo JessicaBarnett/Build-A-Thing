@@ -6,19 +6,41 @@
 // methods: store, lookup, contains
 function ThingModel(startThings){
 	this.allThings = {};
-}
+	this.numThings = 0;
+};
+
+ThingModel.prototype.makeStarterThings = function(){
+	this.addThing("Quartz", this.makeAnyThing("Mineral", "Quartz", "Octoganal"));
+	this.addThing("Paramecium", this.makeAnyThing("LivingThing", "Paramecium", "you don't want to know"));
+	this.addThing("VenusFlyTrap", this.makeAnyThing("Plant", "Venus fly trap", "hamburgers", "300"));
+	this.addThing("Squirrel", this.makeAnyThing("Animal", "Squirrel", "my tomatoes", "climbing", "the backyard", "Eeek!!"));
+	this.addThing("Copper", this.makeAnyThing("Mineral", "Copper", "like abe lincoln's head"));
+	this.addThing("JuniperTree", this.makeAnyThing("Plant", "Juniper Tree", "severed heads", "180"));
+	this.addThing("ToeFungus", this.makeAnyThing("LivingThing", "Toe Fungus", "Soles"));
+	this.addThing("Seagull", this.makeAnyThing("Animal", "Seagull", "funnelcake and fish", "flying", "the seaside", "kee!  kee!"));
+	this.addThing("Rose", this.makeAnyThing("Plant", "Rose", "sunlight and nutrients in the soil", "20"));
+	this.addThing("Tiger", this.makeAnyThing("Animal", "Tiger", "little children", "Leap", "jungle", "Rawr"));	
+	this.addThing("Bacteria", this.makeAnyThing("Living Thing", "bacteria", "microscopic yumminess"));
+	this.addThing("BestThingEver", this.makeAnyThing("Thing", "Best Thing Ever"));
+	this.addThing("Cat", this.makeAnyThing("Animal", "Cat", "Cat food", "walk", "house", "mreow"));
+	this.addThing("Rabbit", this.makeAnyThing("Animal", "Rabbit", "vegetables and hay", "hopp", "house", "thump"));
+	this.addThing("Cactus", this.makeAnyThing("Plant", "Cactus", "sunlight and nutrients in the soil", "8"));
+	this.addThing("Rock", this.makeAnyThing("Mineral", "rock", "upside-down"));
+};
 
 //note: if you give a new thing the same name as an old thing, 
 //old thing will be overwritten
 ThingModel.prototype.addThing = function(name, Thing){
-	  return this.allThings[name] = Thing;
-}
+	this.numThings++;
+	return this.allThings[name] = Thing;
+};
 
 ThingModel.prototype.removeThing = function(name){
 		var temp = this.allThings[name]
 	  	delete this.allThings[name];
+	  	this.numThings--;
 	  	return temp; //returns deleted Thing
-}
+};
 
 ThingModel.prototype.thingNames = function(){
   var names = [];
@@ -111,25 +133,43 @@ ThingModel.prototype.makeAnyThing = function (type, isPet /*args*/){
 
 function ThingView(){}
 
-//parent is optional
-ThingView.prototype.printThing = function (thing, parent){
+ThingView.prototype.makeGrid = function(thingModel){
+	var $parentNode = $("div#select ul");
+	var $newNode = $('<li class= "thing one columns"></li>');
+
+	//go throuh all objects in thingModel 
+	$(thingModel.allThings).each(function(){
+		console.log(this.toString());
+		this.addGridSquare($(this));
+	});
+};
+
+ThingView.prototype.addGridSquare = function(Thing){
+	$newNode = $('<li class="thing one columns"></li>'); //add a new li for each Thing in model
+	$newNode.attr("data", this.name); //add the object's name to the li's data attribute, 
+	$newNode.text(this.name); //put object's "name" property in the li as text
+	$parentNode.append($newNode);
+};
+
+//parentNode is optional
+ThingView.prototype.printThing = function (thing, parentNode){
 		var $h2, h2contents,  $ul;
-		var $parent = parent || $("div#status");
+		var $parentNode = $parentNode || $("div#status");
 		var $listItems = [];
 
-		$parent.empty();
+		$parentNode.empty();
 
 		//create + add h2 
 
 		h2contents = thing.getHeader();
 		$h2 = $("<h2>" + h2contents + "</h2>");
-		$parent.append($h2);
+		$parentNode.append($h2);
 
 		//create ul
 		$ul = $("<ul></ul>");
 
-		//adds ul to parent
-		$parent.append($ul);
+		//adds ul to parentNode
+		$parentNode.append($ul);
 
 		//pull printable properties from Thing Objects
 		//convert them into html elements and append them to the statList(ul)
@@ -140,7 +180,7 @@ ThingView.prototype.printThing = function (thing, parent){
 		forEach($listItems, function(element){
 			$ul.append($("<li>" + element + "</li>")); 
 		});
-}
+};
 
 ThingView.prototype.refreshForm = function(){
 	var type = $("select#typeSelector").val();
@@ -164,15 +204,15 @@ ThingView.prototype.refreshForm = function(){
 	}
 
 	console.log("form refreshed!!");
-}
+};
 
 ThingView.prototype.clearStatus = function(){
 	$("div#status").children().remove();
-}
+};
 
 //I KNOW there's a better way to do this... just not sure how yet.
 ThingView.prototype.generateForm = function(){
-	var $parent = $("div#status");
+	var $parentNode = $("div#status");
 
 	var $makeThingWrapper = $("<fieldset>").attr("id", "makeThingForm");
 
@@ -235,9 +275,10 @@ ThingView.prototype.generateForm = function(){
 
 		$makeThingWrapper.append($variableFieldset);
 
-		$parent.append($makeThingWrapper);
+		$parentNode.append($makeThingWrapper);
 		$variableFieldset.children().hide();
-}
+		this.refreshForm();
+};
 
 
 //********* CONTROLLER **********/
@@ -249,56 +290,58 @@ ThingView.prototype.generateForm = function(){
 	var thingModel = new ThingModel();
 	var thingView = new ThingView();
 
+	thingModel.makeStarterThings();
 
 	//handles when user picks a button on the grid
-$("li.thing").on("click", function(){
-	//go through each li in ul.  if it has an "active" class, remove it
-	$("ul").find("li").each(function(/*index, element*/){
-		if ($(this).hasClass("active")) //element.hasClass instead of "this"?
-			$(this).removeClass("active");
-	});
-
-	//add "active" class to current li
-	$(this).addClass("active");
-
-	thingView.clearStatus();//clears whatever's in the status window 
-
-	//if this is the newThing button, show the makeThing form
-	if ($(this).hasClass("newThing"))
-	{	//generates a new form
-		thingView.generateForm();
-
-
-		//adds Form Event Listeners 
-
-		//adds listener to refresh form when user chooses a new Thing Type
-		$("select#typeSelector").change(thingView.refreshForm);
-		//handles submit event when user makes a new Thing
-		$("#makeThingForm button").on("click", function(){
-			console.log("button clicked");
-			var thingType = $("#makeThingForm select#typeSelector").val(), thingIsPet = false, thingName = $("#makeThingForm input#name").val();
-
-			var thingArgs = []; //collects arguments from the text fields to use to make a new thing
-
-			$("#makeThingForm #variableFields").children("input:visible").each(function(){ //adds value of text field only if field is visible
-					thingArgs.push($(this).val());
-			});
-
-			var newThing = thingModel.makeAnyThing(thingType, thingIsPet, thingArgs);
-			thingModel.addThing(thingName, newThing);
-			$("#typeSelector").hide();
-			thingView.printThing(newThing);
-
-			//removes "active" class from newThing Button
-			$("ul li.newThing").removeClass("active");
+	$("li.thing").on("click", function(){
+		//go through each li in ul.  if it has an "active" class, remove it
+		$("ul").find("li").each(function(/*index, element*/){
+			if ($(this).hasClass("active")) //element.hasClass instead of "this"?
+				$(this).removeClass("active");
 		});
 
-	}
+		//add "active" class to current li
+		$(this).addClass("active");
 
-	//else
-		//will eventually show status of selected thing in div#status
+		thingView.clearStatus();//clears whatever's in the status window 
 
-});
+		//if this is the newThing button, show the makeThing form
+		if ($(this).hasClass("newThing"))
+		{	//generates a new form
+			thingView.generateForm();
+
+
+			//adds Form Event Listeners 
+
+			//adds listener to refresh form when user chooses a new Thing Type
+			$("select#typeSelector").change(thingView.refreshForm);
+
+			//handles submit event when user makes a new Thing
+			$("#makeThingForm button").on("click", function(){
+				console.log("button clicked");
+				var thingType = $("#makeThingForm select#typeSelector").val(), thingIsPet = false, thingName = $("#makeThingForm input#name").val();
+
+				var thingArgs = []; //collects arguments from the text fields to use to make a new thing
+
+				$("#makeThingForm #variableFields").children("input:visible").each(function(){ //adds value of text field only if field is visible
+						thingArgs.push($(this).val());
+				});
+
+				var newThing = thingModel.makeAnyThing(thingType, thingIsPet, thingArgs);
+				thingModel.addThing(thingName, newThing);
+				$("#typeSelector").hide();
+				thingView.printThing(newThing);
+
+				//removes "active" class from newThing Button
+				$("ul li.newThing").removeClass("active");
+			});
+
+		}
+
+		//else
+			//will eventually show status of selected thing in div#status
+
+	});
 
 // }
 

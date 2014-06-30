@@ -105,14 +105,14 @@
 		function Plant(name, food, height){
 			LivingThing.call(this, name, food);
 			this.type = "Plant";
-			this.height = height || 0; //makes it possible to call constructor/make object w/o correct "this." (see makeAnyThing function)
+			this.height = parseInt(height, 10) || 0; //makes it possible to call constructor/make object w/o correct "this." (see makeAnyThing function)
 			return this; //to bypass "new" and construct with call/apply
 		}
-		Plant.prototype = clone(LivingThing.prototype);
+		Plant.prototype = clone(LivingThing.prototype); 
 		Plant.prototype.constructor = Plant;
 
 		Plant.prototype.grow= function(){
-			this.height++;
+			this.height++; 
 			this.energy--;
 			console.log("This " + this.name + " has grown a little bit!");	
 		};

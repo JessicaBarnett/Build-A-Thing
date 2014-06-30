@@ -17,7 +17,17 @@
 	//runDOMtests();
 	//thisTest();
 	//modelTest();
+	
 
+	//makeGridTest(thingModel);
+
+
+
+	function makeGridTest(thingModel){
+		//thingView, thingModel
+
+		thingView.makeGrid(thingModel);
+	}
 
 	function modelTest(){
 		var mod = new ThingModel();
