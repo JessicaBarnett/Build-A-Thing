@@ -10,22 +10,32 @@ function ThingModel(startThings){
 };
 
 ThingModel.prototype.makeStarterThings = function(){
-	this.addThing("Quartz", this.makeAnyThing("Mineral", "Quartz", "Octoganal"));
-	this.addThing("Paramecium", this.makeAnyThing("LivingThing", "Paramecium", "you don't want to know"));
-	this.addThing("VenusFlyTrap", this.makeAnyThing("Plant", "Venus fly trap", "hamburgers", "300"));
-	this.addThing("Squirrel", this.makeAnyThing("Animal", "Squirrel", "my tomatoes", "climbing", "the backyard", "Eeek!!"));
-	this.addThing("Copper", this.makeAnyThing("Mineral", "Copper", "like abe lincoln's head"));
-	this.addThing("JuniperTree", this.makeAnyThing("Plant", "Juniper Tree", "severed heads", "180"));
-	this.addThing("ToeFungus", this.makeAnyThing("LivingThing", "Toe Fungus", "Soles"));
-	this.addThing("Seagull", this.makeAnyThing("Animal", "Seagull", "funnelcake and fish", "flying", "the seaside", "kee!  kee!"));
-	this.addThing("Rose", this.makeAnyThing("Plant", "Rose", "sunlight and nutrients in the soil", "20"));
-	this.addThing("Tiger", this.makeAnyThing("Animal", "Tiger", "little children", "Leap", "jungle", "Rawr"));	
-	this.addThing("Bacteria", this.makeAnyThing("Living Thing", "bacteria", "microscopic yumminess"));
-	this.addThing("BestThingEver", this.makeAnyThing("Thing", "Best Thing Ever"));
-	this.addThing("Cat", this.makeAnyThing("Animal", "Cat", "Cat food", "walk", "house", "mreow"));
-	this.addThing("Rabbit", this.makeAnyThing("Animal", "Rabbit", "vegetables and hay", "hopp", "house", "thump"));
-	this.addThing("Cactus", this.makeAnyThing("Plant", "Cactus", "sunlight and nutrients in the soil", "8"));
-	this.addThing("Rock", this.makeAnyThing("Mineral", "rock", "upside-down"));
+/*	PARAMETERS CHEATSHEET 
+	I wrote them, but even I can't even remember what they all are
+
+	Thing: name
+	Mineral: name, shape
+	LivingThing: name, food
+	Plant: name, food, height (in inches)
+	Animal: name, food, movement, habitat, sound 
+	Pet: humanName, isHappy? 										*/
+
+	this.addThing("Quartz", this.makeAnyThing("Mineral", false, "Quartz", "Octoganal"));
+	this.addThing("Paramecium", this.makeAnyThing("LivingThing", false, "Paramecium", "you don't want to know"));
+	this.addThing("VenusFlyTrap", this.makeAnyThing("Plant", false, "Venus fly trap", "hamburgers", "300"));
+	this.addThing("Squirrel", this.makeAnyThing("Animal", false, "Squirrel", "my tomatoes", "climbing", "the backyard", "Eeek!!"));
+	this.addThing("Copper", this.makeAnyThing("Mineral", false, "Copper", "like abe lincoln's head"));
+	this.addThing("JuniperTree", this.makeAnyThing("Plant", false, "Juniper Tree", "severed heads", "180"));
+	this.addThing("ToeFungus", this.makeAnyThing("LivingThing", false, "Toe Fungus", "Soles"));
+	this.addThing("Seagull", this.makeAnyThing("Animal", false, "Seagull", "funnelcake and fish", "flying", "the seaside", "kee!  kee!"));
+	// this.addThing("Rose", this.makeAnyThing("Plant", false, "Rose", "sunlight and nutrients in the soil", "20"));
+	// this.addThing("Tiger", this.makeAnyThing("Animal", false, "Tiger", "little children", "Leap", "jungle", "Rawr"));	
+	// this.addThing("Bacteria", this.makeAnyThing("Living Thing", false, "bacteria", "microscopic yumminess"));
+	// this.addThing("BestThingEver", this.makeAnyThing("Thing", false, "Best Thing Ever"));
+	// this.addThing("Cat", this.makeAnyThing("Animal", true, "Cat", "Cat food", "walk", "house", "mreow"));
+	// this.addThing("Rabbit", this.makeAnyThing("Animal", true, "Rabbit", "vegetables and hay", "hopp", "house", "thump"));
+	// this.addThing("Cactus", this.makeAnyThing("Plant", true, "Cactus", "sunlight and nutrients in the soil", "8"));
+	// this.addThing("Rock", this.makeAnyThing("Mineral", true, "rock", "upside-down"));
 };
 
 //note: if you give a new thing the same name as an old thing, 
@@ -137,17 +147,19 @@ ThingView.prototype.makeGrid = function(thingModel){
 	var $parentNode = $("div#select ul");
 	var $newNode = $('<li class= "thing one columns"></li>');
 
+	console.log(thingModel);
 	//go throuh all objects in thingModel 
-	$(thingModel.allThings).each(function(){
-		console.log(this.toString());
-		this.addGridSquare($(this));
-	});
+	for(propertyName in thingModel.allThings) 
+	{	
+		this.addGridSquare(thingModel.allThings[propertyName]);
+	}
 };
 
 ThingView.prototype.addGridSquare = function(Thing){
+	$parentNode = $("div#select ul");
 	$newNode = $('<li class="thing one columns"></li>'); //add a new li for each Thing in model
-	$newNode.attr("data", this.name); //add the object's name to the li's data attribute, 
-	$newNode.text(this.name); //put object's "name" property in the li as text
+	$newNode.attr("data", Thing.name); //add the object's name to the li's data attribute, 
+	$newNode.text(Thing.name); //put object's "name" property in the li as text
 	$parentNode.append($newNode);
 };
 
@@ -211,6 +223,7 @@ ThingView.prototype.clearStatus = function(){
 };
 
 //I KNOW there's a better way to do this... just not sure how yet.
+//JSON maybe?
 ThingView.prototype.generateForm = function(){
 	var $parentNode = $("div#status");
 

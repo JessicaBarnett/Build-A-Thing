@@ -12,6 +12,7 @@
 
 
 //********  TESTS  ********//
+	//thingView, thingModel
 
 	//runInheritanceTests();
 	//runDOMtests();
@@ -19,13 +20,12 @@
 	//modelTest();
 	
 
-	//makeGridTest(thingModel);
+	makeGridTest(thingModel);
 
 
 
 	function makeGridTest(thingModel){
-		//thingView, thingModel
-
+		//thingView.addGridSquare(thingModel.allThings["Seagull"]);
 		thingView.makeGrid(thingModel);
 	}
 
