@@ -143,7 +143,7 @@ ThingView.prototype.printThing = function (thing, parent){
 	}
 
 ThingView.prototype.refreshForm = function(){
-	var type = $("select#thingTypes").val();
+	var type = $("select#typeSelector").val();
 	// get thingType from select box
 	
 	$("#variableFields").children().hide();
@@ -168,13 +168,83 @@ ThingView.prototype.clearStatus = function(){
 	$("div#status").children().remove();
 }
 
+//I KNOW there's a better way to do this... just not sure how yet.
+ThingView.prototype.generateForm = function(){
+	var $parent = $("div#status");
+
+	var $makeThingWrapper = $("<fieldset>").attr("class", "#makeThingForm");
+
+	//adds h2
+	var $heading = $("<h2>").text("Make a New Thing!");
+	$makeThingWrapper.append($heading);
+
+	//adds type selector select box
+	var $typeSelectorDiv = $('<div>').attr("class", "makeThing")
+	var $typeSelector = $('<select>').attr("class", "typeSelector")
+		    .append($('<option selected value="Thing">Thing</option>'),
+					$('<option value="Mineral">Mineral</option>'),
+					$('<option value="LivingThing">Living Thing</option>'),
+					$('<option value="Plant">Plant</option>'),
+					$('<option value="Animal">Animal</option>'));
+	$makeThingWrapper.append($typeSelectorDiv.append($typeSelector));
+
+	//adds "is this a pet?" radio buttons
+	$petSelectorDiv = $("<div>").attr("id", "petRadio");
+	$petSelectorDiv.append( $('<label for="isPet">Is this thing a pet?</label>'),
+						    $('<input type="radio" name="isPet" value="pet">'),
+							$('<label for="isPet">Yes!</label>'),
+							$('<input type="radio" name="isPet" value="notPet">'),
+							$('<label for="isPet">No</label>')
+						  );
+	$makeThingWrapper.append($petSelectorDiv);
+
+	//adds all possible fields
+	var $variableFieldset = $('<fieldset>').attr("id", "variableFields");
+		$variableFieldset.append(
+						$('<label for="name">Name: </label>'),
+						$('<input id="name" type="text">'),
+						$('<label for="shape" class="mineral">Shape: </label>'),
+						$('<input id="shape" class="mineral" type="text">'),
+						$('<label for="food" class="livingThing">Food: </label>'),
+						$('<input id="food" class="livingThing" type="text">'),
+						$('<label for="height" class="plant" >How tall is this thing?  (in inches)</label>'),
+						$('<input id="height" class="plant" type="text">'),
+						$('<label for="movement" class="animal">How does this thing move?</label>'),
+						$('<input id="movement"  class="animal" type="text">'),
+						$('<label for="habitat" class="animal">Where does this thing live?</label>'),
+						$('<input id="habitat" class="animal" type="text">'),
+						$('<label for="sound" class="animal">What sound does this thing make?</label>'),	
+						$('<input id="sound" class="animal" type="text">'));
+
+		$petFieldset = $("<fieldset>").attr("id", "petFields");
+		$petFieldset.append($("<label for='humanName'>What is this Pet's human name?</label>"),
+							$('<input id="humanName" type="text">'));
+
+		$happyRadioDiv = $('<div class="pet" id="happyRadio">')
+		$happyRadioDiv.append(	$('<label for="isHappy" class="pet">Is this a happy Pet?</label>'),
+								$('<input type="radio" name="isHappy" value="happy">'),
+								$('<label for="isHappy">Yes!</label>'),
+								$('<input type="radio" name="isHappy" value="notHappy">'),
+								$('<label for="isHappy">No... :(</label>)')
+							);
+		$petFieldset.append($happyRadioDiv);
+		$variableFieldset.append($petFieldset);
+		$variableFieldset.append($('<button type="submit">Make This Thing!</button>'));
+
+		$makeThingWrapper.append($variableFieldset);
+
+		$parent.append($makeThingWrapper);
+
+
+
+}
+
 
 //********* CONTROLLER **********/
 
 var thingModel = new ThingModel();
 var thingView = new ThingView();
-$(".makeThing").hide();
-
+$("#makeThingForm").hide();
 
 //******** CLICK EVENTS *********//
 
@@ -193,11 +263,12 @@ $("li.thing").on("click", function(){
 
 	//if this is the newThing button, show the makeThing form
 	if ($(this).hasClass("newThing"))
-	{	$(".makeThing").show();		
+	{	
+		thingView.generateForm();
 		thingView.refreshForm();
 	}
 	else
-		$(".makeThing").hide();
+		$("#makeThingForm").hide();
 
 });
 
@@ -205,16 +276,16 @@ $("li.thing").on("click", function(){
 
 //refreshes forms and shows only appropriate fields
 //when user chooses a different Thing to create
-$("select#thingTypes").change(thingView.refreshForm);
+$("select#typeSelector").change(thingView.refreshForm);
 
 
 //handles submit event when user makes a new Thing
-$(".makeThing button").on("click", function(){
-	var thingType = $("select#thingTypes").val(), thingIsPet = false, thingName = $("input#name").val();
+$("#makeThingForm button").on("click", function(){
+	var thingType = $("#makeThingForm select#typeSelector").val(), thingIsPet = false, thingName = $("input#name").val();
 
 	var thingArgs = []; //collects arguments from the text fields to use to make a new thing
 
-	$("fieldset#variableFields").children("input:visible").each(function(){ //adds value of text field only if field is visible
+	$("#makeThingForm #variableFields").children("input:visible").each(function(){ //adds value of text field only if field is visible
 		//if ($(this).val() != "")//if the text field has a value, push it to the args array
 			thingArgs.push($(this).val());
 	});

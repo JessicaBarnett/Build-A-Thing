@@ -16,7 +16,7 @@
 	//runInheritanceTests();
 	//runDOMtests();
 	//thisTest();
-	modelTest();
+	//modelTest();
 
 
 	function modelTest(){
