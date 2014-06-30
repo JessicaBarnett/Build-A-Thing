@@ -63,26 +63,27 @@ ThingModel.prototype.makeAnyThing = function (type, isPet /*args*/){
 	var newThing;  
 	
 	//note: I have an unknown # of arguments, so I have to use the apply method.  
-	if (type.indexOf("LivingThing") >= 0){
-		newThing = new LivingThing(); //created w/o arguments.  Needed to pass as context to apply
-		newThing = LivingThing.prototype.constructor.apply(newThing, args);
-	}
-	else if (type.indexOf("Thing") >= 0){
-		newThing = new Thing(); //created w/o arguments.  Needed to pass as context to apply
-		newThing = Thing.prototype.constructor.apply(newThing, args);
-	}
-	else if (type.indexOf("Mineral") >= 0){
-		newThing = new Mineral(); //created w/o arguments.  Needed to pass as context to apply
-		newThing = Mineral.prototype.constructor.apply(newThing, args);
+	if (type.indexOf("Animal") >= 0){
+		newThing = new Animal(); //created w/o arguments.  Needed to pass as context to apply
+		newThing = Animal.prototype.constructor.apply(newThing, args);
 	}
 	else if (type.indexOf("Plant") >= 0){
 		newThing = new Plant(); //created w/o arguments.  Needed to pass as context to apply
 		newThing = Plant.prototype.constructor.apply(newThing, args);
 	}
-	else if (type.indexOf("Animal") >= 0){
-		newThing = new Animal(); //created w/o arguments.  Needed to pass as context to apply
-		newThing = Animal.prototype.constructor.apply(newThing, args);
+	else if (type.indexOf("LivingThing") >= 0){
+		newThing = new LivingThing(); //created w/o arguments.  Needed to pass as context to apply
+		newThing = LivingThing.prototype.constructor.apply(newThing, args);
 	}
+	else if (type.indexOf("Mineral") >= 0){
+		newThing = new Mineral(); //created w/o arguments.  Needed to pass as context to apply
+		newThing = Mineral.prototype.constructor.apply(newThing, args);
+	}
+	else if (type.indexOf("Thing") >= 0){
+		newThing = new Thing(); //created w/o arguments.  Needed to pass as context to apply
+		newThing = Thing.prototype.constructor.apply(newThing, args);
+	}
+
 	else throw new Error("passed an incompatible type: " + type);
 	
 //	if (isPet){}
@@ -163,6 +164,10 @@ ThingView.prototype.refreshForm = function(){
 	}
 }
 
+ThingView.prototype.clearStatus = function(){
+	$("div#status").children().remove();
+}
+
 
 //********* CONTROLLER **********/
 
@@ -184,13 +189,16 @@ $("li.thing").on("click", function(){
 	//add "active" class to current li
 	$(this).addClass("active");
 
+	//thingView.clearStatus();//clears whatever's in the status window 
+
 	//if this is the newThing button, show the makeThing form
 	if ($(this).hasClass("newThing"))
 	{	$(".makeThing").show();		
-		thingView.refreshForm()
+		thingView.refreshForm();
 	}
 	else
 		$(".makeThing").hide();
+
 });
 
 //Form events
