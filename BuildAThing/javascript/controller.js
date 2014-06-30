@@ -140,7 +140,7 @@ ThingView.prototype.printThing = function (thing, parent){
 		forEach($listItems, function(element){
 			$ul.append($("<li>" + element + "</li>")); 
 		});
-	}
+}
 
 ThingView.prototype.refreshForm = function(){
 	var type = $("select#typeSelector").val();
@@ -148,9 +148,9 @@ ThingView.prototype.refreshForm = function(){
 	
 	$("#variableFields").children().hide();
 
-	$("#variableFields #name").show();
+	$("#variableFields  input#name").show();
 	$("#variableFields label[for=name]").show();
-	$(".makeThing button").show()
+	$("#variableFields button").show();
 
 	if(type === "Mineral")
 		$(".mineral").show();
@@ -162,6 +162,8 @@ ThingView.prototype.refreshForm = function(){
 		else if(type === "Animal")
 			$(".animal").show();
 	}
+
+	console.log("form refreshed!!");
 }
 
 ThingView.prototype.clearStatus = function(){
@@ -172,15 +174,15 @@ ThingView.prototype.clearStatus = function(){
 ThingView.prototype.generateForm = function(){
 	var $parent = $("div#status");
 
-	var $makeThingWrapper = $("<fieldset>").attr("class", "#makeThingForm");
+	var $makeThingWrapper = $("<fieldset>").attr("id", "makeThingForm");
 
 	//adds h2
 	var $heading = $("<h2>").text("Make a New Thing!");
 	$makeThingWrapper.append($heading);
 
 	//adds type selector select box
-	var $typeSelectorDiv = $('<div>').attr("class", "makeThing")
-	var $typeSelector = $('<select>').attr("class", "typeSelector")
+	var $typeSelectorDiv = $('<div>');
+	var $typeSelector = $('<select>').attr("id", "typeSelector")
 		    .append($('<option selected value="Thing">Thing</option>'),
 					$('<option value="Mineral">Mineral</option>'),
 					$('<option value="LivingThing">Living Thing</option>'),
@@ -234,21 +236,21 @@ ThingView.prototype.generateForm = function(){
 		$makeThingWrapper.append($variableFieldset);
 
 		$parent.append($makeThingWrapper);
-
-
-
+		$variableFieldset.children().hide();
 }
 
 
 //********* CONTROLLER **********/
 
-var thingModel = new ThingModel();
-var thingView = new ThingView();
-$("#makeThingForm").hide();
+// function ThingController(){}
 
-//******** CLICK EVENTS *********//
+// ThingController.prototype.init = function(){
 
-//handles when user picks a button on the grid
+	var thingModel = new ThingModel();
+	var thingView = new ThingView();
+
+
+	//handles when user picks a button on the grid
 $("li.thing").on("click", function(){
 	//go through each li in ul.  if it has an "active" class, remove it
 	$("ul").find("li").each(function(/*index, element*/){
@@ -259,58 +261,51 @@ $("li.thing").on("click", function(){
 	//add "active" class to current li
 	$(this).addClass("active");
 
-	//thingView.clearStatus();//clears whatever's in the status window 
+	thingView.clearStatus();//clears whatever's in the status window 
 
 	//if this is the newThing button, show the makeThing form
 	if ($(this).hasClass("newThing"))
-	{	
+	{	//generates a new form
 		thingView.generateForm();
-		thingView.refreshForm();
+
+
+		//adds Form Event Listeners 
+
+		//adds listener to refresh form when user chooses a new Thing Type
+		$("select#typeSelector").change(thingView.refreshForm);
+		//handles submit event when user makes a new Thing
+		$("#makeThingForm button").on("click", function(){
+			console.log("button clicked");
+			var thingType = $("#makeThingForm select#typeSelector").val(), thingIsPet = false, thingName = $("#makeThingForm input#name").val();
+
+			var thingArgs = []; //collects arguments from the text fields to use to make a new thing
+
+			$("#makeThingForm #variableFields").children("input:visible").each(function(){ //adds value of text field only if field is visible
+					thingArgs.push($(this).val());
+			});
+
+			var newThing = thingModel.makeAnyThing(thingType, thingIsPet, thingArgs);
+			thingModel.addThing(thingName, newThing);
+			$("#typeSelector").hide();
+			thingView.printThing(newThing);
+
+			//removes "active" class from newThing Button
+			$("ul li.newThing").removeClass("active");
+		});
+
 	}
-	else
-		$("#makeThingForm").hide();
+
+	//else
+		//will eventually show status of selected thing in div#status
 
 });
 
-//Form events
+// }
 
-//refreshes forms and shows only appropriate fields
-//when user chooses a different Thing to create
-$("select#typeSelector").change(thingView.refreshForm);
+// //controller
 
 
-//handles submit event when user makes a new Thing
-$("#makeThingForm button").on("click", function(){
-	var thingType = $("#makeThingForm select#typeSelector").val(), thingIsPet = false, thingName = $("input#name").val();
-
-	var thingArgs = []; //collects arguments from the text fields to use to make a new thing
-
-	$("#makeThingForm #variableFields").children("input:visible").each(function(){ //adds value of text field only if field is visible
-		//if ($(this).val() != "")//if the text field has a value, push it to the args array
-			thingArgs.push($(this).val());
-	});
-
-	var newThing = thingModel.makeAnyThing(thingType, thingIsPet, thingArgs);
-	thingModel.addThing(thingName, newThing);
-	$(".makeThing").hide();
-	thingView.printThing(newThing);
-
-	//removes "active" class from newThing Button
-	$("ul li.newThing").removeClass("active");
-});
-
-
-
-/*
-	PARAMETERS CHEATSHEET 
-	I wrote them, but even I can't even remember what they all are
-
-	Thing: name
-	Mineral: name, shape
-	LivingThing: name, food
-	Plant: name, food, height (in inches)
-	Animal: name, food, movement, habitat, sound 
-	Pet: humanName, isHappy? 
-*/
+// var controller = new ThingController();
+// controller.init();
 
 
