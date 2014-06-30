@@ -31,41 +31,49 @@ ThingModel.prototype.getThing = function(name){
 	return this.allThings(name);
 };
 
+//because I can't find a better way to convert a string into a function call
+//don't want to use window["string"]...
+ThingModel.prototype.stringToThing = function (thingName){
+		if (thingName === "Thing")
+			return new Thing();
+		else if (thingName === "Mineral")
+			return new Mineral();
+		else if (thingName === "LivingThing")
+			return new LivingThing();
+		else if (thingName === "Plant")
+			return new Plant();
+		else if (thingName === "Animal")
+			return new Animal();
+		else
+			throw new Error("incorrect thingName: " + thingName);	
+};
 
-//NOTES ON "THIS"
-// I have an unknown # of arguments, so I need to use call or apply to create objects in here.
-// this means I need something to pass as "this."  
-// if I create makeAnyThing as a method of ThingModel, "this" refers to ThingModel
-// if I create makeAnyThing as a regular function, "this" refers to window.
-// tried various things this["Thing"], window["Thing"], Thing, Thing.prototype, 
-// Thing.prototype.constructor. "this" always refers to undefined
-// I think the thing passed as "this" has to be an actual object, 
-// not a pointer to a constructor function.  That would make sense.  
-// so now I'm making an empty Thing-like object (had to go back and make parameters optional)
-// then applying the constructor function to it.  Seems to be working.  
-
-
+//can accept arguments as an array, or as a split list
 ThingModel.prototype.makeAnyThing = function (type, isPet /*args*/){
 
-	var args = Array.prototype.slice.call(arguments, 1); 
+	var args = Array.prototype.slice.call(arguments, 2); 
 	//why this Array.prototype nonsense?  because arguments is only "array-like" 
+
+	//if first argument in args is an array, then the args were passed as an array originally. 
+	if (args[0] instanceof Array) 
+		args = args[0];//reassigns args array to the originally-passed argument array 
 
 	//Would prefer to avoid this giant, repetitive if-statement...
 
 	var newThing;  
 	
 	//note: I have an unknown # of arguments, so I have to use the apply method.  
-	if (type.indexOf("Thing") >= 0){
+	if (type.indexOf("LivingThing") >= 0){
+		newThing = new LivingThing(); //created w/o arguments.  Needed to pass as context to apply
+		newThing = LivingThing.prototype.constructor.apply(newThing, args);
+	}
+	else if (type.indexOf("Thing") >= 0){
 		newThing = new Thing(); //created w/o arguments.  Needed to pass as context to apply
 		newThing = Thing.prototype.constructor.apply(newThing, args);
 	}
 	else if (type.indexOf("Mineral") >= 0){
 		newThing = new Mineral(); //created w/o arguments.  Needed to pass as context to apply
 		newThing = Mineral.prototype.constructor.apply(newThing, args);
-	}
-	else if (type.indexOf("LivingThing") >= 0){
-		newThing = new LivingThing(); //created w/o arguments.  Needed to pass as context to apply
-		newThing = LivingThing.prototype.constructor.apply(newThing, args);
 	}
 	else if (type.indexOf("Plant") >= 0){
 		newThing = new Plant(); //created w/o arguments.  Needed to pass as context to apply
@@ -83,12 +91,27 @@ ThingModel.prototype.makeAnyThing = function (type, isPet /*args*/){
 
 }
 
+/* 
+//NOTES ON "THIS"
+// I have an unknown # of arguments, so I need to use call or apply to create objects in here.
+// this means I need something to pass as "this."  
+// if I create makeAnyThing as a method of ThingModel, "this" refers to ThingModel
+// if I create makeAnyThing as a regular function, "this" refers to window.
+// tried various things this["Thing"], window["Thing"], Thing, Thing.prototype, 
+// Thing.prototype.constructor. "this" always refers to undefined
+// I think the thing passed as "this" has to be an actual object, 
+// not a pointer to a constructor function.  That would make sense.  
+// so now I'm making an empty Thing-like object (had to go back and make parameters optional)
+// then applying the constructor function to it.  Seems to be working.
+*/
+
 /********** DOM MANIPULATORS/VIEW **********/
 
 
-function View(){}
+function ThingView(){}
 
-View.prototype.printThing = function (thing, parent){
+//parent is optional
+ThingView.prototype.printThing = function (thing, parent){
 		var $h2, h2contents,  $ul;
 		var $parent = parent || $("div#status");
 		var $listItems = [];
@@ -118,14 +141,15 @@ View.prototype.printThing = function (thing, parent){
 		});
 	}
 
-View.prototype.refreshForm = function(){
+ThingView.prototype.refreshForm = function(){
 	var type = $("select#thingTypes").val();
 	// get thingType from select box
 	
 	$("#variableFields").children().hide();
 
-	$("#name").show();
-	$("label[for=name]").show();
+	$("#variableFields #name").show();
+	$("#variableFields label[for=name]").show();
+	$(".makeThing button").show()
 
 	if(type === "Mineral")
 		$(".mineral").show();
@@ -140,15 +164,16 @@ View.prototype.refreshForm = function(){
 }
 
 
-//********* CONTROLLER OBJECTS **********/
+//********* CONTROLLER **********/
 
 var thingModel = new ThingModel();
-var pageView = new View();
+var thingView = new ThingView();
 $(".makeThing").hide();
 
 
 //******** CLICK EVENTS *********//
 
+//handles when user picks a button on the grid
 $("li.thing").on("click", function(){
 	//go through each li in ul.  if it has an "active" class, remove it
 	$("ul").find("li").each(function(/*index, element*/){
@@ -159,48 +184,41 @@ $("li.thing").on("click", function(){
 	//add "active" class to current li
 	$(this).addClass("active");
 
+	//if this is the newThing button, show the makeThing form
 	if ($(this).hasClass("newThing"))
 	{	$(".makeThing").show();		
-		pageView.refreshForm()
+		thingView.refreshForm()
 	}
 	else
 		$(".makeThing").hide();
 });
 
-$("select#thingTypes").change(pageView.refreshForm);
+//Form events
+
+//refreshes forms and shows only appropriate fields
+//when user chooses a different Thing to create
+$("select#thingTypes").change(thingView.refreshForm);
 
 
+//handles submit event when user makes a new Thing
+$(".makeThing button").on("click", function(){
+	var thingType = $("select#thingTypes").val(), thingIsPet = false, thingName = $("input#name").val();
 
-//some function for handling which text fields show when the thing type field changes
+	var thingArgs = []; //collects arguments from the text fields to use to make a new thing
 
-/*
+	$("fieldset#variableFields").children("input:visible").each(function(){ //adds value of text field only if field is visible
+		//if ($(this).val() != "")//if the text field has a value, push it to the args array
+			thingArgs.push($(this).val());
+	});
 
-get thingType
-	get proto with that type
-	loop through its properties
-		if propertyname matches fieldName, show it
-		else hide it
+	var newThing = thingModel.makeAnyThing(thingType, thingIsPet, thingArgs);
+	thingModel.addThing(thingName, newThing);
+	$(".makeThing").hide();
+	thingView.printThing(newThing);
 
-
-
-if thingType = Thing
-	show name
-
-if Mineral
-	show name, shape
-
-if LivingThing
-	show name, food
-
-if Plant
-	show name, food, height
-
-if animal
-	show name, food, movement, habitat, sound
-
-skipping pet for now
-	
-
+	//removes "active" class from newThing Button
+	$("ul li.newThing").removeClass("active");
+});
 
 
 
