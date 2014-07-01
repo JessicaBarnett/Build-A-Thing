@@ -10,16 +10,14 @@ function ThingModel(startThings){
 };
 
 ThingModel.prototype.makeStarterThings = function(){
-/*	PARAMETERS CHEATSHEET 
-	I wrote them, but even I can't even remember what they all are
-
-	Thing: name
-	Mineral: name, shape
-	LivingThing: name, food
-	Plant: name, food, height (in inches)
-	Animal: name, food, movement, habitat, sound 
-	Pet: humanName, isHappy? 										*/
-
+	// PARAMETERS CHEATSHEET 
+	// Thing: name
+	// Mineral: name, shape
+	// LivingThing: name, food
+	// Plant: name, food, height (in inches)
+	// Animal: name, food, movement, habitat, sound 
+	// Pet: humanName, isHappy? 
+	
 	//NOTE:  Name and thing's "name" property must match EXACTLY!  This is a bug for the moment...
 	this.addThing("Quartz", this.makeAnyThing("Mineral", false, "Quartz", "Octoganal"));
 	this.addThing("Paramecium", this.makeAnyThing("LivingThing", false, "Paramecium", "you don't want to know"));
@@ -31,12 +29,12 @@ ThingModel.prototype.makeStarterThings = function(){
 	this.addThing("Seagull", this.makeAnyThing("Animal", false, "Seagull", "funnelcake and fish", "flying", "the seaside", "kee!  kee!"));
 	// this.addThing("Rose", this.makeAnyThing("Plant", false, "Rose", "sunlight and nutrients in the soil", "20"));
 	// this.addThing("Tiger", this.makeAnyThing("Animal", false, "Tiger", "little children", "Leap", "jungle", "Rawr"));	
-	// this.addThing("Bacteria", this.makeAnyThing("Living Thing", false, "bacteria", "microscopic yumminess"));
-	// this.addThing("BestThingEver", this.makeAnyThing("Thing", false, "Best Thing Ever"));
+	// this.addThing("Bacteria", this.makeAnyThing("Living Thing", false, "Bacteria", "microscopic yumminess"));
+	// this.addThing("Best Thing Ever", this.makeAnyThing("Thing", false, "Best Thing Ever"));
 	// this.addThing("Cat", this.makeAnyThing("Animal", true, "Cat", "Cat food", "walk", "house", "mreow"));
 	// this.addThing("Rabbit", this.makeAnyThing("Animal", true, "Rabbit", "vegetables and hay", "hopp", "house", "thump"));
 	// this.addThing("Cactus", this.makeAnyThing("Plant", true, "Cactus", "sunlight and nutrients in the soil", "8"));
-	// this.addThing("Rock", this.makeAnyThing("Mineral", true, "rock", "upside-down"));
+	// this.addThing("Rock", this.makeAnyThing("Mineral", true, "Rock", "upside-down"));
 };
 
 //note: if you give a new thing the same name as an old thing, 
