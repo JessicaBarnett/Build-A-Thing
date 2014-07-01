@@ -342,8 +342,8 @@ ThingView.prototype.generateForm = function(){
 	function makeButtonActive(self){
 		//go through each li in ul.  if it has an "active" class, remove it
 		$("ul").find("li").each(function(/*index, element*/){
-			if ($(self).hasClass("active")) //element.hasClass instead of "this"?
-				$(self).removeClass("active");
+			if ($(this).hasClass("active")) //element.hasClass instead of "this"?
+				$(this).removeClass("active");
 		});
 
 		//add "active" class to current li
