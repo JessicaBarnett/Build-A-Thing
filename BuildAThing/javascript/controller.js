@@ -189,7 +189,7 @@ ThingView.prototype.printThing = function (thing, parentNode){
 		//convert them into html elements and append them to the statList(ul)
 		$listItems = thing.getPrintableProperties();
 
-		console.log($listItems);
+		//console.log($listItems);
 
 		forEach($listItems, function(element){
 			$ul.append($("<li>" + element + "</li>")); 
@@ -333,7 +333,7 @@ ThingView.prototype.generateForm = function(){
 		}
 		else //get object current li relates to, print status of that object
 		{	thingView.printThing(thingModel.allThings[$(this).attr("data")]);
-			console.log(thingModel.allThings[$(this).attr("data")]);
+			//console.log(thingModel.allThings[$(this).attr("data")]);
 		}
 	}
 
@@ -352,7 +352,7 @@ ThingView.prototype.generateForm = function(){
 
 	//handles when a user clicks on the "Make This Thing!" button
 	function makeThingButtonHandler(self){
-		console.log("button clicked");
+		//console.log("button clicked");
 		var thingType = $("#typeSelector").val(), thingName = $("#makeThingForm input#name").val();
 		var thingIsPet = false;
 		var thingArgs = []; //collects arguments from the text fields to use to make a new thing
@@ -373,7 +373,11 @@ ThingView.prototype.generateForm = function(){
 		$("ul li.newThing").removeClass("active");
 
 		//create new select button for the new Thing
+		thingView.addGridSquare(newThing);
+
 		//add active class to it
+		$('li[data="'+newThing.name+'"]').addClass("active");
+
 		//print's new thing's Status
 		thingView.printThing(newThing);
 
