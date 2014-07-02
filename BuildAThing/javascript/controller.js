@@ -4,7 +4,7 @@
 
 
 // methods: store, lookup, contains
-function ThingModel(startThings){
+function ThingModel(){
 	this.allThings = {};
 	this.numThings = 0;
 };
@@ -175,7 +175,7 @@ ThingView.prototype.printThing = function (thing, parentNode){
 
 		//create + add h2 
 
-		h2contents = thing.getHeader();
+		h2contents = thing._getHeader();
 		$h2 = $("<h2>" + h2contents + "</h2>");
 		$parentNode.append($h2);
 
@@ -185,15 +185,36 @@ ThingView.prototype.printThing = function (thing, parentNode){
 		//adds ul to parentNode
 		$parentNode.append($ul);
 
-		//pull printable properties from Thing Objects
-		//convert them into html elements and append them to the statList(ul)
-		$listItems = thing.getPrintableProperties();
+		// //pull printable properties from Thing Objects
+		// //convert them into html elements and append them to the statList(ul)
+		// $listItems = thing.getPrintableProperties();
 
-		//console.log($listItems);
+		// forEach($listItems, function(element){
+		// 	$ul.append($("<li>" + element + "</li>")); 
+		// });
 
-		forEach($listItems, function(element){
-			$ul.append($("<li>" + element + "</li>")); 
-		});
+		for (property in thing){
+			console.log(property);
+			if (typeof thing[property] != "function"){
+				$ul.append($("<li>" + thing[property] + "</li>")); 
+			}
+		}
+
+		for (property in thing){
+			console.log(property);
+			//if property is a function, not the constructor method, and not a private method (indicated by n underscore)
+			if (typeof thing[property] === "function" && property != "constructor" && property.indexOf("_") < 0){
+				$ul.append($("<button>" + property + "</button>"));
+			}
+
+		}
+
+		//pull methods from Thing object
+
+		//print a button for each method
+
+		//add event listeners elsewhere that will execute the proper method when the button is clicked.
+
 };
 
 ThingView.prototype.refreshForm = function(){

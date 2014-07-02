@@ -24,20 +24,19 @@
 			console.log("You kicked the " + this.name + "!  Thunk!");
 		};
 
-		Thing.prototype.getPrintableProperties = function(){
-			return ["name: "+this.name, "type: "+this.type];
-		};
+		// Thing.prototype.getPrintableProperties = function(){
+		// 	return ["name: "+this.name, "type: "+this.type];
+		// };
 
 		//will not be modified/extended by any Thing descendants
 		//WILL be modified by Pet
-		Thing.prototype.getHeader = function(){ 
+		Thing.prototype._getHeader = function(){ 
 			return "This is a " + this.name;
 		};
 
 		//for near future: 
 			//add a button property to map each "thing" to the li elements on the page
 			//add an id property?
-
 
 
 
@@ -58,10 +57,10 @@
 		Mineral.prototype = clone(Thing.prototype);
 		Mineral.prototype.constructor = Mineral;
 
-		Mineral.prototype.getPrintableProperties = function(){
-			//return Thing.prototype.getPropertyStrings.apply(this).concat(["shape: "+this.shape]); //too much work...
-			return ["name: "+this.name, "type: "+this.type, "shape: "+this.shape]; //mush easier to read if I just retype the whole thing
-		};
+		// Mineral.prototype.getPrintableProperties = function(){
+		// 	//return Thing.prototype.getPropertyStrings.apply(this).concat(["shape: "+this.shape]); //too much work...
+		// 	return ["name: "+this.name, "type: "+this.type, "shape: "+this.shape]; //mush easier to read if I just retype the whole thing
+		// };
 
 
 	//livingThing inherits Thing
@@ -96,9 +95,9 @@
 			console.log("It eats " + this.food + " and has " + this.energy + " energy.");
 		};
 
-		LivingThing.prototype.getPrintableProperties = function(){
-			return ["name: "+this.name, "type: "+this.type, "food: "+this.food, "energy: "+this.energy];
-		};
+		// LivingThing.prototype.getPrintableProperties = function(){
+		// 	return ["name: "+this.name, "type: "+this.type, "food: "+this.food, "energy: "+this.energy];
+		// };
 
 	//Plant inherits LivingThing (And thus Thing)
 
@@ -126,9 +125,9 @@
 			this.printHeight();
 		};
 
-		Plant.prototype.getPrintableProperties = function(){
-			return ["name: "+this.name, "type: "+this.type, "food: "+this.food, "energy: "+this.energy, "height: "+this.height];
-		};
+		// Plant.prototype.getPrintableProperties = function(){
+		// 	return ["name: "+this.name, "type: "+this.type, "food: "+this.food, "energy: "+this.energy, "height: "+this.height];
+		// };
 
 
 	//Animal inherits LivingThing (and thus Thing)
@@ -158,24 +157,24 @@
 
 		Animal.prototype.move = function(){
 			this.energy-= 2;
-			console.log("The " + this.name + " is " + this.movement + "ing around!");
+			console.log("The " + this.name + " is " + this.movement + " around!");
 		};
 
 		Animal.prototype.makeSound = function(){
 			console.log("You hear a mysterious \'" + this.sound + "\' coming from the " + this.habitat +".");
 		};
 
-		Animal.prototype.getPrintableProperties = function(){
-			return ["name: "+this.name, "type: "+this.type, "food: "+this.food, "energy: "+this.energy, 
-					"movement: "+this.movement+"ing", "habitat: "+this.habitat, "sound: "+this.sound];
-		};
+		// Animal.prototype.getPrintableProperties = function(){
+		// 	return ["name: "+this.name, "type: "+this.type, "food: "+this.food, "energy: "+this.energy, 
+		// 			"movement: "+this.movement+"ing", "habitat: "+this.habitat, "sound: "+this.sound];
+		// };
 
 
 	//Pet can mix with ANY object, but ideally something related to thing
 		function Pet(humanName, happy){
 			this.happy = happy;
 			this.humanName = humanName;
-			//this.type = "Pet " + this.type; //coming up as undefined?
+			//this.type = "Pet " + this.type; //coming up as undefined??
 		}
 
 		//Extends Animal.print or Plant.print
@@ -208,11 +207,11 @@
 			this.happy = false;
 		};
 
-		Pet.prototype.getPrintableProperties = function(){
-			return ["human Name: "+this.humanName, "happiness: "+this.isHappy()].concat(Object.getPrototypeOf(this).getPrintableProperties.apply(this));
-		};
+		// Pet.prototype.getPrintableProperties = function(){
+		// 	return ["human Name: "+this.humanName, "happiness: "+this.isHappy()].concat(Object.getPrototypeOf(this).getPrintableProperties.apply(this));
+		// };
 
-		Pet.prototype.getHeader = function(){
+		Pet.prototype._getHeader = function(){
 			return "This is " + this.humanName + " the " + this.name; 
 		}
 
