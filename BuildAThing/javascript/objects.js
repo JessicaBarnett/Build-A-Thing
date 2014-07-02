@@ -17,11 +17,11 @@
 		}
 
 		Thing.prototype.print = function(){
-			console.log("This is a " + this.name + ". It is a " + this.type  + ".");
+			return "This is a " + this.name + ". It is a " + this.type  + ".";
 		};
 
 		Thing.prototype.kick= function(){
-			console.log("You kicked the " + this.name + "!  Thunk!");
+			return "You kicked the " + this.name + "!  Thunk!";
 		};
 
 		// Thing.prototype.getPrintableProperties = function(){
@@ -50,8 +50,8 @@
 		}
 
 		Mineral.prototype.print = function(){
-			Thing.prototype.print.apply(this);
-			console.log("It has a " + this.shape + " shape.");
+			//Thing.prototype.print.apply(this);
+			return Thing.prototype.print.apply(this) + "\nIt has a " + this.shape + " shape.";
 		};
 
 		Mineral.prototype = clone(Thing.prototype);
@@ -77,22 +77,22 @@
 
 
 		LivingThing.prototype.kick = function(){
-			console.log("You kicked the " + this.name + "!  Squish!!");
+			return "You kicked the " + this.name + "!  Squish!!";
 		};
 
 		LivingThing.prototype.eat= function(){
 			this.energy++;
-			console.log("The " + this.name + " is eating " + this.food + "!")
+			return "The " + this.name + " is eating " + this.food + "!";
 		};
 
 		LivingThing.prototype.printEnergy = function(){
-			console.log("it has " + this.energy + " energy");
-			return this.energy;
+			return "The " + this.name + " has " + this.energy + " energy");
+			//return this.energy;
 		};
 
 		LivingThing.prototype.print= function(){
-			Thing.prototype.print.apply(this);//extending Thing.print
-			console.log("It eats " + this.food + " and has " + this.energy + " energy.");
+			//Thing.prototype.print.apply(this);//extending Thing.print
+			return Thing.prototype.print.apply(this) + "\nIt eats " + this.food + " and has " + this.energy + " energy.";
 		};
 
 		// LivingThing.prototype.getPrintableProperties = function(){
@@ -113,16 +113,16 @@
 		Plant.prototype.grow= function(){
 			this.height++; 
 			this.energy--;
-			console.log("This " + this.name + " has grown a little bit!");	
+			return "This " + this.name + " has grown a little bit!";	
 		};
 
 		Plant.prototype.printHeight = function(){
-			console.log("It is " +this.height+ " inches tall");
+			return "It is " +this.height+ " inches tall";
 		};
 
 		Plant.prototype.print= function(){
 			LivingThing.prototype.print.apply(this); //Extends LivingThing.print
-			this.printHeight();
+			return LivingThing.prototype.print.apply(this) + this.printHeight();
 		};
 
 		// Plant.prototype.getPrintableProperties = function(){
@@ -146,22 +146,22 @@
 
 		//Extends LivingThing.print
 		Animal.prototype.print = function(){
-			LivingThing.prototype.print.apply(this); //Extends LivingThing.print
-			console.log("It lives in the "+this.habitat+", moves by "+this.movement+"ing and makes a " +this.sound+ " sound.");
+			//LivingThing.prototype.print.apply(this); //Extends LivingThing.print
+			return LivingThing.prototype.print.apply(this) + "\nIt lives in the "+this.habitat+", moves by "+this.movement+"ing and makes a " +this.sound+ " sound.";
 		};
 
 		//Overrides LivingThing.kick
 		Animal.prototype.kick =function(){
-			console.log("You kicked the " + this.name + ".  It bites you!!");
+			return "You kicked the " + this.name + ".  It bites you!!";
 		};
 
 		Animal.prototype.move = function(){
 			this.energy-= 2;
-			console.log("The " + this.name + " is " + this.movement + " around!");
+			return "The " + this.name + " is " + this.movement + " around!";
 		};
 
 		Animal.prototype.makeSound = function(){
-			console.log("You hear a mysterious \'" + this.sound + "\' coming from the " + this.habitat +".");
+			return "You hear a mysterious \'" + this.sound + "\' coming from the " + this.habitat +".";
 		};
 
 		// Animal.prototype.getPrintableProperties = function(){
@@ -179,32 +179,31 @@
 
 		//Extends Animal.print or Plant.print
 		Pet.prototype.print = function(){
-			console.log("This is " + this.humanName + ".");
-
-			Object.getPrototypeOf(this).print.apply(this);
-			console.log(this.humanName + this.isHappy());
+			return "This is " + this.humanName + ".\n" +
+			Object.getPrototypeOf(this).print.apply(this) +
+			"\n" + this.humanName + this.isHappy());
 		};
 
 		//functions for Animal Prototype base
 
 		//Extends prototype.print
 		Pet.prototype.eat = function(){
-			Object.getPrototypeOf(this).eat.apply(this);
 			this.happy = true;
+			Object.getPrototypeOf(this).eat.apply(this);
 		};
 
 		//functions for Plant Prototype Base
 
 		Pet.prototype.grow = function(){
-			Object.getPrototypeOf(this).grow.apply(this);
 			this.happy = true;
+			Object.getPrototypeOf(this).grow.apply(this);
 		};
 
 		//functions for any Thing Prototype Base
 
 		Pet.prototype.kick = function(){
-			Object.getPrototypeOf(this).kick.apply(this);
 			this.happy = false;
+			Object.getPrototypeOf(this).kick.apply(this);
 		};
 
 		// Pet.prototype.getPrintableProperties = function(){
@@ -219,7 +218,7 @@
 
 		Pet.prototype.pet = function(){
 			this.happy = true;
-			console.log("You are petting " + this.humanName + ". It is happy!");
+			return "You are petting " + this.humanName + ". It is happy!";
 		};
 
 		Pet.prototype.isHappy = function(){

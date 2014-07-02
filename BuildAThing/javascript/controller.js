@@ -166,9 +166,9 @@ ThingView.prototype.addGridSquare = function(Thing){
 };
 
 //parentNode is optional
-ThingView.prototype.printThing = function (thing, parentNode){
+ThingView.prototype.printThing = function (thing){
 		var $h2, h2contents,  $ul;
-		var $parentNode = $parentNode || $("div#status");
+		var $parentNode = $("#status");
 		var $listItems = [];
 
 		$parentNode.empty();
@@ -180,40 +180,29 @@ ThingView.prototype.printThing = function (thing, parentNode){
 		$parentNode.append($h2);
 
 		//create ul
-		$ul = $("<ul></ul>");
+		$ul = $('<ul id="thingStats"></ul>');
+		$ul.attr("data", thing.name); //adds thing name as data to ul, so action buttons can access it
 
 		//adds ul to parentNode
 		$parentNode.append($ul);
 
-		// //pull printable properties from Thing Objects
-		// //convert them into html elements and append them to the statList(ul)
-		// $listItems = thing.getPrintableProperties();
-
-		// forEach($listItems, function(element){
-		// 	$ul.append($("<li>" + element + "</li>")); 
-		// });
-
 		for (property in thing){
-			console.log(property);
+			//if property is not a method
 			if (typeof thing[property] != "function"){
 				$ul.append($("<li>" + thing[property] + "</li>")); 
 			}
 		}
 
 		for (property in thing){
-			console.log(property);
 			//if property is a function, not the constructor method, and not a private method (indicated by n underscore)
 			if (typeof thing[property] === "function" && property != "constructor" && property.indexOf("_") < 0){
-				$ul.append($("<button>" + property + "</button>"));
+				var $button = $("<button>" + property + "</button>");
+				$button.on("click", thingActionHandler);
+				$ul.append($button);
 			}
-
 		}
 
-		//pull methods from Thing object
-
-		//print a button for each method
-
-		//add event listeners elsewhere that will execute the proper method when the button is clicked.
+		$parentNode.append('<p id="actionWindow"></p>');
 
 };
 
@@ -317,6 +306,7 @@ ThingView.prototype.generateForm = function(){
 };
 
 
+
 //********* CONTROLLER **********/
 
 // function ThingController(){}
@@ -402,6 +392,13 @@ ThingView.prototype.generateForm = function(){
 		//print's new thing's Status
 		thingView.printThing(newThing);
 
+	}
+
+
+	function thingActionHandler(){
+		var thingObject = thingModel.allThings[$("ul#thingStats").attr("data")];
+		var methodName = $(this).text();
+		$("p#actionWindow").text(thingObject[methodName]());
 	}
 
 // }
