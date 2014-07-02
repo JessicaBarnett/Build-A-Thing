@@ -189,7 +189,7 @@ ThingView.prototype.printThing = function (thing){
 		for (property in thing){
 			//if property is not a method
 			if (typeof thing[property] != "function"){
-				$ul.append($("<li>" + thing[property] + "</li>")); 
+				$ul.append($("<li>" + property + ": " + thing[property] + "</li>")); 
 			}
 		}
 
