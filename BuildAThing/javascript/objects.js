@@ -86,7 +86,7 @@
 		};
 
 		LivingThing.prototype.printEnergy = function(){
-			return "The " + this.name + " has " + this.energy + " energy");
+			return "The " + this.name + " has " + this.energy + " energy";
 			//return this.energy;
 		};
 
@@ -181,7 +181,7 @@
 		Pet.prototype.print = function(){
 			return "This is " + this.humanName + ".\n" +
 			Object.getPrototypeOf(this).print.apply(this) +
-			"\n" + this.humanName + this.isHappy());
+			"\n" + this.humanName + this.isHappy();
 		};
 
 		//functions for Animal Prototype base
