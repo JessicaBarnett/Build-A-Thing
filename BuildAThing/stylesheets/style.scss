@@ -69,8 +69,9 @@ ul#thingActions{
 	margin: 1rem;
 
 	button{
-		width: 5rem;
+		width: 5.5rem;
 		height: 1.5rem;
+		font-size: .8rem;
 		background-color: dodgerblue;
 		border: none;
 		margin: .3rem;
@@ -84,6 +85,10 @@ label, input, select{
 	display: block;
 	margin: .5rem .2rem .2rem .5rem;
 }
+strong{
+	font-weight: bold;
+}
+
 
 select{
 	width: 6rem;

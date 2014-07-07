@@ -189,7 +189,7 @@ ThingView.prototype.printThing = function (thing){
 		for (property in thing){
 			//if property is not a method
 			if (typeof thing[property] != "function"){
-				$ul.append($("<li>" + property + ": " + thing[property] + "</li>")); 
+				$ul.append($("<li><strong>" + property + ":</strong> " + thing[property] + "</li>")); 
 			}
 		}
 
@@ -406,6 +406,7 @@ ThingView.prototype.generateForm = function(){
 		var thingObject = thingModel.allThings[$("ul#thingStats").attr("data")];
 		var methodName = $(this).text();
 		$("p#actionWindow").text(thingObject[methodName]());
+		thingView.printThing(thingModel.allThings[$("ul#thingStats").attr("data")]);
 	}
 
 // }
