@@ -20,7 +20,7 @@
 	//modelTest();
 	
 
-	makeGridTest(thingModel);
+	//makeGridTest(thingModel);
 
 
 

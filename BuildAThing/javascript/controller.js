@@ -19,14 +19,23 @@ ThingModel.prototype.makeStarterThings = function(){
 	// Pet: humanName, isHappy? 
 	
 	//NOTE:  Name and thing's "name" property must match EXACTLY!  This is a bug for the moment...
-	this.addThing("Quartz", this.makeAnyThing("Mineral", false, "Quartz", "Octoganal"));
-	this.addThing("Paramecium", this.makeAnyThing("LivingThing", false, "Paramecium", "you don't want to know"));
-	this.addThing("Venus Fly Trap", this.makeAnyThing("Plant", false, "Venus Fly Trap", "hamburgers", "300"));
-	this.addThing("Squirrel", this.makeAnyThing("Animal", false, "Squirrel", "my tomatoes", "climbing", "the backyard", "Eeek!!"));
-	this.addThing("Copper", this.makeAnyThing("Mineral", false, "Copper", "like abe lincoln's head"));
-	this.addThing("Juniper Tree", this.makeAnyThing("Plant", false, "Juniper Tree", "severed heads", "180"));
-	this.addThing("Toe Fungus", this.makeAnyThing("LivingThing", false, "Toe Fungus", "Soles"));
-	this.addThing("Seagull", this.makeAnyThing("Animal", false, "Seagull", "funnelcake and fish", "flying", "the seaside", "kee!  kee!"));
+	this.addThing("Quartz", this.makeAnyThing("Mineral", null, "Quartz", "Octoganal"));
+	this.addThing("Paramecium", this.makeAnyThing("LivingThing", null, "Paramecium", "you don't want to know"));
+	this.addThing("Venus Fly Trap", this.makeAnyThing("Plant", null, "Venus Fly Trap", "hamburgers", "300"));
+	this.addThing("Squirrel", this.makeAnyThing("Animal", null, "Squirrel", "my tomatoes", "climbing", "the backyard", "Eeek!!"));
+	this.addThing("Copper", this.makeAnyThing("Mineral", null, "Copper", "like abe lincoln's head"));
+	this.addThing("Juniper Tree", this.makeAnyThing("Plant", null, "Juniper Tree", "severed heads", "180"));
+	this.addThing("Toe Fungus", this.makeAnyThing("LivingThing", null, "Toe Fungus", "Soles"));
+	this.addThing("Seagull", this.makeAnyThing("Animal", null, "Seagull", "funnelcake and fish", "flying", "the seaside", "kee!  kee!"));
+
+	this.addThing("Happy the Cactus", this.makeAnyThing("Plant", "Happy", "Cactus", "sunlight and nutrients in the soil", "8"));
+
+	//var happy = new Plant("Cactus", "sunlight and nutrients in the soil", "8");
+	// var PetMixin = new Pet("Happy", true);
+	// mixIntoPet(happy, PetMixin);
+
+	// this.addThing("Happy", happy);
+
 	// this.addThing("Rose", this.makeAnyThing("Plant", false, "Rose", "sunlight and nutrients in the soil", "20"));
 	// this.addThing("Tiger", this.makeAnyThing("Animal", false, "Tiger", "little children", "Leap", "jungle", "Rawr"));	
 	// this.addThing("Bacteria", this.makeAnyThing("Living Thing", false, "Bacteria", "microscopic yumminess"));
@@ -41,7 +50,10 @@ ThingModel.prototype.makeStarterThings = function(){
 //old thing will be overwritten
 ThingModel.prototype.addThing = function(name, Thing){
 	this.numThings++;
-	return this.allThings[name] = Thing;
+	if (Thing.isPet)
+		return this.allThings[Thing.humanName + " the " + Thing.name];
+	else
+		return this.allThings[Thing.name] = Thing;
 };
 
 ThingModel.prototype.removeThing = function(name){
@@ -80,7 +92,7 @@ ThingModel.prototype.stringToThing = function (thingName){
 };
 
 //can accept arguments as an array, or as a split list
-ThingModel.prototype.makeAnyThing = function (type, isPet /*args*/){
+ThingModel.prototype.makeAnyThing = function (type, petName /*args*/){
 
 	var args = Array.prototype.slice.call(arguments, 2); 
 	//why this Array.prototype nonsense?  because arguments is only "array-like" 
@@ -117,7 +129,10 @@ ThingModel.prototype.makeAnyThing = function (type, isPet /*args*/){
 
 	else throw new Error("passed an incompatible type: " + type);
 	
-//	if (isPet){}
+	if (petName){
+		var petMixin = new Pet(petName, true);
+		mixIntoPet(newThing, petMixin); //mixIntoPet is in utils
+	}
 
 	return newThing;
 
@@ -316,14 +331,11 @@ ThingView.prototype.generateForm = function(){
 
 //********* CONTROLLER **********/
 
-// function ThingController(){}
-
-// ThingController.prototype.init = function(){
-
 	var thingModel = new ThingModel();
 	var thingView = new ThingView();
 
 	thingModel.makeStarterThings();
+	thingView.makeGrid(thingModel);
 
 	//**********  	event handlers   ************//
 
@@ -398,7 +410,6 @@ ThingView.prototype.generateForm = function(){
 
 		//print's new thing's Status
 		thingView.printThing(newThing);
-
 	}
 
 
@@ -410,9 +421,4 @@ ThingView.prototype.generateForm = function(){
 		$("p#actionWindow").text(actionText);//prints message AFTER stats have been changed, so it doesn't get erased by printThing
 	}
 
-// }
-
-
-// var controller = new ThingController();
-// controller.init();
 

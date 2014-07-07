@@ -174,6 +174,7 @@
 		function Pet(humanName, happy){
 			this.happy = happy;
 			this.humanName = humanName;
+			this.isPet = true;
 			//this.type = "Pet " + this.type; //coming up as undefined??
 		}
 
@@ -223,10 +224,6 @@
 
 		Pet.prototype.isHappy = function(){
 			return this.happy ? this.humanName+" is very happy!" : this.humanName+" is not happy : (";
-		};
-
-		Pet.prototype.isPet = function(){
-			return true;
 		};
 
 		//returns true if propertyname passed is a property specific to the Pet "class"
