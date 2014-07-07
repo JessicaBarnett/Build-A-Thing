@@ -179,11 +179,11 @@ ThingView.prototype.printThing = function (thing){
 		$h2 = $("<h2>" + h2contents + "</h2>");
 		$parentNode.append($h2);
 
-		//create ul
+		//create thingStats ul
 		$ul = $('<ul id="thingStats"></ul>');
 		$ul.attr("data", thing.name); //adds thing name as data to ul, so action buttons can access it
 
-		//adds ul to parentNode
+		//adds thingStats ul to parentNode
 		$parentNode.append($ul);
 
 		for (property in thing){
@@ -193,8 +193,15 @@ ThingView.prototype.printThing = function (thing){
 			}
 		}
 
+		//create thingActions ul
+		$ul = $('<ul id="thingActions"></ul>');
+		$ul.attr("data", thing.name); //adds thing name as data to ul, so action buttons can access it
+
+		//adds thingActions ul to parentNode after thingStats ul
+		$parentNode.append($ul);
+
 		for (property in thing){
-			//if property is a function, not the constructor method, and not a private method (indicated by n underscore)
+			//if property is a function, not the constructor method, and not a private method (indicated by an underscore)
 			if (typeof thing[property] === "function" && property != "constructor" && property.indexOf("_") < 0){
 				var $button = $("<button>" + property + "</button>");
 				$button.on("click", thingActionHandler);

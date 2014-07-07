@@ -1,10 +1,16 @@
-h1 {
+h1, h2 {
   font-size: 3rem;
   font-weight: bold;
-  font-family: sans-serif;
+  font-family: Galindo, "Franklin Gothic", "ITC Franklin Gothic", "Arial Bold", Arial, sans-serif;
   padding: .5rem;
   padding-bottom: 1rem;
   text-align: center; }
+
+h2 {
+  font-size: 2rem; }
+
+body {
+  font-family: "Open sans", Futura, "Trebuchet MS", Arial, sans-serif; }
 
 div#select {
   background-color: lightGreen; }
@@ -34,6 +40,22 @@ div#status, div#select {
   box-shadow: 5px 5px gray;
   height: 85vh;
   padding: 2%; }
+
+ul#thingStats {
+  padding: .5rem 1rem; }
+  ul#thingStats li {
+    margin: .5rem 0; }
+
+ul#thingActions {
+  margin: 1rem; }
+  ul#thingActions button {
+    width: 5rem;
+    height: 1.5rem;
+    background-color: dodgerblue;
+    border: none;
+    margin: .3rem; }
+    ul#thingActions button:hover {
+      background-color: Aliceblue; }
 
 label, input, select {
   display: block;
