@@ -405,8 +405,9 @@ ThingView.prototype.generateForm = function(){
 	function thingActionHandler(){
 		var thingObject = thingModel.allThings[$("ul#thingStats").attr("data")];
 		var methodName = $(this).text();
-		$("p#actionWindow").text(thingObject[methodName]());
-		thingView.printThing(thingModel.allThings[$("ul#thingStats").attr("data")]);
+		var actionText = thingObject[methodName](); //updates any status stuff that will be changed in the action
+		thingView.printThing(thingModel.allThings[$("ul#thingStats").attr("data")]); //prints updated/changed status
+		$("p#actionWindow").text(actionText);//prints message AFTER stats have been changed, so it doesn't get erased by printThing
 	}
 
 // }

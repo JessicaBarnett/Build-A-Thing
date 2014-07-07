@@ -85,7 +85,7 @@
 			return "The " + this.name + " is eating " + this.food + "!";
 		};
 
-		LivingThing.prototype.printEnergy = function(){
+		LivingThing.prototype._printEnergy = function(){
 			return "The " + this.name + " has " + this.energy + " energy";
 			//return this.energy;
 		};
