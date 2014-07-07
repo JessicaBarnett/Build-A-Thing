@@ -19,16 +19,16 @@ ThingModel.prototype.makeStarterThings = function(){
 	// Pet: humanName, isHappy? 
 	
 	//NOTE:  Name and thing's "name" property must match EXACTLY!  This is a bug for the moment...
-	this.addThing("Quartz", this.makeAnyThing("Mineral", null, "Quartz", "Octoganal"));
-	this.addThing("Paramecium", this.makeAnyThing("LivingThing", null, "Paramecium", "you don't want to know"));
-	this.addThing("Venus Fly Trap", this.makeAnyThing("Plant", null, "Venus Fly Trap", "hamburgers", "300"));
-	this.addThing("Squirrel", this.makeAnyThing("Animal", null, "Squirrel", "my tomatoes", "climbing", "the backyard", "Eeek!!"));
-	this.addThing("Copper", this.makeAnyThing("Mineral", null, "Copper", "like abe lincoln's head"));
-	this.addThing("Juniper Tree", this.makeAnyThing("Plant", null, "Juniper Tree", "severed heads", "180"));
-	this.addThing("Toe Fungus", this.makeAnyThing("LivingThing", null, "Toe Fungus", "Soles"));
-	this.addThing("Seagull", this.makeAnyThing("Animal", null, "Seagull", "funnelcake and fish", "flying", "the seaside", "kee!  kee!"));
+	this.addThing(this.makeAnyThing("Mineral", null, "Quartz", "Octoganal"));
+	this.addThing(this.makeAnyThing("LivingThing", null, "Paramecium", "you don't want to know"));
+	this.addThing(this.makeAnyThing("Plant", null, "Venus Fly Trap", "hamburgers", "300"));
+	this.addThing(this.makeAnyThing("Animal", null, "Squirrel", "my tomatoes", "climbing", "the backyard", "Eeek!!"));
+	this.addThing(this.makeAnyThing("Mineral", null, "Copper", "like abe lincoln's head"));
+	this.addThing(this.makeAnyThing("Plant", null, "Juniper Tree", "severed heads", "180"));
+	this.addThing(this.makeAnyThing("LivingThing", null, "Toe Fungus", "Soles"));
+	this.addThing(this.makeAnyThing("Animal", null, "Seagull", "funnelcake and fish", "flying", "the seaside", "kee!  kee!"));
 
-	this.addThing("Happy the Cactus", this.makeAnyThing("Plant", "Happy", "Cactus", "sunlight and nutrients in the soil", "8"));
+	this.addThing(this.makeAnyThing("Plant", "Happy", "Cactus", "sunlight and nutrients in the soil", "8"));
 
 	//var happy = new Plant("Cactus", "sunlight and nutrients in the soil", "8");
 	// var PetMixin = new Pet("Happy", true);
@@ -48,7 +48,7 @@ ThingModel.prototype.makeStarterThings = function(){
 
 //note: if you give a new thing the same name as an old thing, 
 //old thing will be overwritten
-ThingModel.prototype.addThing = function(name, Thing){
+ThingModel.prototype.addThing = function(Thing){
 	this.numThings++;
 	if (Thing.isPet)
 		return this.allThings[Thing.humanName + " the " + Thing.name];
