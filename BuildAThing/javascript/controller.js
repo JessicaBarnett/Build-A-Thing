@@ -18,7 +18,6 @@ ThingModel.prototype.makeStarterThings = function(){
 	// Animal: name, food, movement, habitat, sound 
 	// Pet: humanName, isHappy? 
 	
-	//NOTE:  Name and thing's "name" property must match EXACTLY!  This is a bug for the moment...
 	this.addThing(this.makeAnyThing("Mineral", null, "Quartz", "Octoganal"));
 	this.addThing(this.makeAnyThing("LivingThing", null, "Paramecium", "you don't want to know"));
 	this.addThing(this.makeAnyThing("Plant", null, "Venus Fly Trap", "hamburgers", "300"));
@@ -29,12 +28,7 @@ ThingModel.prototype.makeStarterThings = function(){
 	this.addThing(this.makeAnyThing("Animal", null, "Seagull", "funnelcake and fish", "flying", "the seaside", "kee!  kee!"));
 
 	this.addThing(this.makeAnyThing("Plant", "Happy", "Cactus", "sunlight and nutrients in the soil", "8"));
-
-	//var happy = new Plant("Cactus", "sunlight and nutrients in the soil", "8");
-	// var PetMixin = new Pet("Happy", true);
-	// mixIntoPet(happy, PetMixin);
-
-	// this.addThing("Happy", happy);
+	this.addThing(this.makeAnyThing("Animal", "Cody", "Cat", "Cat food", "walking", "house", "mreow"));
 
 	// this.addThing("Rose", this.makeAnyThing("Plant", false, "Rose", "sunlight and nutrients in the soil", "20"));
 	// this.addThing("Tiger", this.makeAnyThing("Animal", false, "Tiger", "little children", "Leap", "jungle", "Rawr"));	
@@ -50,10 +44,7 @@ ThingModel.prototype.makeStarterThings = function(){
 //old thing will be overwritten
 ThingModel.prototype.addThing = function(Thing){
 	this.numThings++;
-	if (Thing.isPet)
-		return this.allThings[Thing.humanName + " the " + Thing.name];
-	else
-		return this.allThings[Thing.name] = Thing;
+	return this.allThings[Thing.name] = Thing;
 };
 
 ThingModel.prototype.removeThing = function(name){
@@ -144,7 +135,7 @@ ThingModel.prototype.makeAnyThing = function (type, petName /*args*/){
 // this means I need something to pass as "this."  
 // if I create makeAnyThing as a method of ThingModel, "this" refers to ThingModel
 // if I create makeAnyThing as a regular function, "this" refers to window.
-// tried various things this["Thing"], window["Thing"], Thing, Thing.prototype, 
+// tried various things: this["Thing"], window["Thing"], Thing, Thing.prototype, 
 // Thing.prototype.constructor. "this" always refers to undefined
 // I think the thing passed as "this" has to be an actual object, 
 // not a pointer to a constructor function.  That would make sense.  
@@ -168,11 +159,14 @@ ThingView.prototype.makeGrid = function(thingModel){
 	}
 };
 
-ThingView.prototype.addGridSquare = function(Thing){
+ThingView.prototype.addGridSquare = function(thing){
 	$parentNode = $("div#select ul");
 	$newNode = $('<li class="thing one columns"></li>'); //add a new li for each Thing in model
-	$newNode.attr("data", Thing.name); //add the object's name to the li's data attribute, 
-	$newNode.text(Thing.name); //put object's "name" property in the li as text
+	$newNode.attr("data", thing.name); //add the object's name to the li's data attribute, 
+	if (thing._isPet)
+		$newNode.text(thing.humanName + " the " + thing.name);
+	else
+		$newNode.text(thing.name); //put object's "name" property in the li as text
 	$parentNode.append($newNode);
 
 	//re-sets event handler so it will apply to newly-generated elements
@@ -180,7 +174,6 @@ ThingView.prototype.addGridSquare = function(Thing){
 	$("div#select ul li").on("click", selectButtonHandler);
 };
 
-//parentNode is optional
 ThingView.prototype.printThing = function (thing){
 		var $h2, h2contents,  $ul;
 		var $parentNode = $("#status");
@@ -203,7 +196,7 @@ ThingView.prototype.printThing = function (thing){
 
 		for (property in thing){
 			//if property is not a method
-			if (typeof thing[property] != "function"){
+			if (typeof thing[property] != "function" && property.indexOf("_") < 0){
 				$ul.append($("<li><strong>" + property + ":</strong> " + thing[property] + "</li>")); 
 			}
 		}
@@ -249,7 +242,11 @@ ThingView.prototype.refreshForm = function(){
 			$(".animal").show();
 	}
 
-	//console.log("form refreshed!!");
+	if ($('#petRadio input:checked').val() && $('#petRadio input:checked').val().indexOf("true") >= 0) {
+		//long conditional and indexOf necessary because .val() returns a string, not a boolean
+		$("#petFields").show();
+	}
+
 };
 
 ThingView.prototype.clearStatus = function(){
@@ -280,11 +277,12 @@ ThingView.prototype.generateForm = function(){
 	//adds "is this a pet?" radio buttons
 	$petSelectorDiv = $("<div>").attr("id", "petRadio");
 	$petSelectorDiv.append( $('<label for="isPet">Is this thing a pet?</label>'),
-						    $('<input type="radio" name="isPet" value="pet">'),
+						    $('<input type="radio" name="isPet" value="true">'),
 							$('<label for="isPet">Yes!</label>'),
-							$('<input type="radio" name="isPet" value="notPet">'),
+							$('<input type="radio" name="isPet" value="false">'),
 							$('<label for="isPet">No</label>')
 						  );
+
 	$makeThingWrapper.append($petSelectorDiv);
 
 	//adds all possible fields
@@ -308,15 +306,6 @@ ThingView.prototype.generateForm = function(){
 		$petFieldset = $("<fieldset>").attr("id", "petFields");
 		$petFieldset.append($("<label for='humanName'>What is this Pet's human name?</label>"),
 							$('<input id="humanName" type="text">'));
-
-		$happyRadioDiv = $('<div class="pet" id="happyRadio">')
-		$happyRadioDiv.append(	$('<label for="isHappy" class="pet">Is this a happy Pet?</label>'),
-								$('<input type="radio" name="isHappy" value="happy">'),
-								$('<label for="isHappy">Yes!</label>'),
-								$('<input type="radio" name="isHappy" value="notHappy">'),
-								$('<label for="isHappy">No... :(</label>)')
-							);
-		$petFieldset.append($happyRadioDiv);
 		$variableFieldset.append($petFieldset);
 		$variableFieldset.append($('<button type="submit">Make This Thing!</button>'));
 
@@ -324,7 +313,7 @@ ThingView.prototype.generateForm = function(){
 
 		$parentNode.append($makeThingWrapper);
 		$variableFieldset.children().hide();
-		this.refreshForm();
+		this.refreshForm(); //to hide all non-applicable fields
 };
 
 
@@ -345,25 +334,24 @@ ThingView.prototype.generateForm = function(){
 	//handles when user clicks on a button in the select-a-thing grid
 	function selectButtonHandler(){
 		var self = this;
-		//console.log("in selectButtonHandler.  this: " + this);
 
 		makeButtonActive(self);
 
 		thingView.clearStatus();//clears whatever's in the status window 
 
-		//if this is the newThing button, show the makeThing form
-		if ($(this).hasClass("newThing"))
+		//if this is the makeNewThing button, show the makeThing form
+		if ($(this).hasClass("makeNewThing"))
 		{	//generates a new form
 			thingView.generateForm();
 
 			//adds Form Event Listeners 
-			//adds listener to refresh form when user chooses a new Thing Type
 			$("#typeSelector").change(thingView.refreshForm);//adds listener to refresh form when user chooses a new Thing Type
+			$("#petRadio input").change(thingView.refreshForm);//adds listener to refresh form when is/isn't pet changes
 			$("#makeThingForm button").on("click", makeThingButtonHandler);
 		}
 		else //get object current li relates to, print status of that object
-		{	thingView.printThing(thingModel.allThings[$(this).attr("data")]);
-			//console.log(thingModel.allThings[$(this).attr("data")]);
+		{	//console.log("selectButtonHandler: " + thingModel.allThings[$(this).attr("data")].name);
+			thingView.printThing(thingModel.allThings[$(this).attr("data")]);
 		}
 	}
 
@@ -381,10 +369,11 @@ ThingView.prototype.generateForm = function(){
 	}
 
 	//handles when a user clicks on the "Make This Thing!" button
-	function makeThingButtonHandler(self){
+	function makeThingButtonHandler(){
 		//console.log("button clicked");
 		var thingType = $("#typeSelector").val(), thingName = $("#makeThingForm input#name").val();
-		var thingIsPet = false;
+		var petName = $('input#humanName').val() || null;
+		
 		var thingArgs = []; //collects arguments from the text fields to use to make a new thing
 
 		$("#variableFields").children("input:visible").each(function(){ //adds value of text field only if field is visible
@@ -392,15 +381,16 @@ ThingView.prototype.generateForm = function(){
 		});
 
 		//makes new Thing with thingArgs array
-		var newThing = thingModel.makeAnyThing(thingType, thingIsPet, thingArgs);
+		console.log(thingType, petName, thingArgs);
+		var newThing = thingModel.makeAnyThing(thingType, petName, thingArgs);
 		//adds it to the model
-		thingModel.addThing(thingName, newThing);
+		thingModel.addThing(newThing);
 		
 		//hides form
 		$("#makeThingForm").hide();
 
-		//removes "active" class from newThing Button
-		$("ul li.newThing").removeClass("active");
+		//removes "active" class from makeNewThing Button
+		$("ul li.makeNewThing").removeClass("active");
 
 		//create new select button for the new Thing
 		thingView.addGridSquare(newThing);

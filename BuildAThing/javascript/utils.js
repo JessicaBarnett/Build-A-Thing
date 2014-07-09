@@ -42,8 +42,10 @@
 	//allows All kinds of things to be mixed into Pet 
 	function mixIntoPet(object, mixIn){
 		forEachIn(mixIn, function(propertyName, value){
-			if(object[propertyName] || mixIn.isPetProperty(propertyName))
+			if(object[propertyName] || mixIn._isPetProperty(propertyName)){
 	    		object[propertyName] = value;
+	    		//console.log("adding " + propertyName + " to " + object.name);
+	    	}
 	 	});
 	}
 

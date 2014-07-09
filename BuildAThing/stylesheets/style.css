@@ -12,6 +12,14 @@ h2 {
 body {
   font-family: "Open sans", Futura, "Trebuchet MS", Arial, sans-serif; }
 
+button {
+  font-size: .8rem;
+  background-color: dodgerblue;
+  border: none;
+  margin: .3rem; }
+  button:hover {
+    background-color: Aliceblue; }
+
 div#select {
   background-color: lightGreen; }
   div#select ul {
@@ -35,6 +43,9 @@ div#select {
 
 div#status {
   background-color: lightblue; }
+  div#status button {
+    width: 8rem;
+    height: 2.5rem; }
 
 div#status, div#select {
   box-shadow: 5px 5px gray;
@@ -50,13 +61,7 @@ ul#thingActions {
   margin: 1rem; }
   ul#thingActions button {
     width: 5.5rem;
-    height: 1.5rem;
-    font-size: .8rem;
-    background-color: dodgerblue;
-    border: none;
-    margin: .3rem; }
-    ul#thingActions button:hover {
-      background-color: Aliceblue; }
+    height: 1.5rem; }
 
 label, input, select {
   display: block;

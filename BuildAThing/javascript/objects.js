@@ -174,7 +174,7 @@
 		function Pet(humanName, happy){
 			this.happy = happy;
 			this.humanName = humanName;
-			this.isPet = true;
+			this._isPet = true;
 			//this.type = "Pet " + this.type; //coming up as undefined??
 		}
 
@@ -190,21 +190,21 @@
 		//Extends prototype.print
 		Pet.prototype.eat = function(){
 			this.happy = true;
-			Object.getPrototypeOf(this).eat.apply(this);
+			return Object.getPrototypeOf(this).eat.apply(this);
 		};
 
 		//functions for Plant Prototype Base
 
 		Pet.prototype.grow = function(){
 			this.happy = true;
-			Object.getPrototypeOf(this).grow.apply(this);
+			return Object.getPrototypeOf(this).grow.apply(this);
 		};
 
 		//functions for any Thing Prototype Base
 
 		Pet.prototype.kick = function(){
 			this.happy = false;
-			Object.getPrototypeOf(this).kick.apply(this);
+			return Object.getPrototypeOf(this).kick.apply(this);
 		};
 
 		// Pet.prototype.getPrintableProperties = function(){
@@ -228,8 +228,8 @@
 
 		//returns true if propertyname passed is a property specific to the Pet "class"
 		//only needed in the mixing process, not elsewhere
-		Pet.prototype.isPetProperty = function(propertyName){
-			return (propertyName == "happy" || propertyName == "humanName" || propertyName == "pet" || propertyName == "isHappy");
+		Pet.prototype._isPetProperty = function(propertyName){
+			return (propertyName == "happy" || propertyName == "humanName" || propertyName == "pet" || propertyName == "isHappy" || propertyName == "_isPet");
 		};
 
 //})();
