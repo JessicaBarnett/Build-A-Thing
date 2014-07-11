@@ -1,4 +1,6 @@
 h1, h2 {
+  font-weight: bold;
+  font-family: Galindo, "Franklin Gothic", "ITC Franklin Gothic", "Arial Bold", Arial, sans-serif;
   font-size: 3rem;
   font-weight: bold;
   font-family: Galindo, "Franklin Gothic", "ITC Franklin Gothic", "Arial Bold", Arial, sans-serif;
@@ -68,7 +70,8 @@ label, input, select {
   margin: .5rem .2rem .2rem .5rem; }
 
 strong {
-  font-weight: bold; }
+  font-weight: bold;
+  font-family: Galindo, "Franklin Gothic", "ITC Franklin Gothic", "Arial Bold", Arial, sans-serif; }
 
 select {
   width: 6rem; }

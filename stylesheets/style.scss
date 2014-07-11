@@ -1,4 +1,10 @@
+@mixin strongify{
+	font-weight: bold;
+	font-family: Galindo, "Franklin Gothic", "ITC Franklin Gothic", "Arial Bold", Arial, sans-serif;
+}
+
 h1, h2{
+	@include strongify;
 	font-size: 3rem;
 	font-weight: bold;
 	font-family: Galindo, "Franklin Gothic", "ITC Franklin Gothic", "Arial Bold", Arial, sans-serif;
@@ -92,8 +98,9 @@ label, input, select{
 	display: block;
 	margin: .5rem .2rem .2rem .5rem;
 }
+
 strong{
-	font-weight: bold;
+	@include strongify;
 }
 
 
