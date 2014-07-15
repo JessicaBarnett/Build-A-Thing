@@ -39,11 +39,6 @@ Thing.prototype.profile = function() {
     //this Method's button and generate/print a listing of non-essential thing stats
 };
 
-//for near future: 
-//add a button property to map each "thing" to the li elements on the page
-//add an id property?
-
-
 
 
 //Mineral inherits Thing

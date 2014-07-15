@@ -155,7 +155,13 @@ ThingView.prototype.generateForm = function() {
     $makeThingWrapper.append($petSelectorDiv);
 
     //adds all possible fields
-    var $variableFieldset = $('<fieldset>').attr("id", "variableFields");
+    var $variableFieldset = $('<fieldset>').attr("id", "variableFields"),
+        $petFieldset = $("<fieldset>").attr("id", "petFields");
+
+    $petFieldset.append($("<label for='humanName'>What is this Pet's human name?</label>"),
+        $('<input id="humanName" type="text">'));
+    $variableFieldset.append($petFieldset);
+
     $variableFieldset.append(
         $('<label for="name">Name: </label>'),
         $('<input id="name" type="text">'),
@@ -172,10 +178,10 @@ ThingView.prototype.generateForm = function() {
         $('<label for="sound" class="animal">What sound does this thing make?</label>'),
         $('<input id="sound" class="animal" type="text">'));
 
-    $petFieldset = $("<fieldset>").attr("id", "petFields");
-    $petFieldset.append($("<label for='humanName'>What is this Pet's human name?</label>"),
-        $('<input id="humanName" type="text">'));
-    $variableFieldset.append($petFieldset);
+    // $petFieldset = $("<fieldset>").attr("id", "petFields");
+    // $petFieldset.append($("<label for='humanName'>What is this Pet's human name?</label>"),
+    //     $('<input id="humanName" type="text">'));
+    // $variableFieldset.append($petFieldset);
     $variableFieldset.append($('<button type="submit">Make This Thing!</button>'));
 
     $makeThingWrapper.append($variableFieldset);
