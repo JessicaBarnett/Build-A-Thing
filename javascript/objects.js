@@ -34,6 +34,11 @@ Thing.prototype._getHeader = function() {
     return "This is a " + this.name;
 };
 
+Thing.prototype.profile = function() {
+    //meant as a placeholder.  The View Object will latch onto 
+    //this Method's button and generate/print a listing of non-essential thing stats
+};
+
 //for near future: 
 //add a button property to map each "thing" to the li elements on the page
 //add an id property?
