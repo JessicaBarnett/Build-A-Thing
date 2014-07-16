@@ -13,7 +13,19 @@ margin will add to it*/
 .wideContainer .half-screen   	{ width: 50%;	
 								  float: left;	}
 
-/* grid with 6 columns
+/*Styles for a 3-column layout with blocks that will fill given space
+necessitates very specific margins because there will be no clearing in between*/
+.blockContainer						{ width: 94%;
+									  margin-left: 3%; 
+									  margin-right: 3%; }		
+
+.blockContainer .blockColumn		{ width: 30%;
+									  margin-left: 1.666666666666666%; 
+									  margin-right: 1.666666666666666%;
+									  margin-top: 1rem; 
+									  float: left;      } 
+
+/* more traditional grid with 6 columns
  columns are 13% width with 2% gutters on each side, 
  excepting first and last columns which have a 1% outer gutter.
  multi-column widths cover those widths plus contained gutters.*/
@@ -22,18 +34,18 @@ margin will add to it*/
 											  margin-left: 3%; 
 											  margin-right: 3%; }
 
-.container .columns							{ margin-left: 1.666666666666666%; 
-											  margin-right: 1.666666666666666%;
-											  margin-top: 1rem; 
+.container .columns							{ margin-left: 2%; 
+											  margin-right: 2%; 
 											  float: left;      } 
 
-/*.columns.alpha								{ margin-left: 1%;  } 
-.columns.omega								{ margin-right: 1%; }	*/
+.columns.alpha								{ margin-left: 1%;  } 
+.columns.omega								{ margin-right: 1%; }	
 
 /*ideally every floated element (with column class) will be nested
 in a container, and that container is self-clearing.  
 Anything that is floated/not in a container can use .group*/							
-.container:after, .wideContainer:after, .group 	{ content: ""; 
+.container:after, .wideContainer:after, .blockContainer:after, .group 	
+												{ content: ""; 
 												  display: table;
 												  clear: both;      } 
 

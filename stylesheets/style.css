@@ -75,6 +75,9 @@ label, input, select {
 select {
   width: 6rem; }
 
+img {
+  max-width: 100%; }
+
 button {
   height: 3rem; }
   button:hover {
