@@ -52,6 +52,7 @@ ThingModel.prototype.removeThing = function(name) {
     return temp; //returns deleted Thing
 };
 
+//returns string containing all Thing Names in allThings
 ThingModel.prototype.thingNames = function() {
     var names = [];
     for (property in this.allThings)
@@ -121,6 +122,9 @@ ThingModel.prototype.makeAnyThing = function(type, petName /*args*/ ) {
 
 };
 
-ThingModel.prototype.getEssentialStats = function(thingName) {
-
+//returns true if passed stat is essential, meaning it gets updated
+//and the user needs to see it easily
+ThingModel.prototype.isEssentialStat = function(stat) {
+    var essentialStats = ["energy", "happy", "height"];
+    return essentialStats.indexOf[stat] >= 0;
 };

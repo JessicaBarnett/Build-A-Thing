@@ -18,6 +18,7 @@
 
 function ThingView() {}
 
+//initializes the Grid using all objects currently in ThingModel.allThings
 ThingView.prototype.makeGrid = function(thingModel) {
     var $parentNode = $("div#select ul");
     var $newNode = $('<li class= "thing one columns"></li>');
@@ -28,6 +29,7 @@ ThingView.prototype.makeGrid = function(thingModel) {
     }
 };
 
+//adds a grid square to the SelectThing window.  It will refer to the Passed Thing.
 ThingView.prototype.addGridSquare = function(thing) {
     $parentNode = $("div#select ul");
     $newNode = $('<li class="thing one columns"></li>'); //add a new li for each Thing in model
@@ -43,6 +45,8 @@ ThingView.prototype.addGridSquare = function(thing) {
     $("div#select ul li").on("click", selectButtonHandler);
 };
 
+
+//Prints the Stats and Actions of passed thing in the "ThingStats" window
 ThingView.prototype.printThing = function(thing) {
     var $h2, h2contents, $ul;
     var $parentNode = $("#status");
@@ -63,8 +67,10 @@ ThingView.prototype.printThing = function(thing) {
     //adds thingStats ul to parentNode
     $parentNode.append($ul);
 
+    //Adds Stats
     for (property in thing) {
-        //if property is not a method
+        //if property is an "essential stat"
+        //And property is not a method, or marked as "private"
         if (typeof thing[property] != "function" && property.indexOf("_") < 0) {
             $ul.append($("<li><strong>" + property + ":</strong> " + thing[property] + "</li>"));
         }
@@ -90,6 +96,8 @@ ThingView.prototype.printThing = function(thing) {
 
 };
 
+//when form is open, hides/shows fields depending on which Thing Type
+//is selected, and whether it is a Pet
 ThingView.prototype.refreshForm = function() {
     var type = $("select#typeSelector").val();
     // get thingType from select box
@@ -118,6 +126,7 @@ ThingView.prototype.refreshForm = function() {
 
 };
 
+//erases everything in the thingStatus window
 ThingView.prototype.clearStatus = function() {
     $("div#status").children().remove();
 };
