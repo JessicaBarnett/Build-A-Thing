@@ -15,6 +15,7 @@ ThingModel.prototype.makeStarterThings = function() {
     // Plant: name, food, height (in inches)
     // Animal: name, food, movement, habitat, sound 
     // Pet: humanName, isHappy? 
+    //non-pets need to pass null as 2nd parameter.  pets will pass a pet name.
 
     this.addThing(this.makeAnyThing("Mineral", null, "Quartz", "Octoganal"));
     this.addThing(this.makeAnyThing("LivingThing", null, "Paramecium", "you don't want to know"));
@@ -28,14 +29,13 @@ ThingModel.prototype.makeStarterThings = function() {
     this.addThing(this.makeAnyThing("Plant", "Happy", "Cactus", "sunlight and nutrients in the soil", "8"));
     this.addThing(this.makeAnyThing("Animal", "Cody", "Cat", "Cat food", "walking", "house", "mreow"));
 
-    // this.addThing("Rose", this.makeAnyThing("Plant", false, "Rose", "sunlight and nutrients in the soil", "20"));
-    // this.addThing("Tiger", this.makeAnyThing("Animal", false, "Tiger", "little children", "Leap", "jungle", "Rawr"));	
-    // this.addThing("Bacteria", this.makeAnyThing("Living Thing", false, "Bacteria", "microscopic yumminess"));
-    // this.addThing("Best Thing Ever", this.makeAnyThing("Thing", false, "Best Thing Ever"));
-    // this.addThing("Cat", this.makeAnyThing("Animal", true, "Cat", "Cat food", "walk", "house", "mreow"));
-    // this.addThing("Rabbit", this.makeAnyThing("Animal", true, "Rabbit", "vegetables and hay", "hopp", "house", "thump"));
-    // this.addThing("Cactus", this.makeAnyThing("Plant", true, "Cactus", "sunlight and nutrients in the soil", "8"));
-    // this.addThing("Rock", this.makeAnyThing("Mineral", true, "Rock", "upside-down"));
+    this.addThing(this.makeAnyThing("Plant", null, "Rose", "sunlight and nutrients in the soil", "20"));
+    this.addThing(this.makeAnyThing("Animal", null, "Tiger", "little children", "Leap", "jungle", "Rawr"));
+    this.addThing(this.makeAnyThing("Living Thing", null, "Bacteria", "microscopic yumminess"));
+
+    this.addThing(this.makeAnyThing("Thing", "Thingy", "Best Thing Ever"));
+    this.addThing(this.makeAnyThing("Animal", "Honey", "Rabbit", "vegetables and hay", "hopp", "house", "thump"));
+    this.addThing(this.makeAnyThing("Mineral", "Rocky", "Rock", "upside-down"));
 };
 
 //note: if you give a new thing the same name as an old thing, 

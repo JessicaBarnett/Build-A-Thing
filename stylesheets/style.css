@@ -30,16 +30,19 @@ h1, h2 {
   font-weight: bold;
   font-family: Galindo, "Franklin Gothic", "ITC Franklin Gothic", "Arial Bold", Arial, sans-serif;
   font-size: 3rem;
-  font-weight: bold;
   font-family: Galindo, "Franklin Gothic", "ITC Franklin Gothic", "Arial Bold", Arial, sans-serif;
   padding: .5rem;
   padding-bottom: 1rem;
   text-align: center; }
 
+p {
+  font-size: 1.2rem;
+  font-weight: bold; }
+
 h2 {
   font-size: 2rem; }
 
-body {
+body, p {
   font-family: "Open sans", Futura, "Trebuchet MS", Arial, sans-serif; }
 
 button {
@@ -84,7 +87,8 @@ button {
     background-color: Aliceblue; }
 
 div#select ul li {
-  padding: 1rem;
+  padding: .5rem;
+  padding-top: .25rem;
   display: inline-block;
   height: 8rem;
   background-color: blue; }
@@ -97,7 +101,7 @@ div#select ul li {
   div#select ul li:hover {
     border: 5px solid white; }
 div#select .svgContainer {
-  width: 60%;
+  width: 55%;
   margin: 0 auto; }
 div#select p {
   text-align: center; }

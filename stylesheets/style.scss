@@ -43,18 +43,21 @@ strong{	@include strongify;	}
 h1, h2{
 	@include strongify;
 	font-size: 3rem;
-	font-weight: bold;
 	font-family: Galindo, "Franklin Gothic", "ITC Franklin Gothic", "Arial Bold", Arial, sans-serif;
 	padding: .5rem;
 	padding-bottom: 1rem;
 	text-align: center;
 }
 
+p{
+	font-size: 1.2rem;
+	font-weight: bold;
+}
 
 h2{	font-size: 2rem;  }
 
 
-body {	font-family: "Open sans", Futura, "Trebuchet MS", Arial, sans-serif;	}
+body, p {	font-family: "Open sans", Futura, "Trebuchet MS", Arial, sans-serif;	}
 
 button{
 	font-size: .8rem;
@@ -141,7 +144,8 @@ div#select{
 	ul{
 		li{
 			//margin-top: 1rem;
-			padding: 1rem;
+			padding: .5rem;
+			padding-top: .25rem;
 			display: inline-block;
 			height: 8rem; //20%;
 			background-color: blue;
@@ -162,7 +166,7 @@ div#select{
 	}
 
 	& .svgContainer{
-		width: 60%;
+		width: 55%;
 		margin: 0 auto;
 	}
 	& p{
