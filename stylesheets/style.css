@@ -1,3 +1,28 @@
+html, body {
+  min-height: 100vh; }
+
+div#status, div#select {
+  min-height: 90vh;
+  padding-top: 1rem; }
+
+h1 {
+  height: 10vh;
+  background-color: LightGoldenRodYellow; }
+
+.frame {
+  height: 90vh;
+  overflow: scroll; }
+
+.frame:nth-of-type(1) {
+  background-color: lightGreen; }
+
+.frame:nth-of-type(2) {
+  background-color: lightblue; }
+
+strong {
+  font-weight: bold;
+  font-family: Galindo, "Franklin Gothic", "ITC Franklin Gothic", "Arial Bold", Arial, sans-serif; }
+
 h1, h2 {
   font-weight: bold;
   font-family: Galindo, "Franklin Gothic", "ITC Franklin Gothic", "Arial Bold", Arial, sans-serif;
@@ -17,65 +42,54 @@ body {
 button {
   font-size: .8rem;
   background-color: dodgerblue;
-  border: none;
-  margin: .3rem; }
-  button:hover {
-    background-color: Aliceblue; }
+  border: none; }
 
-div#select {
-  background-color: lightGreen; }
-  div#select ul {
-    height: 85vh; }
-    div#select ul li {
-      margin: 0 auto;
-      padding: 1rem;
-      display: inline-block;
-      height: 20%;
-      width: 27%;
-      margin: .5rem;
-      background-color: blue; }
-      @media screen and (min-width: 320px) and (max-width: 480px) {
-        div#select ul li {
-          height: 12%;
-          width: 30%; } }
-      div#select ul li.active {
-        background-color: tomato; }
-      div#select ul li:hover {
-        border: 5px solid white; }
+input[type="radio"] {
+  display: inline-block;
+  float: left; }
 
-div#status {
-  background-color: lightblue; }
-  div#status button {
-    width: 8rem;
-    height: 2.5rem; }
+#makeThingButton {
+  width: 8rem;
+  height: 2.5rem; }
 
-div#status, div#select {
-  box-shadow: 5px 5px gray;
-  height: 85vh;
-  padding: 2%; }
+h2 {
+  background-color: azure; }
+
+p#actionWindow {
+  background-color: #373a37;
+  border-radius: 10px;
+  padding: 1rem;
+  margin: 0 1rem;
+  color: white;
+  min-height: 5rem; }
 
 ul#thingStats {
   padding: .5rem 1rem; }
   ul#thingStats li {
     margin: .5rem 0; }
 
-ul#thingActions {
-  margin: 1rem; }
-  ul#thingActions button {
-    width: 5.5rem;
-    height: 1.5rem; }
-
 label, input, select {
   display: block;
   margin: .5rem .2rem .2rem .5rem; }
 
-strong {
-  font-weight: bold;
-  font-family: Galindo, "Franklin Gothic", "ITC Franklin Gothic", "Arial Bold", Arial, sans-serif; }
-
 select {
   width: 6rem; }
 
-input[type="radio"] {
+button {
+  height: 3rem; }
+  button:hover {
+    background-color: Aliceblue; }
+
+div#select ul li {
+  padding: 1rem;
   display: inline-block;
-  float: left; }
+  height: 8rem;
+  background-color: blue; }
+  @media screen and (min-width: 320px) and (max-width: 480px) {
+    div#select ul li {
+      height: 12%;
+      width: 30%; } }
+  div#select ul li.active {
+    background-color: tomato; }
+  div#select ul li:hover {
+    border: 5px solid white; }

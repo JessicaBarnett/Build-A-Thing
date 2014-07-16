@@ -32,7 +32,7 @@ ThingView.prototype.makeGrid = function(thingModel) {
 //adds a grid square to the SelectThing window.  It will refer to the Passed Thing.
 ThingView.prototype.addGridSquare = function(thing) {
     $parentNode = $("div#select ul");
-    $newNode = $('<li class="thing one columns"></li>'); //add a new li for each Thing in model
+    $newNode = $('<li class="thing two columns"></li>'); //add a new li for each Thing in model
     $newNode.attr("data", thing.name); //add the object's name to the li's data attribute, 
     if (thing._isPet)
         $newNode.text(thing.humanName + " the " + thing.name);
@@ -76,8 +76,11 @@ ThingView.prototype.printThing = function(thing) {
         }
     }
 
+    //adds action window to parentNode
+    $parentNode.append('<p id="actionWindow"></p>');
+
     //create thingActions ul
-    $ul = $('<ul id="thingActions"></ul>');
+    $ul = $('<ul id="thingActions" class="container"></ul>');
     $ul.attr("data", thing.name); //adds thing name as data to ul, so action buttons can access it
 
     //adds thingActions ul to parentNode after thingStats ul
@@ -86,13 +89,11 @@ ThingView.prototype.printThing = function(thing) {
     for (property in thing) {
         //if property is a function, not the constructor method, and not a private method (indicated by an underscore)
         if (typeof thing[property] === "function" && property != "constructor" && property.indexOf("_") < 0) {
-            var $button = $("<button>" + property + "</button>");
+            var $button = $('<button class="two columns">' + property + '</button>');
             $button.on("click", thingActionHandler);
             $ul.append($button);
         }
     }
-
-    $parentNode.append('<p id="actionWindow"></p>');
 
 };
 
@@ -191,7 +192,7 @@ ThingView.prototype.generateForm = function() {
     // $petFieldset.append($("<label for='humanName'>What is this Pet's human name?</label>"),
     //     $('<input id="humanName" type="text">'));
     // $variableFieldset.append($petFieldset);
-    $variableFieldset.append($('<button type="submit">Make This Thing!</button>'));
+    $variableFieldset.append($('<button type="submit" id="makeThingButton">Make This Thing!</button>'));
 
     $makeThingWrapper.append($variableFieldset);
 
