@@ -19,6 +19,9 @@ h1 {
 .frame:nth-of-type(2) {
   background-color: lightblue; }
 
+img {
+  max-width: 100%; }
+
 strong {
   font-weight: bold;
   font-family: Galindo, "Franklin Gothic", "ITC Franklin Gothic", "Arial Bold", Arial, sans-serif; }
@@ -75,9 +78,6 @@ label, input, select {
 select {
   width: 6rem; }
 
-img {
-  max-width: 100%; }
-
 button {
   height: 3rem; }
   button:hover {
@@ -96,3 +96,8 @@ div#select ul li {
     background-color: tomato; }
   div#select ul li:hover {
     border: 5px solid white; }
+div#select .svgContainer {
+  width: 60%;
+  margin: 0 auto; }
+div#select p {
+  text-align: center; }

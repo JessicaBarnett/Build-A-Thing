@@ -27,6 +27,10 @@ h1 {
 	background-color: lightblue;
 }
 
+img {
+	max-width: 100%;
+}
+
 //Text Formatting
 
 @mixin strongify{
@@ -111,9 +115,6 @@ select{
 	width: 6rem;
 }
 
-img {
-	max-width: 100%;
-}
 
 
 //Thing Select Styles
@@ -158,6 +159,14 @@ div#select{
 		}
 
 
+	}
+
+	& .svgContainer{
+		width: 60%;
+		margin: 0 auto;
+	}
+	& p{
+		text-align: center;
 	}
 }
 

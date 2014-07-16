@@ -34,10 +34,15 @@ ThingView.prototype.addGridSquare = function(thing) {
     $parentNode = $("div#select ul");
     $newNode = $('<li class="thing blockColumn"></li>'); //add a new li for each Thing in model
     $newNode.attr("data", thing.name); //add the object's name to the li's data attribute, 
+
     if (thing._isPet)
-        $newNode.text(thing.humanName + " the " + thing.name);
+        $newNode.append('<p>' + thing.humanName + " the " + thing.name + '</p>');
     else
-        $newNode.text(thing.name); //put object's "name" property in the li as text
+        $newNode.append('<p>' + thing.name + '</p>'); //put object's "name" property in the li as text
+
+    $img = $('<div class="svgContainer"><img src="images/' + thing.type + '.svg" alt="' + thing.name + ' icon"></div>');
+    $newNode.prepend($img);
+
     $parentNode.append($newNode);
 
     //re-sets event handler so it will apply to newly-generated elements
@@ -63,7 +68,7 @@ ThingView.prototype.printThing = function(thing) {
     $thingStatsWrapper = $('<div class="container"></div>');
 
     //create thing image
-    $img = $('<div id="svgContainer" class="three columns alpha"><img src="images/' + thing.type + '.svg" alt="' + thing.name + ' icon"></div>');
+    $img = $('<div class="svgContainer three columns alpha"><img src="images/' + thing.type + '.svg" alt="' + thing.name + ' icon"></div>');
 
     //create thingStats ul
     $ul = $('<ul id="thingStats" class="three columns omega"></ul>');
