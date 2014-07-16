@@ -81,6 +81,9 @@ label, input, select {
 select {
   width: 6rem; }
 
+#thingActions button {
+  font-size: 1.7rem; }
+
 button {
   height: 3rem; }
   button:hover {
@@ -101,7 +104,10 @@ div#select ul li {
   div#select ul li:hover {
     border: 5px solid white; }
 div#select .svgContainer {
-  width: 55%;
+  width: 50%;
   margin: 0 auto; }
 div#select p {
   text-align: center; }
+div#select .makeNewThing p {
+  font-size: 1.7rem;
+  margin-top: 1.5rem; }

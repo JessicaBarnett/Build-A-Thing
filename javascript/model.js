@@ -31,7 +31,7 @@ ThingModel.prototype.makeStarterThings = function() {
 
     this.addThing(this.makeAnyThing("Plant", null, "Rose", "sunlight and nutrients in the soil", "20"));
     this.addThing(this.makeAnyThing("Animal", null, "Tiger", "little children", "Leap", "jungle", "Rawr"));
-    this.addThing(this.makeAnyThing("Living Thing", null, "Bacteria", "microscopic yumminess"));
+    this.addThing(this.makeAnyThing("Living Thing", null, "Toaster", "Bread!"));
 
     this.addThing(this.makeAnyThing("Thing", "Thingy", "Best Thing Ever"));
     this.addThing(this.makeAnyThing("Animal", "Honey", "Rabbit", "vegetables and hay", "hopp", "house", "thump"));

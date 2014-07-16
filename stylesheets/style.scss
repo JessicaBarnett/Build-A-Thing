@@ -118,6 +118,9 @@ select{
 	width: 6rem;
 }
 
+#thingActions button {
+	font-size: 1.7rem;
+}
 
 
 //Thing Select Styles
@@ -143,7 +146,6 @@ div#select{
 
 	ul{
 		li{
-			//margin-top: 1rem;
 			padding: .5rem;
 			padding-top: .25rem;
 			display: inline-block;
@@ -161,16 +163,18 @@ div#select{
 				border: 5px solid white;
 			}
 		}
-
-
 	}
 
 	& .svgContainer{
-		width: 55%;
+		width: 50%;
 		margin: 0 auto;
 	}
 	& p{
 		text-align: center;
+	}
+	& .makeNewThing p{
+		font-size: 1.7rem;
+		margin-top: 1.5rem;
 	}
 }
 

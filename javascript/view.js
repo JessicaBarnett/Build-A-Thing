@@ -86,7 +86,7 @@ ThingView.prototype.printThing = function(thing) {
         //if property is an "essential stat"
         //And property is not a method, or marked as "private"
         if (typeof thing[property] != "function" && property.indexOf("_") < 0) {
-            $ul.append($("<li><strong>" + property + ":</strong> " + thing[property] + "</li>"));
+            $ul.append($("<li><p><strong>" + property + ":</strong> " + thing[property] + "</p></li>"));
         }
     }
 
