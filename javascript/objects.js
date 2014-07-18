@@ -160,7 +160,7 @@ Animal.prototype.move = function() {
     return "The " + this.name + " is " + this.movement + " around!";
 };
 
-Animal.prototype.makeSound = function() {
+Animal.prototype.listen = function() {
     return "You hear a mysterious \'" + this.sound + "\' coming from the " + this.habitat + ".";
 };
 
