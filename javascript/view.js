@@ -74,6 +74,8 @@ ThingView.prototype.printThing = function(thing) {
     $ul = $('<ul id="thingStats" class="three columns omega"></ul>');
     $ul.attr("data", thing.name); //adds thing name as data to ul, so action buttons can access it
 
+    $ul.append(this.getAllStats(thing));
+
     //adds thingStats img and ul to thingStatsWrapper
     $thingStatsWrapper.append($img, $ul);
     //$thingStatsWrapper.append($ul);
@@ -81,14 +83,6 @@ ThingView.prototype.printThing = function(thing) {
     //adds thingStatsWrapper to parentNode
     $parentNode.append($thingStatsWrapper);
 
-    //Adds Stats
-    for (property in thing) {
-        //if property is an "essential stat"
-        //And property is not a method, or marked as "private"
-        if (typeof thing[property] != "function" && property.indexOf("_") < 0) {
-            $ul.append($("<li><p><strong>" + property + ":</strong> " + thing[property] + "</p></li>"));
-        }
-    }
 
     //adds action window to parentNode
     $parentNode.append('<p id="actionWindow"></p>');
@@ -110,6 +104,30 @@ ThingView.prototype.printThing = function(thing) {
     }
 
 };
+
+//returns a jQuery element containing all of the passed Thing's stats
+ThingView.prototype.getAllStats = function(thing) {
+    var $allStats = $('<ul></ul>');
+
+    //Adds Stats
+    for (property in thing) {
+        //And property is not a method, or marked as "private"
+        if (typeof thing[property] != "function" && property.indexOf("_") < 0) {
+            $allStats.append($("<li><p><strong>" + property + ":</strong> " + thing[property] + "</p></li>"));
+        }
+    }
+
+    return $allStats;
+};
+//returns a jQuery element containing the passed Thing's essential/updatable stats
+ThingView.prototype.getEssentialStats = function(thing) {
+    var $essentialStats = $('<ul></ul>');
+
+
+
+    return $essentialStats;
+};
+
 
 //when form is open, hides/shows fields depending on which Thing Type
 //is selected, and whether it is a Pet

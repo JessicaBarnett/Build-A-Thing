@@ -83,9 +83,24 @@ function makeThingButtonHandler() {
 
 
 function thingActionHandler() {
-    var thingObject = thingModel.allThings[$("ul#thingStats").attr("data")];
-    var methodName = $(this).text();
-    var actionText = thingObject[methodName](); //updates any status stuff that will be changed in the action
-    thingView.printThing(thingModel.allThings[$("ul#thingStats").attr("data")]); //prints updated/changed status
-    $("p#actionWindow").text(actionText); //prints message AFTER stats have been changed, so it doesn't get erased by printThing
+    var thingObject = thingModel.allThings[$("ul#thingStats").attr("data")]; //gets name of thing from data attribute in thingStats
+    var methodName = $(this).text(); //gets text in button clicked
+    if (methodName === "profile") { //if this is the profile action...
+        $statusWindow = $("div#status");
+        $savedWindow = $statusWindow.children().not($("h2")).detach();
+
+        $profileWindow = $('<div></div>')
+        $profileWindow.append(thingView.getAllStats(thingObject));
+        $profileWindow.append('<button>Okay!</button>').click(function() {
+            $statusWindow.children().not($("h2")).remove();
+            $statusWindow.append($savedWindow);
+        });
+
+        $statusWindow.append($profileWindow);
+
+    } else { //if this is any other action...
+        var actionText = thingObject[methodName](); //updates any status stuff that will be changed in the action
+        thingView.printThing(thingModel.allThings[$("ul#thingStats").attr("data")]); //prints updated/changed status
+        $("p#actionWindow").text(actionText); //prints message AFTER stats have been changed, so it doesn't get erased by printThing
+    }
 }
