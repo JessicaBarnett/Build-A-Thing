@@ -33,9 +33,13 @@ img {
 
 //Text Formatting
 
+@mixin rounded {
+	border-radius: 10px;
+}
+
 @mixin strongify{
 	font-weight: bold;
-	font-family: Galindo, "Franklin Gothic", "ITC Franklin Gothic", "Arial Bold", Arial, sans-serif;
+	//font-family: Galindo, "Franklin Gothic", "ITC Franklin Gothic", "Arial Bold", Arial, sans-serif;
 }
 
 strong{	@include strongify;	}
@@ -49,11 +53,6 @@ h1, h2{
 	text-align: center;
 }
 
-p{
-	font-size: 1.2rem;
-	font-weight: bold;
-}
-
 h2{	font-size: 2rem;  }
 
 
@@ -63,6 +62,7 @@ button{
 	font-size: .8rem;
 	background-color: dodgerblue;
 	border: none;
+
 }
 
 //Make-A-Thing Form Styles
@@ -82,8 +82,8 @@ input[type="radio"]{
 //Thing Status Styles
 
 @mixin darkBox{
+	@include rounded;
 	background-color: rgb(55, 58, 55);
-	border-radius: 10px;
 	padding: 1rem;
 	margin: 0 1rem;
 	color: white;
@@ -92,9 +92,35 @@ input[type="radio"]{
 
 h2{
 	background-color: azure;
+
 }
 
+#profile{
+	@include darkBox;
+	margin: 1.5rem 0;
+	padding: 1.2rem;
+	width: 100%;
 
+	& li {
+		font-size: 1.5rem;
+		margin: 1rem 0;
+	}
+
+	& button {
+		@include rounded;
+		@include strongify;
+		background-color: transparent;
+		border: 2px solid white;
+		color: white;
+		font-size: 2rem;
+		//font-weight: bold;
+		float: right;
+		margin-top: 8%; 
+		//margin-top so the back button will be around where the profile button was
+		//looking for better way. sass if statement?  if height > x, margin-top = y, else margin-top = z?
+	}
+
+}
 
 p#actionWindow {
 	@include darkBox;
@@ -169,7 +195,10 @@ div#select{
 		width: 50%;
 		margin: 0 auto;
 	}
-	& p{
+
+	p{
+		font-size: 1.2rem;
+		font-weight: bold;
 		text-align: center;
 	}
 	& .makeNewThing p{

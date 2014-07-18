@@ -89,7 +89,7 @@ function thingActionHandler() {
         $statusWindow = $("div#status");
         $savedWindow = $statusWindow.children().not($("h2")).detach();
 
-        $profileWindow = $('<div></div>')
+        $profileWindow = $('<div id="profile" class="group"></div>')
         $profileWindow.append(thingView.getAllStats(thingObject));
         $profileWindow.append('<button>Okay!</button>').click(function() {
             $statusWindow.children().not($("h2")).remove();
