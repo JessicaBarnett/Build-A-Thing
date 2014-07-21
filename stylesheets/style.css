@@ -89,6 +89,8 @@ ul#thingStats {
   padding: .5rem 1rem; }
   ul#thingStats li {
     margin: .5rem 0; }
+    ul#thingStats li strong {
+      font-size: 1.2rem; }
 
 label, input, select {
   display: block;

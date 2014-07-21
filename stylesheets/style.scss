@@ -113,7 +113,6 @@ h2{
 		border: 2px solid white;
 		color: white;
 		font-size: 2rem;
-		//font-weight: bold;
 		float: right;
 		margin-top: 8%; 
 		//margin-top so the back button will be around where the profile button was
@@ -131,6 +130,9 @@ ul#thingStats{
 	padding: .5rem 1rem;
 	li{
 		margin: .5rem 0;
+		& strong {
+			font-size: 1.2rem;
+		}
 	}
 }
 
