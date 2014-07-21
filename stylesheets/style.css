@@ -131,3 +131,8 @@ div#select p {
 div#select .makeNewThing p {
   font-size: 1.7rem;
   margin-top: 1.5rem; }
+
+@media screen and (max-width: 900px) {
+  div#status {
+    position: absolute;
+    right: -500; } }

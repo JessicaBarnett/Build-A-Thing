@@ -211,6 +211,15 @@ div#select{
 
 
 
+@media screen and (max-width: 900px){
+	#select{
 
+	}
+
+	div#status{
+		position: absolute;
+		right: -500;
+	}
+}
 
 
