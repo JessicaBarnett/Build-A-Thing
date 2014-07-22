@@ -100,7 +100,7 @@ function thingActionHandler() {
 
     } else { //if this is any other action...
         var actionText = thingObject[methodName](); //updates any status stuff that will be changed in the action
-        thingView.printThing(thingModel.allThings[$("ul#thingStats").attr("data")]); //prints updated/changed status
+        thingView.refreshStats(thingModel.allThings[$("ul#thingStats").attr("data")], null); //prints updated/changed status
         $("p#actionWindow").text(actionText); //prints message AFTER stats have been changed, so it doesn't get erased by printThing
     }
 }
