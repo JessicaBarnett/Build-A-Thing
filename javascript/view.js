@@ -18,6 +18,12 @@
 
 function ThingView() {}
 
+//erases everything in the thingStatus window
+ThingView.prototype.clearStatus = function() {
+    $("div#status").children().remove();
+};
+
+
 //initializes the Grid using all objects currently in ThingModel.allThings
 ThingView.prototype.makeGrid = function(thingModel) {
     var $parentNode = $("div#select ul");
@@ -59,10 +65,13 @@ ThingView.prototype.printThing = function(thing) {
 
     $parentNode.empty();
 
+    //create back drawer tab button for mobile view
+    $parentNode.append($('<button id="closeDrawer">back</button>'));
+
     //create + add h2 
 
     h2contents = thing._getHeader();
-    $h2 = $('<h2>' + h2contents + '<button id="closeDrawer">back</button></h2>');
+    $h2 = $('<h2>' + h2contents + '</h2>');
     $parentNode.append($h2);
 
     //Creates picture & Stats
@@ -206,11 +215,6 @@ ThingView.prototype.refreshForm = function() {
 
 };
 
-//erases everything in the thingStatus window
-ThingView.prototype.clearStatus = function() {
-    $("div#status").children().remove();
-};
-
 //I KNOW there's a better way to do this... just not sure how yet.
 //JSON maybe?
 ThingView.prototype.generateForm = function() {
@@ -218,8 +222,11 @@ ThingView.prototype.generateForm = function() {
 
     var $makeThingWrapper = $("<fieldset>").attr("id", "makeThingForm");
 
+    //create back drawer tab button for mobile view
+    $parentNode.append($('<button id="closeDrawer">back</button>'));
+
     //adds h2
-    var $heading = $('<h2><button id="closeDrawer">back</button>Make A New Thing!</h2>');
+    var $heading = $('<h2>Make A New Thing!</h2>');
     $makeThingWrapper.append($heading);
 
     //adds type selector select box
