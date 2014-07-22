@@ -11,7 +11,8 @@ function openDrawer() {
 
 function closeDrawer() {
     $(".status.frame").animate({
-        left: browserWidth
+        left: -browserWidth
+        //left: browserWidth
     }, 500);
     drawerIsOpen = false;
 }

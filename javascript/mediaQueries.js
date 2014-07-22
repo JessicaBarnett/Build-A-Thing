@@ -16,7 +16,8 @@ function resizeHandler() {
             if (drawerIsOpen) {
                 return 0;
             } else {
-                return browserWidth;
+                //return browserWidth;
+                return -browserWidth;
             }
         });
 
