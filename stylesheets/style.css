@@ -141,11 +141,18 @@ button#closeDrawer {
     top: 0;
     height: 100%; }
 
+  #status {
+    width: 96%;
+    margin-left: 8%; }
+
   button#closeDrawer {
     display: block;
     position: absolute;
-    top: 1.5rem;
-    left: 5%; }
+    top: 0;
+    right: 0;
+    width: 7%;
+    height: 100%;
+    background-color: #373a37; }
 
   .thing {
     min-height: 8rem; } }

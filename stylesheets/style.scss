@@ -1,3 +1,7 @@
+//colors
+
+$slateGray : rgb(55, 58, 55);
+
 //Overall Layout Styles
 
 html, body{
@@ -84,7 +88,7 @@ input[type="radio"]{
 
 @mixin darkBox{
 	@include rounded;
-	background-color: rgb(55, 58, 55);
+	background-color: $slateGray;
 	padding: 1rem;
 	margin: 0 1rem;
 	color: white;
@@ -213,11 +217,19 @@ button#closeDrawer{
 		height: 100%;
 	}
 
+	#status {
+		width: 96%;
+		margin-left: 8%;
+	}
+
 	button#closeDrawer{
-		display: block;	
+		display: block;
 		position: absolute;
-		top: 1.5rem;
-		left: 5%;
+		top: 0;
+		right: 0;
+		width: 7%;
+		height: 100%;
+		background-color: $slateGray;
 	}
 
 	.thing{
