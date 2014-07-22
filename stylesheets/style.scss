@@ -2,6 +2,7 @@
 
 html, body{
 	min-height: 100vh;
+	overflow: hidden;
 }
 
 div#status, div#select{
@@ -11,7 +12,7 @@ div#status, div#select{
 }
 
 h1 {
-	height: 10vh;
+	min-height: 10vh;
 	background-color: LightGoldenRodYellow;
 }
 
@@ -20,10 +21,10 @@ h1 {
 	overflow: scroll;
 }
 
-.frame:nth-of-type(1){
+.select.frame{
 	background-color: lightGreen;
 }
-.frame:nth-of-type(2){
+.status.frame{
 	background-color: lightblue;
 }
 
@@ -212,14 +213,11 @@ div#select{
 
 
 @media screen and (max-width: 900px){
-	#select{
-
-	}
-
-	div#status{
+	.status.frame{ //selects wrapper of "status" div
 		position: absolute;
-		right: -500;
+		z-index: 5;
 	}
+
 }
 
 

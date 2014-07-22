@@ -8,9 +8,9 @@ margin will add to it*/
 
 /*Styles for full-screen 2-column layout with no margins*/
 
-.wideContainer 					{ width: 100%;	}
+.full-screen 					{ width: 100%;	}
 
-.wideContainer .half-screen   	{ width: 50%;	
+.full-screen .half-screen   	{ width: 50%;	
 								  float: left;	}
 
 /*Styles for a 3-column layout with blocks that will fill given space
@@ -23,7 +23,7 @@ necessitates very specific margins because there will be no clearing in between*
 									  margin-left: 1.666666666666666%; 
 									  margin-right: 1.666666666666666%;
 									  margin-top: 1rem; 
-									  float: left;      } 
+									  /*float: left; */     } 
 
 /* more traditional grid with 6 columns
  columns are 13% width with 2% gutters on each side, 

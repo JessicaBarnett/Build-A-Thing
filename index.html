@@ -3,17 +3,18 @@
 	<head>
 		<title>The Thing Maker</title>
 		<meta charset="UTF-8">
-		<link href='http://fonts.googleapis.com/css?family=Galindo|Open+Sans' rel='stylesheet' type='text/css'>
+		<link href='http://fonts.googleapis.com/css?family=Galindo' rel='stylesheet' type='text/css'>
+		<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
 		<link rel="stylesheet" type="text/css" href="stylesheets/reset.css">
 		<link rel="stylesheet" type="text/css" href="stylesheets/grid.css">
 		<link rel="stylesheet" type="text/css" href="stylesheets/style.css">
 	</head>
 	<body>
-		<h1 class="wideContainer">The Thing-Maker</h1>
+		<h1 class="full-screen">The Thing-Maker</h1>
 
-		<div id="main" class="wideContainer">
+		<div id="main" class="full-screen">
 			
-			<div class="half-screen frame">
+			<div class="half-screen select frame">
 				<div id="select">
 					<ul class="blockContainer">
 						<li class="thing blockColumn makeNewThing">
@@ -22,8 +23,9 @@
 	 				</ul>
 				</div>
 			</div>
-			<div class="half-screen frame">
+			<div class="half-screen status frame">
 				<div id="status" class="container">
+					<h2>Choose a Thing to get started!!</h2>
 				</div>
 			</div>
 
@@ -35,6 +37,8 @@
 		<script src="javascript/model.js"></script>
 		<script src="javascript/view.js"></script>
 		<script src="javascript/controller.js"></script>
+		<script src="javascript/drawer.js"></script>
+		<script src="javascript/mediaQueries.js"></script>
 		<script src="javascript/tests.js"></script>
 	</body>
 </html>
