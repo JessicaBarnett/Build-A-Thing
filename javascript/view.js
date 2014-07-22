@@ -115,7 +115,7 @@ ThingView.prototype.refreshStats = function(thing, $parentNode) {
     $ul.empty(); //empties anything in ul already
 
     //gets stats as an array of $li elements, loops through and appends them to $ul
-    forEach(this.getAllStats(thing), function($element) {
+    forEach(this.getEssentialStats(thing), function($element) {
         $ul.append($element);
     });
 
@@ -139,9 +139,15 @@ ThingView.prototype.getAllStats = function(thing) {
 
 //returns an array of jQuery elements containing the passed Thing's essential/updatable stats
 ThingView.prototype.getEssentialStats = function(thing) {
-    var $essentialStats = $('<ul></ul>');
+    var $essentialStats = [];
 
-
+    //Adds Stats
+    for (property in thing) {
+        //And property is not a method, or marked as "private"
+        if (typeof thing[property] != "function" && property.indexOf("_") < 0 && thingModel.isEssentialStat(property)) {
+            $essentialStats.push($("<li><p><strong>" + property + ":</strong> " + thing[property] + "</p></li>"));
+        }
+    }
 
     return $essentialStats;
 };
