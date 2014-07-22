@@ -140,7 +140,11 @@ button#closeDrawer {
   .status.frame {
     position: absolute;
     z-index: 5;
-    top: 0; }
+    top: 0;
+    height: 100%; }
 
   button#closeDrawer {
-    display: block; } }
+    display: block;
+    position: absolute;
+    top: 1.5rem;
+    left: 5%; } }

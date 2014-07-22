@@ -137,7 +137,7 @@ ThingView.prototype.getAllStats = function(thing) {
 };
 
 
-//returns a jQuery element containing the passed Thing's essential/updatable stats
+//returns an array of jQuery elements containing the passed Thing's essential/updatable stats
 ThingView.prototype.getEssentialStats = function(thing) {
     var $essentialStats = $('<ul></ul>');
 
@@ -145,6 +145,29 @@ ThingView.prototype.getEssentialStats = function(thing) {
 
     return $essentialStats;
 };
+
+ThingView.prototype.printProfile = function(thing) {
+    var $statusWindow = $("div#status"),
+        $savedWindow,
+        $profileWindow,
+        $statsList = $("<ul></ul>");
+
+    //saves state of statusWindow to use when okay button is hit
+    $savedWindow = $statusWindow.children().not($("h2")).detach();
+
+    $profileWindow = $('<div id="profile" class="group"></div>');
+
+    $statsList.append(this.getAllStats(thing));
+    $profileWindow.append($statsList);
+
+    //creates okay button.  adds handler which reverts page back to state saved in $savedWindow
+    $profileWindow.append('<button autofocus>Okay!</button>').click(function() {
+        $statusWindow.children().not($("h2")).remove();
+        $statusWindow.append($savedWindow);
+    });
+
+    $statusWindow.append($profileWindow);
+}
 
 
 //when form is open, hides/shows fields depending on which Thing Type
@@ -190,7 +213,7 @@ ThingView.prototype.generateForm = function() {
     var $makeThingWrapper = $("<fieldset>").attr("id", "makeThingForm");
 
     //adds h2
-    var $heading = $("<h2>").text("Make a New Thing!");
+    var $heading = $('<h2><button id="closeDrawer">back</button>Make A New Thing!</h2>');
     $makeThingWrapper.append($heading);
 
     //adds type selector select box
