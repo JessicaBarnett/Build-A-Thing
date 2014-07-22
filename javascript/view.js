@@ -65,6 +65,8 @@ ThingView.prototype.printThing = function(thing) {
     $h2 = $('<h2>' + h2contents + '<button id="closeDrawer">back</button></h2>');
     $parentNode.append($h2);
 
+    //Creates picture & Stats
+
     $thingStatsWrapper = $('<div class="container"></div>');
 
     //create thing image
@@ -74,9 +76,7 @@ ThingView.prototype.printThing = function(thing) {
     $ul = $('<ul id="thingStats" class="three columns omega"></ul>');
     $ul.attr("data", thing.name); //adds thing name as data to ul, so action buttons can access it
 
-    //$ul.append(this.getAllStats(thing));
-    this.refreshStats(thing);
-
+    this.refreshStats(thing, $ul); //adds thingStats to passed $ul
 
     //adds thingStats img and ul to thingStatsWrapper
     $thingStatsWrapper.append($img, $ul);
@@ -107,28 +107,20 @@ ThingView.prototype.printThing = function(thing) {
 
 };
 
-
 //removes and reprints stats in "ul#thingStats"
 //prevents having to re-print all elements in 
 //div#status everytime an action button is pressed
-ThingView.prototype.refreshStats = function(thing) {
-    var $ul = $("ul#thingStats");
+ThingView.prototype.refreshStats = function(thing, $parentNode) {
+    var $ul = $parentNode || $("ul#thingStats"); //allows passing of a not-yet-in-dom ul
     $ul.empty(); //empties anything in ul already
 
-    //console.log(this.getAllStats(thing));
     //gets stats as an array of $li elements, loops through and appends them to $ul
-    forEach.call(this, this.getAllStats(thing), function(index, element) {
-        //console.log(index + ": " + element[index]);
-        $ul.append(element[index]);
+    forEach(this.getAllStats(thing), function($element) {
+        $ul.append($element);
     });
 
-    // $(this.getAllStats(thing)).each(function(index, element) {
-    //     $ul.append(element[index]);
-    //     console.log(index + ": " + element[index]);
-    // });
-
-    return $ul; //also returns ul
-}
+    return $ul; //also returns ul, in case of not-yet-in-dom ul
+};
 
 //returns an array of jQuery li elements, each containing one of the passed Thing's stats
 ThingView.prototype.getAllStats = function(thing) {
@@ -141,9 +133,10 @@ ThingView.prototype.getAllStats = function(thing) {
             $allStats.push($("<li><p><strong>" + property + ":</strong> " + thing[property] + "</p></li>"));
         }
     }
-    console.log($allStats);
     return $allStats;
 };
+
+
 //returns a jQuery element containing the passed Thing's essential/updatable stats
 ThingView.prototype.getEssentialStats = function(thing) {
     var $essentialStats = $('<ul></ul>');
