@@ -49,7 +49,7 @@ input[type="radio"] {
   display: inline-block;
   float: left; }
 
-#makeThingButton {
+.thing {
   width: 8rem;
   height: 2.5rem; }
 
@@ -108,35 +108,33 @@ button {
   button:hover {
     background-color: Aliceblue; }
 
-div#select ul li {
-  padding: .5rem;
-  padding-top: .25rem;
-  display: inline-block;
-  height: 8rem;
-  background-color: blue; }
-  @media screen and (min-width: 320px) and (max-width: 480px) {
-    div#select ul li {
-      height: 12%;
-      width: 30%; } }
-  div#select ul li.active {
-    background-color: tomato; }
-  div#select ul li:hover {
-    border: 5px solid white; }
-div#select .svgContainer {
-  width: 50%;
-  margin: 0 auto; }
-div#select p {
-  font-size: 1.2rem;
-  font-weight: bold;
-  text-align: center; }
-div#select .makeNewThing p {
-  font-size: 1.7rem;
-  margin-top: 1.5rem; }
+div#select {
+  margin-bottom: 2.5rem; }
+  div#select .thing {
+    padding: .5rem;
+    padding-top: .25rem;
+    display: inline-block;
+    min-height: 8rem;
+    background-color: blue; }
+    div#select .thing.active {
+      background-color: tomato; }
+    div#select .thing:hover {
+      border: 5px solid white; }
+  div#select .svgContainer {
+    width: 50%;
+    margin: 0 auto; }
+  div#select p {
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-align: center; }
+  div#select .makeNewThing p {
+    font-size: 1.7rem;
+    margin-top: 1.5rem; }
 
 button#closeDrawer {
   display: none; }
 
-@media screen and (max-width: 900px) {
+@media screen and (max-width: 930px) {
   .status.frame {
     position: absolute;
     z-index: 5;
@@ -147,4 +145,7 @@ button#closeDrawer {
     display: block;
     position: absolute;
     top: 1.5rem;
-    left: 5%; } }
+    left: 5%; }
+
+  .thing {
+    min-height: 8rem; } }

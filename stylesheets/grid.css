@@ -23,7 +23,8 @@ necessitates very specific margins because there will be no clearing in between*
 									  margin-left: 1.666666666666666%; 
 									  margin-right: 1.666666666666666%;
 									  margin-top: 1rem; 
-									  /*float: left; */     } 
+									  height: 4rem;
+									  float: left;      } 
 
 /* more traditional grid with 6 columns
  columns are 13% width with 2% gutters on each side, 
