@@ -62,7 +62,7 @@ ThingView.prototype.printThing = function(thing) {
     //create + add h2 
 
     h2contents = thing._getHeader();
-    $h2 = $("<h2>" + h2contents + "</h2>");
+    $h2 = $('<h2>' + h2contents + '<button id="closeDrawer">back</button></h2>');
     $parentNode.append($h2);
 
     $thingStatsWrapper = $('<div class="container"></div>');
@@ -74,7 +74,9 @@ ThingView.prototype.printThing = function(thing) {
     $ul = $('<ul id="thingStats" class="three columns omega"></ul>');
     $ul.attr("data", thing.name); //adds thing name as data to ul, so action buttons can access it
 
-    $ul.append(this.getAllStats(thing));
+    //$ul.append(this.getAllStats(thing));
+    this.refreshStats(thing);
+
 
     //adds thingStats img and ul to thingStatsWrapper
     $thingStatsWrapper.append($img, $ul);
@@ -105,18 +107,41 @@ ThingView.prototype.printThing = function(thing) {
 
 };
 
-//returns a jQuery element containing all of the passed Thing's stats
+
+//removes and reprints stats in "ul#thingStats"
+//prevents having to re-print all elements in 
+//div#status everytime an action button is pressed
+ThingView.prototype.refreshStats = function(thing) {
+    var $ul = $("ul#thingStats");
+    $ul.empty(); //empties anything in ul already
+
+    //console.log(this.getAllStats(thing));
+    //gets stats as an array of $li elements, loops through and appends them to $ul
+    forEach.call(this, this.getAllStats(thing), function(index, element) {
+        //console.log(index + ": " + element[index]);
+        $ul.append(element[index]);
+    });
+
+    // $(this.getAllStats(thing)).each(function(index, element) {
+    //     $ul.append(element[index]);
+    //     console.log(index + ": " + element[index]);
+    // });
+
+    return $ul; //also returns ul
+}
+
+//returns an array of jQuery li elements, each containing one of the passed Thing's stats
 ThingView.prototype.getAllStats = function(thing) {
-    var $allStats = $('<ul></ul>');
+    var $allStats = [];
 
     //Adds Stats
     for (property in thing) {
         //And property is not a method, or marked as "private"
         if (typeof thing[property] != "function" && property.indexOf("_") < 0) {
-            $allStats.append($("<li><p><strong>" + property + ":</strong> " + thing[property] + "</p></li>"));
+            $allStats.push($("<li><p><strong>" + property + ":</strong> " + thing[property] + "</p></li>"));
         }
     }
-
+    console.log($allStats);
     return $allStats;
 };
 //returns a jQuery element containing the passed Thing's essential/updatable stats

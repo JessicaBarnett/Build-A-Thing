@@ -1,24 +1,36 @@
-//JS Media Queries awesome reference: http://www.sitepoint.com/javascript-media-queries/
+//Note: JS Media Queries awesome reference: http://www.sitepoint.com/javascript-media-queries/
+//Note: matchMediaObject.matches returns a true or false depending on query result 
 var mq900px = window.matchMedia("(max-width: 900px)");
 
-//matchMediaObject.matches returns a true or false depending on query result
-
 $(window).ready(resizeHandler).resize(resizeHandler);
+$(".thing").click(selectButtonHandler);
 
 function resizeHandler() {
     browserWidth = $(document).width();
-    console.log(browserWidth);
     if (mq900px.matches) {
         $(".frame").removeClass("half-screen");
         $(".frame").addClass("full-screen");
 
+        //if drawer is open, show status window.  Otherwise, hide it.  
+        $(".status").css("left", function() {
+            if (drawerIsOpen) {
+                return 0;
+            } else {
+                return browserWidth;
+            }
+        });
 
-        //$("#select").css("background-color", "orange"); //temporary test to see if media query is working
     } else {
+
         $(".frame").removeClass("full-screen");
         $(".frame").addClass("half-screen");
 
+    }
+}
 
-        //$("#select").css("background-color", "lightgreen"); //temporary test to see if media query is working
+function selectButtonHandler() {
+    if (mq900px.matches) {
+        toggleDrawer();
+        $("#closeDrawer").click(selectButtonHandler);
     }
 }

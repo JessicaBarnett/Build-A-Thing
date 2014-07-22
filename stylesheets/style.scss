@@ -210,12 +210,19 @@ div#select{
 	}
 }
 
-
+button#closeDrawer{
+	display: none;
+}
 
 @media screen and (max-width: 900px){
 	.status.frame{ //selects wrapper of "status" div
 		position: absolute;
 		z-index: 5;
+		top: 0;
+	}
+
+	button#closeDrawer{
+		display: block;	
 	}
 
 }

@@ -133,7 +133,14 @@ div#select .makeNewThing p {
   font-size: 1.7rem;
   margin-top: 1.5rem; }
 
+button#closeDrawer {
+  display: none; }
+
 @media screen and (max-width: 900px) {
   .status.frame {
     position: absolute;
-    z-index: 5; } }
+    z-index: 5;
+    top: 0; }
+
+  button#closeDrawer {
+    display: block; } }
