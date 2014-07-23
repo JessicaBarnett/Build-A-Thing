@@ -1,90 +1,29 @@
-//colors
+/*Color Palette*/
 
-$cinnamon : #4C1B05;
-$coral : #F76157;
-$lightBlue: #91D9C9;
-$turqoise: #00E6C7;
-$jade: #43F7AC;
-
-$mostRed: #FE404A;
-$moreRed: #F75750;
-$red: #F5785D;
-$pink: #DFA68E;
-$beige: #CEB99D;
-
-$warmPurple: #4A0F63;
-$feelGoodPurple: #A91ED9;
-$hottestBlue: #0BC0F7;
-$savoryJuice: #C6FF44;
-$macaroni: #F0C832;
-$medPurple: #9A63D9;
-
-// $blue1: #5C56FF;
-// $blue2: #50A5E8;
-// $blue3: #64FFE5;
-// $green1: #50E86D;
-// $green2: #B3FF58;
-
-$orangey:#FF6D5A;
-$redy: #E84C78;
-$pinky: #FF61F7;
-$purpley: #B44CE8;
-$bluey: #8754FF;
-$blueyTwoie: #9383E8;
-
-$blue1: #5C56FF;
-$blue2: #50A5E8;
-$blue3: #64FFE5;
-$yellow1:#FFD400;
-$yellow2:#FFF88A;
-$orange1: #FF9B14;
-$orange2: #FFBD64;
-
-$warmPurple: #4A0F63;
-$feelGoodPurple: #A91ED9;
-$purpley: #B44CE8;
-
-$monoBlue1: #5683FF; //#688AE8;
-$monoBlue2: #1A65D9;
+$midBlueLight: #5683FF; //#688AE8;
+$midBlueDark: #1A65D9;
 $darkerMonoBlue2: #225DB9;
-$monoBlue3: #0B2D4E; //#1E4163;
+$darkestBlue: #0B2D4E; //#1E4163;
 $monoBlue4: #9BB6FF;
-
-
 $awesomeGreen: #33E820;
-$extraBlue: #2DD1FF;
 
 
-
-$monoRed1: #E86661;
-$monoRed2: #D91C14;
-$monoRed3: #63211E;
-
-
-$monoOrange2: #D99B10;
-$monoOrange1: #E8BC57;
-$monoOrange3: #633B1C;
-
-$slateGray : rgb(55, 58, 55);
-
-$goldenrod: LightGoldenRodYellow;
-
-/***************/
+/*Color assignments*/
 
 $lightText: white;
-$headBG: $monoBlue3; //$warmPurple; //$monoOrange3; 
+$headBG: $darkestBlue; //$warmPurple; //$monoOrange3; 
 
-$selectBG:  $monoBlue2; //$feelGoodPurple; //$monoOrange2; 
+$selectBG: $midBlueDark; //$feelGoodPurple; //$monoOrange2; 
 $selectButton: $monoBlue4;
 $selectButtonHover: $awesomeGreen;
 
-$statusBG: $monoBlue1; //$purpley; //$monoOrange1; 
+$statusBG: $midBlueLight; //$purpley; //$monoOrange1; 
 $statusHead: white;
 $statusButton: white;
 
-$profile: white;
+$profile: $darkerMonoBlue2;
 
-$actionButton: $monoBlue3;
+$actionButton: $darkestBlue;
 
 
 
@@ -156,6 +95,10 @@ button{
 	color: $lightText;
 	border: none;
 
+	&:hover{
+		color: black;
+	}
+
 }
 
 //Make-A-Thing Form Styles
@@ -176,7 +119,7 @@ input[type="radio"]{
 
 @mixin darkBox{
 	@include rounded;
-	background-color: $darkerMonoBlue2;
+	background-color: $profile;
 	padding: 1rem;
 	margin: 0 1rem;
 	color: white;
@@ -184,6 +127,7 @@ input[type="radio"]{
 
 
 h2{
+	@include rounded;
 	background-color: $statusHead;
 
 }
@@ -241,12 +185,16 @@ select{
 
 #thingActions button {
 	font-size: 1.7rem;
+	&:hover{
+		color: black;
+		background-color: white;
+	}
 }
 
 
 //Thing Select Styles
 
-button {
+#thingSelect button {
 	height: 3rem;
 	&:hover{
 		background-color: $statusButton;
@@ -318,7 +266,10 @@ button#closeDrawer{
 		right: 0;
 		width: 7%;
 		height: 100%;
-		background-color: $profile;
+		background-color: $darkestBlue;
+		&:hover {
+			background-color: white;
+		}
 	}
 
 	.thing{

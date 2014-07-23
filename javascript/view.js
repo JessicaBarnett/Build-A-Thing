@@ -66,7 +66,7 @@ ThingView.prototype.printThing = function(thing) {
     $parentNode.empty();
 
     //create back drawer tab button for mobile view
-    $parentNode.append($('<button id="closeDrawer">back</button>'));
+    $parentNode.append($('<button id="closeDrawer"><img src="images/Arrow.svg" alt="back"></button>'));
 
     //create + add h2 
 
@@ -168,7 +168,7 @@ ThingView.prototype.printProfile = function(thing) {
         $statsList = $("<ul></ul>");
 
     //saves state of statusWindow to use when okay button is hit
-    $savedWindow = $statusWindow.children().not($("h2")).detach();
+    $savedWindow = $statusWindow.children().not($("h2")).not($("button#closeDrawer")).detach();
 
     $profileWindow = $('<div id="profile" class="group"></div>');
 
@@ -177,7 +177,7 @@ ThingView.prototype.printProfile = function(thing) {
 
     //creates okay button.  adds handler which reverts page back to state saved in $savedWindow
     $profileWindow.append('<button autofocus>Okay!</button>').click(function() {
-        $statusWindow.children().not($("h2")).remove();
+        $statusWindow.children().not($("h2")).not($("button#closeDrawer")).remove();
         $statusWindow.append($savedWindow);
     });
 
@@ -223,7 +223,7 @@ ThingView.prototype.generateForm = function() {
     var $makeThingWrapper = $("<fieldset>").attr("id", "makeThingForm");
 
     //create back drawer tab button for mobile view
-    $parentNode.append($('<button id="closeDrawer">back</button>'));
+    $parentNode.append($('<button id="closeDrawer"><img src="images/Arrow.svg" alt="back"></button>'));
 
     //adds h2
     var $heading = $('<h2>Make A New Thing!</h2>');
