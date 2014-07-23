@@ -1,3 +1,4 @@
+/***************/
 html, body {
   min-height: 100vh;
   overflow: hidden; }
@@ -8,17 +9,18 @@ div#status, div#select {
 
 h1 {
   min-height: 10vh;
-  background-color: LightGoldenRodYellow; }
+  background-color: #0b2d4e;
+  color: white; }
 
 .frame {
   height: 90vh;
   overflow: scroll; }
 
 .select.frame {
-  background-color: lightGreen; }
+  background-color: #1a65d9; }
 
 .status.frame {
-  background-color: lightblue; }
+  background-color: #5683ff; }
 
 img {
   max-width: 100%; }
@@ -42,7 +44,8 @@ body, p {
 
 button {
   font-size: .8rem;
-  background-color: dodgerblue;
+  background-color: #0b2d4e;
+  color: white;
   border: none; }
 
 input[type="radio"] {
@@ -54,11 +57,11 @@ input[type="radio"] {
   height: 2.5rem; }
 
 h2 {
-  background-color: azure; }
+  background-color: white; }
 
 #profile {
   border-radius: 10px;
-  background-color: #373a37;
+  background-color: #225db9;
   padding: 1rem;
   margin: 0 1rem;
   color: white;
@@ -80,7 +83,7 @@ h2 {
 
 p#actionWindow {
   border-radius: 10px;
-  background-color: #373a37;
+  background-color: #225db9;
   padding: 1rem;
   margin: 0 1rem;
   color: white;
@@ -106,7 +109,7 @@ select {
 button {
   height: 3rem; }
   button:hover {
-    background-color: Aliceblue; }
+    background-color: white; }
 
 div#select {
   margin-bottom: 2.5rem; }
@@ -115,10 +118,11 @@ div#select {
     padding-top: .25rem;
     display: inline-block;
     min-height: 8rem;
-    background-color: blue; }
+    background-color: #9bb6ff; }
     div#select .thing.active {
-      background-color: tomato; }
+      background-color: #33e820; }
     div#select .thing:hover {
+      background-color: #33e820;
       border: 5px solid white; }
   div#select .svgContainer {
     width: 50%;
@@ -152,7 +156,7 @@ button#closeDrawer {
     right: 0;
     width: 7%;
     height: 100%;
-    background-color: #373a37; }
+    background-color: white; }
 
   .thing {
     min-height: 8rem; } }

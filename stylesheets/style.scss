@@ -1,6 +1,92 @@
 //colors
 
+$cinnamon : #4C1B05;
+$coral : #F76157;
+$lightBlue: #91D9C9;
+$turqoise: #00E6C7;
+$jade: #43F7AC;
+
+$mostRed: #FE404A;
+$moreRed: #F75750;
+$red: #F5785D;
+$pink: #DFA68E;
+$beige: #CEB99D;
+
+$warmPurple: #4A0F63;
+$feelGoodPurple: #A91ED9;
+$hottestBlue: #0BC0F7;
+$savoryJuice: #C6FF44;
+$macaroni: #F0C832;
+$medPurple: #9A63D9;
+
+// $blue1: #5C56FF;
+// $blue2: #50A5E8;
+// $blue3: #64FFE5;
+// $green1: #50E86D;
+// $green2: #B3FF58;
+
+$orangey:#FF6D5A;
+$redy: #E84C78;
+$pinky: #FF61F7;
+$purpley: #B44CE8;
+$bluey: #8754FF;
+$blueyTwoie: #9383E8;
+
+$blue1: #5C56FF;
+$blue2: #50A5E8;
+$blue3: #64FFE5;
+$yellow1:#FFD400;
+$yellow2:#FFF88A;
+$orange1: #FF9B14;
+$orange2: #FFBD64;
+
+$warmPurple: #4A0F63;
+$feelGoodPurple: #A91ED9;
+$purpley: #B44CE8;
+
+$monoBlue1: #5683FF; //#688AE8;
+$monoBlue2: #1A65D9;
+$darkerMonoBlue2: #225DB9;
+$monoBlue3: #0B2D4E; //#1E4163;
+$monoBlue4: #9BB6FF;
+
+
+$awesomeGreen: #33E820;
+$extraBlue: #2DD1FF;
+
+
+
+$monoRed1: #E86661;
+$monoRed2: #D91C14;
+$monoRed3: #63211E;
+
+
+$monoOrange2: #D99B10;
+$monoOrange1: #E8BC57;
+$monoOrange3: #633B1C;
+
 $slateGray : rgb(55, 58, 55);
+
+$goldenrod: LightGoldenRodYellow;
+
+/***************/
+
+$lightText: white;
+$headBG: $monoBlue3; //$warmPurple; //$monoOrange3; 
+
+$selectBG:  $monoBlue2; //$feelGoodPurple; //$monoOrange2; 
+$selectButton: $monoBlue4;
+$selectButtonHover: $awesomeGreen;
+
+$statusBG: $monoBlue1; //$purpley; //$monoOrange1; 
+$statusHead: white;
+$statusButton: white;
+
+$profile: white;
+
+$actionButton: $monoBlue3;
+
+
 
 //Overall Layout Styles
 
@@ -17,7 +103,8 @@ div#status, div#select{
 
 h1 {
 	min-height: 10vh;
-	background-color: LightGoldenRodYellow;
+	background-color: $headBG;
+	color: $lightText;
 }
 
 .frame {
@@ -26,10 +113,10 @@ h1 {
 }
 
 .select.frame{
-	background-color: lightGreen;
+	background-color: $selectBG;
 }
 .status.frame{
-	background-color: lightblue;
+	background-color: $statusBG;
 }
 
 img {
@@ -65,7 +152,8 @@ body, p {	font-family: "Open sans", Futura, "Trebuchet MS", Arial, sans-serif;	}
 
 button{
 	font-size: .8rem;
-	background-color: dodgerblue;
+	background-color: $actionButton;
+	color: $lightText;
 	border: none;
 
 }
@@ -88,7 +176,7 @@ input[type="radio"]{
 
 @mixin darkBox{
 	@include rounded;
-	background-color: $slateGray;
+	background-color: $darkerMonoBlue2;
 	padding: 1rem;
 	margin: 0 1rem;
 	color: white;
@@ -96,7 +184,7 @@ input[type="radio"]{
 
 
 h2{
-	background-color: azure;
+	background-color: $statusHead;
 
 }
 
@@ -161,7 +249,7 @@ select{
 button {
 	height: 3rem;
 	&:hover{
-		background-color: Aliceblue;
+		background-color: $statusButton;
 	}
 }
 
@@ -178,12 +266,13 @@ div#select{
 			padding-top: .25rem;
 			display: inline-block;
 			min-height: 8rem; 
-			background-color: blue;
+			background-color: $selectButton;
 
 			&.active{
-				background-color: tomato;
+				background-color: $selectButtonHover;
 			}
 			&:hover{
+				background-color: $selectButtonHover;
 				border: 5px solid white;
 			}
 		
@@ -229,7 +318,7 @@ button#closeDrawer{
 		right: 0;
 		width: 7%;
 		height: 100%;
-		background-color: $slateGray;
+		background-color: $profile;
 	}
 
 	.thing{
