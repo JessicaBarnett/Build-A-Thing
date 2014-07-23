@@ -25,7 +25,25 @@ $profile: $darkerMonoBlue2;
 
 $actionButton: $darkestBlue;
 
+/* Mixins */
 
+
+@mixin darkBox{
+	@include rounded;
+	background-color: $profile;
+	padding: 1rem;
+	margin: 0 1rem;
+	color: white;
+}
+
+@mixin rounded {
+	border-radius: 10px;
+}
+
+@mixin strongify{
+	font-weight: bold;
+	//font-family: Galindo, "Franklin Gothic", "ITC Franklin Gothic", "Arial Bold", Arial, sans-serif;
+}
 
 //Overall Layout Styles
 
@@ -64,14 +82,6 @@ img {
 
 //Text Formatting
 
-@mixin rounded {
-	border-radius: 10px;
-}
-
-@mixin strongify{
-	font-weight: bold;
-	//font-family: Galindo, "Franklin Gothic", "ITC Franklin Gothic", "Arial Bold", Arial, sans-serif;
-}
 
 strong{	@include strongify;	}
 
@@ -117,14 +127,6 @@ input[type="radio"]{
 
 //Thing Status Styles
 
-@mixin darkBox{
-	@include rounded;
-	background-color: $profile;
-	padding: 1rem;
-	margin: 0 1rem;
-	color: white;
-}
-
 
 h2{
 	@include rounded;
@@ -136,7 +138,15 @@ h2{
 	@include darkBox;
 	margin: 1.5rem 0;
 	padding: 1.2rem;
-	width: 100%;
+	margin-left: 5%;
+	width: 90%;
+	background-color: $darkestBlue;
+
+	@media screen and (max-width: 930px) {
+		left: 10%;
+		width: 80%;
+		margin-left: 0;
+	}
 
 	& li {
 		font-size: 1.5rem;
@@ -199,11 +209,6 @@ select{
 	&:hover{
 		background-color: $statusButton;
 	}
-}
-
-.thing{
-
-
 }
 
 div#select{
@@ -276,8 +281,24 @@ button#closeDrawer{
 		min-height: 8rem;
 
 	}
-
-
 }
 
+.popout {
+	@include darkBox;
+	position: absolute;
+	z-index: 10;
+	top: 10%;
+	left: 0;
+	width: 100%;
+}
+
+.grayout {
+	position: absolute;
+	z-index: 9;
+	left: 0;
+	width: 100%;
+	top: 0;
+	height: 100vh;
+	background-color: rgba(255, 255, 255, .6);
+}
 

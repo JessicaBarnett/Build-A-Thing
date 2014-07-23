@@ -1,6 +1,7 @@
 //Note: JS Media Queries awesome reference: http://www.sitepoint.com/javascript-media-queries/
 //Note: matchMediaObject.matches returns a true or false depending on query result 
-var mqBreakOne = window.matchMedia("(max-width: 930px)");
+
+//var mqBreakOne = window.matchMedia("(max-width: 930px)"); //from controller.js
 
 $(window).ready(resizeHandler).resize(resizeHandler);
 $(".thing").click(selectButtonHandler);
