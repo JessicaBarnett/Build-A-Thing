@@ -86,10 +86,7 @@ function thingActionHandler() {
     var thingObject = thingModel.allThings[$("ul#thingStats").attr("data")]; //gets name of thing from data attribute in thingStats
     var methodName = $(this).text(); //gets text in button clicked
     if (methodName === "profile") { //if this is the profile action...
-        if (mqBreakOne.matches)
-            thingView.printMobileProfile(thingObject);
-        else
-            thingView.printProfile(thingObject);
+        thingView.printProfile(thingObject);
     } else { //if this is any other action...
         var actionText = thingObject[methodName](); //updates any status stuff that will be changed in the action
         thingView.refreshStats(thingModel.allThings[$("ul#thingStats").attr("data")], null); //prints updated/changed status

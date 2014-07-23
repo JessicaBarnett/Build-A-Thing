@@ -75,11 +75,6 @@ h2 {
   margin-left: 5%;
   width: 90%;
   background-color: #0b2d4e; }
-  @media screen and (max-width: 930px) {
-    #profile {
-      left: 10%;
-      width: 80%;
-      margin-left: 0; } }
   #profile li {
     font-size: 1.5rem;
     margin: 1rem 0; }
@@ -177,23 +172,3 @@ button#closeDrawer {
 
   .thing {
     min-height: 8rem; } }
-.popout {
-  border-radius: 10px;
-  background-color: #225db9;
-  padding: 1rem;
-  margin: 0 1rem;
-  color: white;
-  position: absolute;
-  z-index: 10;
-  top: 10%;
-  left: 0;
-  width: 100%; }
-
-.grayout {
-  position: absolute;
-  z-index: 9;
-  left: 0;
-  width: 100%;
-  top: 0;
-  height: 100vh;
-  background-color: rgba(255, 255, 255, 0.6); }

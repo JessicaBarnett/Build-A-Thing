@@ -184,33 +184,6 @@ ThingView.prototype.printProfile = function(thing) {
     $statusWindow.append($profileWindow);
 }
 
-//this version of printProfile prints in a grayout box.
-ThingView.prototype.printMobileProfile = function(thing) {
-
-    var $statusWindow = $("div#status"),
-        $grayoutWindow,
-        $profileWindow,
-        $statsList = $("<ul></ul>");
-
-    //adds transparent grayout window
-    $grayoutWindow = $('<div class="mobileProfile grayout" >&nbsp</div>');
-    $statusWindow.append($grayoutWindow);
-
-    $profileWindow = $('<div id="profile" class="group mobileProfile popout"></div>');
-    $statsList.append(this.getAllStats(thing));
-    $profileWindow.append($statsList.append());
-
-    $statusWindow.append($profileWindow);
-
-    //creates okay button.  adds handler which reverts page back to state saved in $savedWindow
-    $profileWindow.append('<button autofocus>Okay!</button>').click(function() {
-        $statusWindow.children(".mobileProfile").remove();
-    });
-
-    $statusWindow.append($profileWindow);
-}
-
-
 //when form is open, hides/shows fields depending on which Thing Type
 //is selected, and whether it is a Pet
 ThingView.prototype.refreshForm = function() {
