@@ -171,4 +171,7 @@ button#closeDrawer {
       background-color: white; }
 
   .thing {
-    min-height: 8rem; } }
+    min-height: 8rem; }
+
+  #actionWindow {
+    display: none; } }

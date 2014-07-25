@@ -1,18 +1,3 @@
-/* 
-//NOTES ON "THIS"
-// I have an unknown # of arguments, so I need to use call or apply to create objects in here.
-// this means I need something to pass as "this."  
-// if I create makeAnyThing as a method of ThingModel, "this" refers to ThingModel
-// if I create makeAnyThing as a regular function, "this" refers to window.
-// tried various things: this["Thing"], window["Thing"], Thing, Thing.prototype, 
-// Thing.prototype.constructor. "this" always refers to undefined
-// I think the thing passed as "this" has to be an actual object, 
-// not a pointer to a constructor function.  That would make sense.  
-// so now I'm making an empty Thing-like object (had to go back and make parameters optional)
-// then applying the constructor function to it.  Seems to be working.
-*/
-
-
 /********** DOM MANIPULATORS/VIEW **********/
 
 
@@ -162,27 +147,46 @@ ThingView.prototype.getEssentialStats = function(thing) {
 };
 
 ThingView.prototype.printProfile = function(thing) {
+    $statsList = $("<ul></ul>");
+    $statsList.append(this.getAllStats(thing));
+    this.printToPopout($statsList);
+}
+
+ThingView.prototype.printAction = function(thing, action) {
+    var actionText = thing[action](); //updates any status stuff that will be changed in the action
+    thingView.refreshStats(thingModel.allThings[$("ul#thingStats").attr("data")], null); //prints updated/changed status
+    $("p#actionWindow").text(actionText); //prints message AFTER stats have been changed, so it doesn't get erased by printThing
+};
+
+ThingView.prototype.printActionPopout = function(thing, action) {
+    var actionText = thing[action](); //gets text to be printed 
+    thingView.refreshStats(thingModel.allThings[$("ul#thingStats").attr("data")], null); //prints updated/changed status
+    this.printToPopout($("<p>" + actionText + "</p>")); //sends text to printToPopout for printing
+};
+
+//takes a jquery element.  adds a popout window to thingStats and appends those elements to it. 
+//saves state of page before appendint.  adds a click handler for the okay button, which will restore the page.  
+ThingView.prototype.printToPopout = function($elements) {
     var $statusWindow = $("div#status"),
         $savedWindow,
-        $profileWindow,
-        $statsList = $("<ul></ul>");
+        $popOut;
 
     //saves state of statusWindow to use when okay button is hit
     $savedWindow = $statusWindow.children().not($("h2")).not($("button#closeDrawer")).detach();
 
-    $profileWindow = $('<div id="profile" class="group"></div>');
+    $popOut = $('<div id="profile" class="group"></div>');
 
-    $statsList.append(this.getAllStats(thing));
-    $profileWindow.append($statsList);
+    $popOut.append($elements);
 
     //creates okay button.  adds handler which reverts page back to state saved in $savedWindow
-    $profileWindow.append('<button autofocus>Okay!</button>').click(function() {
+    $popOut.append('<button autofocus>Okay!</button>').click(function() {
         $statusWindow.children().not($("h2")).not($("button#closeDrawer")).remove();
         $statusWindow.append($savedWindow);
     });
 
-    $statusWindow.append($profileWindow);
+    $statusWindow.append($popOut);
 }
+
 
 //when form is open, hides/shows fields depending on which Thing Type
 //is selected, and whether it is a Pet
