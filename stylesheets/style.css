@@ -172,6 +172,6 @@ button#closeDrawer {
 
   .thing {
     min-height: 8rem; } }
-@media screen and (max-width: 550px) {
+@media screen and (max-width: 550px) and (min-width: 200px) {
   #actionWindow {
     display: none; } }
