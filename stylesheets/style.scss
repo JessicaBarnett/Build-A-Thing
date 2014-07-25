@@ -256,6 +256,7 @@ button#closeDrawer{
 	display: none;
 }
 
+//tablet and below
 @media screen and (max-width: 930px){
 
 	.status.frame{ //selects wrapper of "status" div
@@ -303,7 +304,7 @@ button#closeDrawer{
 }
 
 //all phone sizes
-@media screen and (min-width: 200px) and (max-width: 550px){
+@media screen and (min-width: 200px) and (max-width: 800px){
 	#status{
 		padding: 0;
 	}
@@ -391,9 +392,8 @@ button#closeDrawer{
 	}
 }
 
-
 //phone portrait
-@media screen and (min-width: 200px) and (max-width: 600px) and (orientation: portrait){
+@media screen and (min-width: 200px) and (max-width: 550px) and (orientation: portrait){
 
 	#thingActions button{
 		width: 45%;
