@@ -313,21 +313,6 @@ ThingView.prototype.generateForm = function() {
 
 /*******  Mobile Layout Conversion  ******/
 
-//whatever the layout is now, it will reverse it to the other (Phone landscape or other)
-ThingView.prototype.togglePhoneLandscape = function() {
-    var $thingActions = $("#thingActions").detach(); //remove and save action buttons 
-
-    if ($("#thingActions").parent("#statsContainer")) //if already in landscape layout
-    {
-        $("#statsContainer").append($thingActions);
-    } else if ($("#thingActions").parent("#status")) //else if not in landscape layout
-    {
-        $('#status').append($thingActions);
-    } else {
-        console.log("neither landscape nor other?");
-    }
-};
-
 ThingView.prototype.convertLayoutToWidePhone = function() {
     var $thingActions = $("#thingActions").detach();
     $("#statsContainer").append($thingActions);

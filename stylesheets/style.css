@@ -226,6 +226,12 @@ button#closeDrawer {
     margin-top: 2%;
     height: 2.8rem; }
 
+  h2 {
+    width: 90%; }
+
+  #popOut {
+    width: 80%; }
+
   #svgContainer {
     width: 33%; }
 
@@ -235,7 +241,7 @@ button#closeDrawer {
   #status {
     margin: 0;
     margin-left: 2%;
-    width: 85%; }
+    width: 95%; }
 
   button#closeDrawer {
     width: 10%; }
