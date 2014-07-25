@@ -1,6 +1,11 @@
-//********* CONTROLLER **********/
-var mqBreakOne = window.matchMedia("(max-width: 930px)");
+//Media Queries
 
+var mqTab = window.matchMedia("(max-width: 930px)");
+var mqPhone = window.matchMedia("screen and (max-width: 550px)");
+var mqPhoneWide = window.matchMedia("screen and (max-width: 550px) and (orientation:landscape)");
+
+
+//********* CONTROLLER **********/
 var thingModel = new ThingModel();
 var thingView = new ThingView();
 
@@ -88,7 +93,7 @@ function thingActionHandler() {
     if (methodName === "profile") { //if this is the profile action...
         thingView.printProfile(thingObject);
     } else { //if this is any other action...
-        if (mqBreakOne.matches) {
+        if (mqPhone.matches) {
             thingView.printActionPopout(thingObject, methodName);
         } else {
             thingView.printAction(thingObject, methodName);

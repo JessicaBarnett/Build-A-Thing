@@ -279,7 +279,11 @@ button#closeDrawer{
 		min-height: 8rem;
 
 	}
+}
 
+//phone styles
+//seems to adjust 50px after breakboint?
+@media screen and (max-width: 550px){
 	#actionWindow {
 		display: none;
 	}
