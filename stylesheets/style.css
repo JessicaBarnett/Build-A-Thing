@@ -186,9 +186,9 @@ button#closeDrawer {
 
   #action + button {
     margin-top: 8rem; } }
-@media screen and (min-width: 700px) and (max-width: 930px), screen and (min-width: 1200px) {
+@media screen and (min-width: 700px) and (max-width: 1000px), screen and (min-width: 1200px) {
   div#select .svgContainer {
-    width: 35%; } }
+    width: 32%; } }
 @media screen and (min-width: 200px) and (max-width: 750px) {
   #status {
     padding: 0; }

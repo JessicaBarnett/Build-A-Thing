@@ -1,6 +1,6 @@
 //Media Queries
 
-var mqTab = window.matchMedia("(max-width: 930px)");
+var mqTab = window.matchMedia("(max-width: 1000px)");
 var mqPhone = window.matchMedia("screen and (min-width: 200px) and (max-width: 750px)");
 var mqPhoneWide = window.matchMedia("screen and (min-width: 300px) and (max-width: 750px) and (orientation: landscape)");
 
