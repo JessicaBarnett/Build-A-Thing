@@ -219,7 +219,7 @@ button#closeDrawer {
 
   #actionWindow {
     display: none; } }
-@media screen and (min-width: 200px) and (max-width: 550px) and (orientation: landscape) {
+@media screen and (min-width: 300px) and (max-width: 800px) and (orientation: landscape) {
   #thingActions button {
     width: 48%;
     margin: 1%;
@@ -248,7 +248,7 @@ button#closeDrawer {
 
   #popOut {
     min-height: 10rem; } }
-@media screen and (min-width: 200px) and (max-width: 550px) and (orientation: portrait) {
+@media screen and (min-width: 200px) and (max-width: 600px) and (orientation: portrait) {
   #thingActions button {
     width: 45%;
     height: 3rem; }
