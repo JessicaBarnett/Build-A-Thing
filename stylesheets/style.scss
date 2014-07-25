@@ -21,7 +21,7 @@ $statusBG: $midBlueLight; //$purpley; //$monoOrange1;
 $statusHead: white;
 $statusButton: white;
 
-$profile: $darkerMonoBlue2;
+$popOut: $darkerMonoBlue2;
 
 $actionButton: $darkestBlue;
 
@@ -34,7 +34,7 @@ $titleFont: 3rem;
 
 @mixin darkBox{
 	@include rounded;
-	background-color: $profile;
+	background-color: $popOut;
 	padding: 1rem;
 	margin: 0 1rem;
 	color: white;
@@ -145,17 +145,13 @@ h2{
 
 }
 
-#profile{
+#popOut{
 	@include darkBox;
 	margin: 1.5rem 0;
 	padding: 1.2rem;
 	margin-left: 5%;
 	width: 90%;
 	background-color: $darkestBlue;
-
-	@media screen and (max-width: 930px) {
-
-	}
 
 	& li {
 		font-size: 1.5rem;
@@ -171,7 +167,7 @@ h2{
 		font-size: 2rem;
 		float: right;
 		margin-top: 8%; 
-		//margin-top so the back button will be around where the profile button was
+		//margin-top so the back button will be around where the popOut button was
 		//looking for better way. sass if statement?  if height > x, margin-top = y, else margin-top = z?
 	}
 
@@ -261,6 +257,7 @@ button#closeDrawer{
 }
 
 @media screen and (max-width: 930px){
+
 	#actionWindow {
 		display: none;
 	}
@@ -275,16 +272,16 @@ button#closeDrawer{
 	#status {
 		margin: 1rem 7% 1rem 3%;
 		width: 83%;
+		//overflow: hidden;
 	}
 
 	button#closeDrawer{
 		display: block;
 		position: absolute;
-		top: -1px;
+		top: -2%;
 		right: 0;
 		width: 7%;
-		min-height: 101%;
-		max-height: 150%;
+		min-height: 102%;
 		background-color: $darkestBlue;
 		&:hover {
 			background-color: white;
@@ -295,24 +292,35 @@ button#closeDrawer{
 		min-height: 8rem;
 
 	}
+
+	#popOut button{
+		margin-top: 10rem;
+	}
 }
 
 //awkward moment after first adjust to tablet layout, when text outflows 
 //buttons in select menu
 @media screen and (min-width: 700px) and (max-width: 930px){
 	div#select .svgContainer {
-		max-width: 35%;
+		width: 35%;
 	}	
 }
 
 //phone landscape and below
-@media screen and (min-width: 200px) and (max-width: 480px){
+@media screen and (min-width: 300px) and (max-width: 500px){
+	#status{
+		padding: 0;
+	}
 	h1{
 		font-size: $titleFont - 1rem;
+		padding: .3rem;
+		line-height: $titleFont + .5rem;
 	}
 
 	h2{
 		font-size: $titleFont - 1.3rem;
+		line-height: $titleFont - 1.8rem;
+		padding: .5rem;
 	}
 	body, p{
 		font-size: $bodyFont - 2rem;
@@ -326,24 +334,79 @@ button#closeDrawer{
 		font-size: $bodyFont;
 	}
 
+	#popOut button{
+		float: none;
+		display: block;
+		margin: 0 auto;
+	}
+
+	//button directly following #profile
+	#profile + button{
+		margin-top: .3rem;
+	}
+
+	//button directly following #action
+	#action + button{
+		margin-top: 4rem;
+	}
+
+}
+//phone Landscape
+@media screen and (min-width: 300px) and (max-width: 500px) and (orientation: landscape){
+	#thingActions button{
+		width: 48%;
+		margin: 1%;
+		margin-top: 2%;
+		height: 2.8rem;
+	}
+
+	#svgContainer{
+		width: 33%; //overriding grid
+	}
+
+	#statsContainer {
+		width: 55%;
+	}
+
+	#status {
+		margin: 0;
+		margin-left: 2%;
+		width: 85%;
+	}
+
+	button#closeDrawer{
+		width: 10%;
+	}
+
+	#popOut {
+		min-height: 10rem;
+	}
+}
+
+
+//phone portrait
+@media screen and (min-width: 300px) and (max-width: 500px) and (orientation: portrait){
+
 	#thingActions button{
 		width: 45%;
 		height: 3rem;
 	}
 
 	#status {
-		margin: 0;
+		margin: .3rem 3% .3rem 2.5%;
+		width: 75%;
 	}
-}
 
-//phone portrait
-@media screen and (min-width: 200px) and (max-width: 420px) and (orientation: portrait){
 	button#closeDrawer{
 		width: 15%;
 	}
 
-	#status {
-		margin: .3rem 3% .3rem 2.5%;
-		width: 75%;
+	#svgContainer{
+		max-width: 70%;
+		margin: 0 5% 0 25%;
 	}
+	#statsContainer{
+		width: 100%;
+	}
+
 }

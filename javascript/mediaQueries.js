@@ -10,6 +10,7 @@ $(".thing").click(selectButtonHandler);
 //runs on page load, and whenever the window resizes
 function resizeHandler() {
     browserWidth = $(document).width();
+
     if (mqTab.matches) {
         $(".frame").removeClass("half-screen");
         $(".frame").addClass("full-screen");
@@ -36,13 +37,12 @@ function resizeHandler() {
     } else {
         thingView.convertLayoutFromWidePhone();
     }
-
 }
 
 //adds drawer listener if this is a tablet viewport size or smaller
 function selectButtonHandler() {
     if (mqTab.matches) {
         toggleDrawer();
-        $("#closeDrawer").click(selectButtonHandler);
+        $("#closeDrawer").click(selectButtonHandler); //re-adding handler because button was re-written to dom
     }
 }

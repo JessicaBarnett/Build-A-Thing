@@ -69,7 +69,7 @@ h2 {
   border-radius: 10px;
   background-color: white; }
 
-#profile {
+#popOut {
   border-radius: 10px;
   background-color: #225db9;
   padding: 1rem;
@@ -80,10 +80,10 @@ h2 {
   margin-left: 5%;
   width: 90%;
   background-color: #0b2d4e; }
-  #profile li {
+  #popOut li {
     font-size: 1.5rem;
     margin: 1rem 0; }
-  #profile button {
+  #popOut button {
     border-radius: 10px;
     font-weight: bold;
     background-color: transparent;
@@ -170,26 +170,35 @@ button#closeDrawer {
   button#closeDrawer {
     display: block;
     position: absolute;
-    top: -1px;
+    top: -2%;
     right: 0;
     width: 7%;
-    min-height: 101%;
-    max-height: 150%;
+    min-height: 102%;
     background-color: #0b2d4e; }
     button#closeDrawer:hover {
       background-color: white; }
 
   .thing {
-    min-height: 8rem; } }
+    min-height: 8rem; }
+
+  #popOut button {
+    margin-top: 10rem; } }
 @media screen and (min-width: 700px) and (max-width: 930px) {
   div#select .svgContainer {
-    max-width: 35%; } }
-@media screen and (min-width: 200px) and (max-width: 480px) {
+    width: 35%; } }
+@media screen and (min-width: 300px) and (max-width: 500px) {
+  #status {
+    padding: 0; }
+
   h1 {
-    font-size: 2rem; }
+    font-size: 2rem;
+    padding: .3rem;
+    line-height: 3.5rem; }
 
   h2 {
-    font-size: 1.7rem; }
+    font-size: 1.7rem;
+    line-height: 1.2rem;
+    padding: .5rem; }
 
   body, p {
     font-size: -0.6rem; }
@@ -200,16 +209,54 @@ button#closeDrawer {
   ul#thingStats li strong {
     font-size: 1.4rem; }
 
+  #popOut button {
+    float: none;
+    display: block;
+    margin: 0 auto; }
+
+  #profile + button {
+    margin-top: .3rem; }
+
+  #action + button {
+    margin-top: 4rem; } }
+@media screen and (min-width: 300px) and (max-width: 500px) and (orientation: landscape) {
+  #thingActions button {
+    width: 48%;
+    margin: 1%;
+    margin-top: 2%;
+    height: 2.8rem; }
+
+  #svgContainer {
+    width: 33%; }
+
+  #statsContainer {
+    width: 55%; }
+
+  #status {
+    margin: 0;
+    margin-left: 2%;
+    width: 85%; }
+
+  button#closeDrawer {
+    width: 10%; }
+
+  #popOut {
+    min-height: 10rem; } }
+@media screen and (min-width: 300px) and (max-width: 500px) and (orientation: portrait) {
   #thingActions button {
     width: 45%;
     height: 3rem; }
 
   #status {
-    margin: 0; } }
-@media screen and (min-width: 200px) and (max-width: 420px) and (orientation: portrait) {
+    margin: .3rem 3% .3rem 2.5%;
+    width: 75%; }
+
   button#closeDrawer {
     width: 15%; }
 
-  #status {
-    margin: .3rem 3% .3rem 2.5%;
-    width: 75%; } }
+  #svgContainer {
+    max-width: 70%;
+    margin: 0 5% 0 25%; }
+
+  #statsContainer {
+    width: 100%; } }

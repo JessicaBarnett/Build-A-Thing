@@ -55,6 +55,7 @@ ThingView.prototype.printThing = function(thing) {
     var $listItems = [];
 
     $parentNode.empty();
+    $parentNode.attr("data", thing.name);
 
     //create back drawer tab button for mobile view
     $parentNode.append($('<button id="closeDrawer"><img src="images/Arrow.svg" alt="back"></button>'));
@@ -70,7 +71,7 @@ ThingView.prototype.printThing = function(thing) {
     $thingStatsWrapper = $('<div class="container"></div>');
 
     //create thing image
-    $img = $('<div class="svgContainer three columns alpha"><img src="images/' + thing.type + '.svg" alt="' + thing.name + ' icon"></div>');
+    $img = $('<div id="svgContainer" class="svgContainer three columns alpha"><img src="images/' + thing.type + '.svg" alt="' + thing.name + ' icon"></div>');
 
     //create thingStats ul
     $ul = $('<ul id="thingStats"></ul>');
@@ -111,6 +112,10 @@ ThingView.prototype.printThing = function(thing) {
 
     if (mqPhoneWide.matches) {
         this.convertLayoutToWidePhone();
+    }
+
+    if (mqPhone.matches) {
+        this.convertToShortHeader(thing);
     }
 
 };
@@ -160,22 +165,25 @@ ThingView.prototype.getEssentialStats = function(thing) {
     return $essentialStats;
 };
 
+//print profile to a popout window
 ThingView.prototype.printProfile = function(thing) {
-    $statsList = $("<ul></ul>");
+    $statsList = $('<ul id="profile"></ul>');
     $statsList.append(this.getAllStats(thing));
     this.printToPopout($statsList);
 };
 
+//print action to embedded window.  Web View and Tablet landscape view
 ThingView.prototype.printAction = function(thing, action) {
     var actionText = thing[action](); //updates any status stuff that will be changed in the action
     thingView.refreshStats(thingModel.allThings[$("ul#thingStats").attr("data")], null); //prints updated/changed status
     $("p#actionWindow").text(actionText); //prints message AFTER stats have been changed, so it doesn't get erased by printThing
 };
 
+//print action in a popout window
 ThingView.prototype.printActionPopout = function(thing, action) {
     var actionText = thing[action](); //gets text to be printed 
     thingView.refreshStats(thingModel.allThings[$("ul#thingStats").attr("data")], null); //prints updated/changed status
-    this.printToPopout($("<p>" + actionText + "</p>")); //sends text to printToPopout for printing
+    this.printToPopout($('<p id="action">' + actionText + '</p>')); //sends text to printToPopout for printing
 };
 
 //takes a jquery element.  adds a popout window to thingStats and appends those elements to it. 
@@ -188,7 +196,7 @@ ThingView.prototype.printToPopout = function($elements) {
     //saves state of statusWindow to use when okay button is hit
     $savedWindow = $statusWindow.children().not($("h2")).not($("button#closeDrawer")).detach();
 
-    $popOut = $('<div id="profile" class="group"></div>');
+    $popOut = $('<div id="popOut" class="group"></div>');
 
     $popOut.append($elements);
 
@@ -199,31 +207,6 @@ ThingView.prototype.printToPopout = function($elements) {
     });
 
     $statusWindow.append($popOut);
-}
-
-//whatever the layout is now, it will reverse it to the other (Phone landscape or other)
-ThingView.prototype.togglePhoneLandscape = function() {
-    var $thingActions = $("#thingActions").detach(); //remove and save action buttons 
-
-    if ($("#thingActions").parent("#statsContainer")) //if already in landscape layout
-    {
-        $("#statsContainer").append($thingActions);
-    } else if ($("#thingActions").parent("#status")) //else if not in landscape layout
-    {
-        $('#status').append($thingActions);
-    } else {
-        console.log("neither landscape nor other?");
-    }
-}
-
-ThingView.prototype.convertLayoutToWidePhone = function() {
-    var $thingActions = $("#thingActions").detach();
-    $("#statsContainer").append($thingActions);
-}
-
-ThingView.prototype.convertLayoutFromWidePhone = function() {
-    var $thingActions = $("#thingActions").detach();
-    $("#status").append($thingActions);
 }
 
 //when form is open, hides/shows fields depending on which Thing Type
@@ -327,3 +310,56 @@ ThingView.prototype.generateForm = function() {
     $variableFieldset.children().hide();
     this.refreshForm(); //to hide all non-applicable fields
 };
+
+/*******  Mobile Layout Conversion  ******/
+
+//whatever the layout is now, it will reverse it to the other (Phone landscape or other)
+ThingView.prototype.togglePhoneLandscape = function() {
+    var $thingActions = $("#thingActions").detach(); //remove and save action buttons 
+
+    if ($("#thingActions").parent("#statsContainer")) //if already in landscape layout
+    {
+        $("#statsContainer").append($thingActions);
+    } else if ($("#thingActions").parent("#status")) //else if not in landscape layout
+    {
+        $('#status').append($thingActions);
+    } else {
+        console.log("neither landscape nor other?");
+    }
+};
+
+ThingView.prototype.convertLayoutToWidePhone = function() {
+    var $thingActions = $("#thingActions").detach();
+    $("#statsContainer").append($thingActions);
+
+    //attempting to put header in one of the columns to save space.
+    // var $thingHeader = $("#status h2").detach();
+    // $("#svgContainer").prepend($thingHeader);
+};
+
+ThingView.prototype.convertLayoutFromWidePhone = function() {
+    var $thingActions = $("#thingActions").detach();
+    $("#status").append($thingActions);
+
+    //attempting to put header in one of the columns to save space.
+    // var $thingHeader = $("#status h2").detach();
+    // $("#status").prepend($thingHeader);
+};
+
+ThingView.prototype.convertToShortHeader = function(thing) {
+    var header = $("#status h2");
+    if (thing._isPet) {
+        header.text(thing.humanName + " (" + thing.name + ")");
+    } else {
+        header.text(thing.name);
+    }
+};
+
+ThingView.prototype.convertToLongHeader = function(thing) {
+    var header = $("#status h2");
+    if (thing.isPet) {
+        header.text("This is " + thing.humanName + " the " + thing.name);
+    } else {
+        header.text("This is a " + thing.name);
+    }
+}

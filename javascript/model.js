@@ -125,6 +125,6 @@ ThingModel.prototype.makeAnyThing = function(type, petName /*args*/ ) {
 //returns true if passed stat is essential, meaning it gets updated
 //and the user needs to see it easily
 ThingModel.prototype.isEssentialStat = function(stat) {
-    var essentialStats = ["energy", "happy", "height", "type"];
+    var essentialStats = ["energy", "happy", "height"];
     return essentialStats.indexOf(stat) >= 0;
 };
