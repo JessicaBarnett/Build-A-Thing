@@ -25,6 +25,10 @@ $profile: $darkerMonoBlue2;
 
 $actionButton: $darkestBlue;
 
+
+$bodyFont: 1.4rem;
+$titleFont: 3rem;
+
 /* Mixins */
 
 
@@ -59,7 +63,7 @@ div#status, div#select{
 }
 
 h1 {
-	min-height: 10vh;
+	min-height: 12vh;
 	background-color: $headBG;
 	color: $lightText;
 }
@@ -87,17 +91,24 @@ strong{	@include strongify;	}
 
 h1, h2{
 	@include strongify;
-	font-size: 3rem;
+	font-size: $titleFont;
 	font-family: Galindo, "Franklin Gothic", "ITC Franklin Gothic", "Arial Bold", Arial, sans-serif;
-	padding: .5rem;
-	padding-bottom: 1rem;
+	padding: 1rem .5rem;
 	text-align: center;
+	line-height: 2.5rem;
 }
 
-h2{	font-size: 2rem;  }
+h1{
+	padding-top: 1.2rem;
+}
+
+h2{	font-size: $titleFont - 1.2rem;  }
 
 
-body, p {	font-family: "Open sans", Futura, "Trebuchet MS", Arial, sans-serif;	}
+body, p {	font-family: "Open sans", Futura, "Trebuchet MS", Arial, sans-serif;	
+			font-size: $bodyFont;
+			line-height: 1.8rem;
+		}
 
 button{
 	font-size: .8rem;
@@ -168,7 +179,7 @@ h2{
 
 p#actionWindow {
 	@include darkBox;
-	min-height: 5rem;
+	min-height: 5.5rem;
 }
 
 ul#thingStats{
@@ -176,7 +187,7 @@ ul#thingStats{
 	li{
 		margin: .5rem 0;
 		& strong {
-			font-size: 1.2rem;
+			font-size: $bodyFont + .2rem;
 		}
 	}
 }
@@ -240,7 +251,7 @@ div#select{
 		text-align: center;
 	}
 	& .makeNewThing p{
-		font-size: 1.7rem;
+		font-size: $bodyFont + .3rem;
 		margin-top: 1.5rem;
 	}
 }
@@ -250,6 +261,10 @@ button#closeDrawer{
 }
 
 @media screen and (max-width: 930px){
+	#actionWindow {
+		display: none;
+	}
+
 	.status.frame{ //selects wrapper of "status" div
 		position: absolute;
 		z-index: 5;
@@ -265,10 +280,11 @@ button#closeDrawer{
 	button#closeDrawer{
 		display: block;
 		position: absolute;
-		top: 0;
+		top: -1px;
 		right: 0;
 		width: 7%;
-		height: 100%;
+		min-height: 101%;
+		max-height: 150%;
 		background-color: $darkestBlue;
 		&:hover {
 			background-color: white;
@@ -281,10 +297,53 @@ button#closeDrawer{
 	}
 }
 
-//phone styles
-//seems to adjust 50px after breakboint?
-@media screen  and (max-width: 550px) and (min-width: 200px){
-	#actionWindow {
-		display: none;
+//awkward moment after first adjust to tablet layout, when text outflows 
+//buttons in select menu
+@media screen and (min-width: 700px) and (max-width: 930px){
+	div#select .svgContainer {
+		max-width: 35%;
+	}	
+}
+
+//phone landscape and below
+@media screen and (min-width: 200px) and (max-width: 480px){
+	h1{
+		font-size: $titleFont - 1rem;
+	}
+
+	h2{
+		font-size: $titleFont - 1.3rem;
+	}
+	body, p{
+		font-size: $bodyFont - 2rem;
+	}
+
+	div#select .makeNewThing p{
+		font-size: $bodyFont;
+	}
+
+	ul#thingStats li strong{
+		font-size: $bodyFont;
+	}
+
+	#thingActions button{
+		width: 45%;
+		height: 3rem;
+	}
+
+	#status {
+		margin: 0;
+	}
+}
+
+//phone portrait
+@media screen and (min-width: 200px) and (max-width: 420px) and (orientation: portrait){
+	button#closeDrawer{
+		width: 15%;
+	}
+
+	#status {
+		margin: .3rem 3% .3rem 2.5%;
+		width: 75%;
 	}
 }

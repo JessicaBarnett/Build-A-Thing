@@ -93,7 +93,7 @@ function thingActionHandler() {
     if (methodName === "profile") { //if this is the profile action...
         thingView.printProfile(thingObject);
     } else { //if this is any other action...
-        if (mqPhone.matches) {
+        if (mqTab.matches) {
             thingView.printActionPopout(thingObject, methodName);
         } else {
             thingView.printAction(thingObject, methodName);
