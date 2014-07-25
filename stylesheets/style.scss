@@ -257,7 +257,7 @@ button#closeDrawer{
 }
 
 //tablet and below
-@media screen and (max-width: 930px){
+@media screen and (max-width: 1000px){
 
 	.status.frame{ //selects wrapper of "status" div
 		position: absolute;
@@ -293,18 +293,28 @@ button#closeDrawer{
 	#popOut button{
 		margin-top: 10rem;
 	}
+
+	//button directly following #profile
+	#profile + button{
+		margin-top: 1rem;
+	}
+
+	//button directly following #action
+	#action + button{
+		margin-top: 8rem;
+	}
 }
 
-//awkward moment after first adjust to tablet layout, when text outflows 
-//buttons in select menu
-@media screen and (min-width: 700px) and (max-width: 930px){
+//adjusting svg size in select buttons to prevent text overflow
+//affects extra-wide web layout and wider tablet sizes
+@media screen and (min-width: 700px) and (max-width: 930px), screen and (min-width: 1200px){
 	div#select .svgContainer {
 		width: 35%;
 	}	
 }
 
 //all phone sizes
-@media screen and (min-width: 200px) and (max-width: 800px){
+@media screen and (min-width: 200px) and (max-width: 750px){
 	#status{
 		padding: 0;
 	}
@@ -331,6 +341,7 @@ button#closeDrawer{
 		font-size: $bodyFont;
 	}
 
+	//centers okay button
 	#popOut button{
 		float: none;
 		display: block;
@@ -353,7 +364,7 @@ button#closeDrawer{
 
 }
 //phone Landscape
-@media screen and (min-width: 300px) and (max-width: 800px) and (orientation: landscape){
+@media screen and (min-width: 300px) and (max-width: 750px) and (orientation: landscape){
 	#thingActions button{
 		width: 48%;
 		margin: 1%;
