@@ -4,7 +4,6 @@
 //********  Drawer  *********/
 
 var browserWidth = $(document).width();
-console.log(browserWidth);
 var drawerIsOpen = false;
 
 //drawer example at: http://www.savthecoder.com/blog/drawer-ui-jquery
@@ -14,9 +13,11 @@ function openDrawer() {
         left: 0
     }, 500);
     drawerIsOpen = true;
+    $("#select").hide();
 }
 
 function closeDrawer() {
+    $("#select").show();
     $(".status.frame").animate({
         left: -browserWidth
     }, 500);
@@ -65,9 +66,9 @@ function resizeHandler() {
     }
 }
 
+
 //adds drawer listener if this is a tablet viewport size or smaller
 function mobileSelectButtonHandler() {
-    console.log("mobile handler called!");
     if (mqTab.matches) { //this mq check is a little redundant
         toggleDrawer();
 
