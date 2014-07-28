@@ -147,16 +147,19 @@ div#select {
     overflow: hidden;
     font-size: 1.2rem;
     font-weight: bold;
-    text-align: center; }
+    text-align: center;
+    line-height: 1.4rem;
+    height: 2.8rem; }
   div#select .makeNewThing p {
     font-size: 1.7rem;
-    line-height: 2.2rem;
-    margin-top: 1.5rem; }
+    line-height: 1.9rem;
+    height: 3.8rem;
+    margin-top: 1rem; }
 
 button#closeDrawer {
   display: none; }
 
-@media screen and (max-width: 1000px) {
+@media screen and (max-width: 1025px) {
   .status.frame {
     position: absolute;
     z-index: 5;
@@ -166,6 +169,20 @@ button#closeDrawer {
   #status {
     margin: 1rem 7% 1rem 3%;
     width: 83%; }
+
+  #select p {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    line-height: 2.4rem;
+    height: 3.2rem; }
+
+  div#select .thing.makeNewThing p {
+    min-height: 8rem;
+    margin-top: 1.5rem; }
+
+  div#select .thing.makeNewThing {
+    padding: .2rem;
+    padding-top: 0; }
 
   button#closeDrawer {
     display: block;
@@ -189,7 +206,7 @@ button#closeDrawer {
 
   #action + button {
     margin-top: 8rem; } }
-@media screen and (min-width: 700px) and (max-width: 1000px), screen and (min-width: 1200px) {
+@media screen and (min-width: 700px) and (max-width: 1025px), screen and (min-width: 1200px) {
   div#select .svgContainer {
     width: 32%; } }
 @media screen and (min-width: 200px) and (max-width: 750px) {
@@ -204,16 +221,11 @@ button#closeDrawer {
   h2 {
     font-size: 1.4rem;
     line-height: 1.2rem;
-    padding: .5rem; }
+    padding: .5rem;
+    margin-bottom: .4rem; }
 
   body, p {
     font-size: 1.4rem; }
-
-  div#select .makeNewThing p {
-    font-size: 1.4rem;
-    line-height: 1.6rem;
-    margin-top: .4rem;
-    height: 4.8rem; }
 
   div#select p {
     text-overflow: ellipsis;
@@ -221,6 +233,12 @@ button#closeDrawer {
     font-size: 1.1rem;
     line-height: 1.3rem;
     height: 3.9rem; }
+
+  div#select .makeNewThing p {
+    font-size: 1.4rem;
+    line-height: 1.6rem;
+    height: 4.8rem;
+    margin-top: .4rem; }
 
   ul#thingStats li strong {
     font-size: 1.4rem; }
@@ -247,6 +265,9 @@ button#closeDrawer {
 
   h2 {
     width: 90%; }
+
+  div#select p {
+    height: 2.6rem; }
 
   #popOut {
     width: 80%; }
