@@ -1,5 +1,4 @@
 //Media Queries
-
 var mqTab = window.matchMedia("(max-width: 930px)");
 var mqPhone = window.matchMedia("screen and (max-width: 550px)");
 var mqPhoneWide = window.matchMedia("screen and (max-width: 550px) and (orientation:landscape)");
@@ -85,7 +84,6 @@ ThingView.prototype.printThing = function(thing) {
 
     //adds thingStats img and ul to thingStatsWrapper
     $thingStatsWrapper.append($img, $ulWrapper);
-    //$thingStatsWrapper.append($ul);
 
     //adds thingStatsWrapper to parentNode
     $parentNode.append($thingStatsWrapper);
@@ -101,6 +99,7 @@ ThingView.prototype.printThing = function(thing) {
     //adds thingActions ul to parentNode after thingStats ul
     $parentNode.append($ul);
 
+    //adds thingAction buttons to $ul
     for (property in thing) {
         //if property is a function, not the constructor method, and not a private method (indicated by an underscore)
         if (typeof thing[property] === "function" && property != "constructor" && property.indexOf("_") < 0) {
@@ -109,6 +108,8 @@ ThingView.prototype.printThing = function(thing) {
             $ul.append($button);
         }
     }
+
+    //selectButtonHandler(); //***in progress**//
 
     if (mqPhoneWide.matches) {
         this.convertLayoutToWidePhone();

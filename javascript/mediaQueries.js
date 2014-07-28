@@ -10,7 +10,7 @@ $(".thing").click(selectButtonHandler);
 //runs on page load, and whenever the window resizes
 function resizeHandler() {
     browserWidth = $(document).width();
-    console.log(browserWidth);
+    //console.log(browserWidth);
 
     if (mqTab.matches) {
         $(".frame").removeClass("half-screen");

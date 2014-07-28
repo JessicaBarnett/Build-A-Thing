@@ -54,12 +54,11 @@ function makeButtonActive(self) {
 
 //handles when a user clicks on the "Make This Thing!" button
 function makeThingButtonHandler() {
-    //console.log("button clicked");
     var thingType = $("#typeSelector").val(),
         thingName = $("#makeThingForm input#name").val();
     var petName = $('input#humanName').val() || null;
 
-    var thingArgs = []; //collects arguments from the text fields to use to make a new thing
+    var thingArgs = []; //will contain arguments from the text fields to use to make a new thing
 
     $("#variableFields").children("input:visible").each(function() { //adds value of text field only if field is visible
         thingArgs.push($(this).val());
