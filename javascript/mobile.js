@@ -11,13 +11,14 @@ var drawerIsOpen = false;
 function openDrawer() {
     $(".status.frame").animate({
         left: 0
-    }, 500);
+    }, 500, function() {
+        $("div.select").hide();
+    });
     drawerIsOpen = true;
-    $("#select").hide();
 }
 
 function closeDrawer() {
-    $("#select").show();
+    $("div.select").show();
     $(".status.frame").animate({
         left: -browserWidth
     }, 500);
