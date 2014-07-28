@@ -1,10 +1,3 @@
-//Media Queries
-
-var mqTab = window.matchMedia("(max-width: 1000px)");
-var mqPhone = window.matchMedia("screen and (min-width: 200px) and (max-width: 750px)");
-var mqPhoneWide = window.matchMedia("screen and (min-width: 300px) and (max-width: 750px) and (orientation: landscape)");
-
-
 //********* CONTROLLER **********/
 var thingModel = new ThingModel();
 var thingView = new ThingView();
@@ -20,9 +13,8 @@ $("div#select ul li").on("click", selectButtonHandler);
 //handles when user clicks on a button in the select-a-thing grid
 function selectButtonHandler() {
     var self = this;
-    console.log(self);
 
-    makeButtonActive(self);
+    makeButtonActive(self); //highlights this button
 
     thingView.clearStatus(); //clears whatever's in the status window 
 
@@ -34,10 +26,12 @@ function selectButtonHandler() {
         $("#typeSelector").change(thingView.refreshForm); //adds listener to refresh form when user chooses a new Thing Type
         $("#petRadio input").change(thingView.refreshForm); //adds listener to refresh form when is/isn't pet changes
         $("#makeThingForm button").on("click", makeThingButtonHandler);
+
     } else //get object current li relates to, print status of that object
-    { //console.log("selectButtonHandler: " + thingModel.allThings[$(this).attr("data")].name);
+    {
         thingView.printThing(thingModel.allThings[$(this).attr("data")]);
     }
+
 }
 
 //when user clicks on a button in div#select, remove "active" class
@@ -73,7 +67,7 @@ function makeThingButtonHandler() {
     thingModel.addThing(newThing);
 
     //hides form
-    $("#makeThingForm").hide();
+    //$("#makeThingForm").hide();
 
     //removes "active" class from makeNewThing Button
     $("ul li.makeNewThing").removeClass("active");
@@ -86,6 +80,13 @@ function makeThingButtonHandler() {
 
     //print's new thing's Status
     thingView.printThing(newThing);
+
+    //has access to toggleDrawer, even though mobile.js (which has toggleDrawer in it) is loaded after view in index.html
+    //this is because these functions are only being called later on, in controller
+    if (mqTab.matches) {
+        $("#closeDrawer").on("click", toggleDrawer);
+    }
+
 }
 
 

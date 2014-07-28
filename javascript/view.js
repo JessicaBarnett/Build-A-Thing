@@ -1,7 +1,7 @@
-//Media Queries
-var mqTab = window.matchMedia("(max-width: 930px)");
-var mqPhone = window.matchMedia("screen and (max-width: 550px)");
-var mqPhoneWide = window.matchMedia("screen and (max-width: 550px) and (orientation:landscape)");
+//*******  Media Queries  *******//
+var mqTab = window.matchMedia("(max-width: 1000px)");
+var mqPhone = window.matchMedia("screen and (min-width: 200px) and (max-width: 750px)");
+var mqPhoneWide = window.matchMedia("screen and (min-width: 300px) and (max-width: 750px) and (orientation: landscape)");
 
 
 /********** DOM MANIPULATORS/VIEW **********/
@@ -31,20 +31,30 @@ ThingView.prototype.addGridSquare = function(thing) {
     $newNode = $('<li class="thing blockColumn"></li>'); //add a new li for each Thing in model
     $newNode.attr("data", thing.name); //add the object's name to the li's data attribute, 
 
+    //changing display text on button if a pet 
     if (thing._isPet)
         $newNode.append('<p>' + thing.humanName + " the " + thing.name + '</p>');
     else
         $newNode.append('<p>' + thing.name + '</p>'); //put object's "name" property in the li as text
 
+    //creating/adding image
     $img = $('<div class="svgContainer"><img src="images/' + thing.type + '.svg" alt="' + thing.name + ' icon"></div>');
     $newNode.prepend($img);
 
     $parentNode.append($newNode);
 
-    //re-sets event handler so it will apply to newly-generated elements
-    $("div#select ul li").unbind("click", selectButtonHandler);
-    $("div#select ul li").on("click", selectButtonHandler);
+    //re-sets event handler on ALL #select li elements
+    //so it will apply to any newly-generated elements too
+    $(".thing").unbind("click", selectButtonHandler);
+    $(".thing").click(selectButtonHandler);
+
+    //also resets mobile selectButton handlers
+    $('.thing').unbind("click", mobileSelectButtonHandler);
+    $('.thing').click(mobileSelectButtonHandler);
+
 };
+
+
 
 
 //Prints the Stats and Actions of passed thing in the "ThingStats" window
@@ -108,8 +118,6 @@ ThingView.prototype.printThing = function(thing) {
             $ul.append($button);
         }
     }
-
-    //selectButtonHandler(); //***in progress**//
 
     if (mqPhoneWide.matches) {
         this.convertLayoutToWidePhone();
