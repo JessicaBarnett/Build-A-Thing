@@ -49,6 +49,13 @@ $titleFont: 3rem;
 	//font-family: Galindo, "Franklin Gothic", "ITC Franklin Gothic", "Arial Bold", Arial, sans-serif;
 }
 
+@mixin hideTextOverflow{
+	text-overflow: ellipsis;
+	overflow: hidden;
+	//white-space: nowrap;
+}
+
+
 //Overall Layout Styles
 
 html, body{
@@ -241,13 +248,16 @@ div#select{
 		margin: 0 auto;
 	}
 
-	p{
+	p {
+		@include hideTextOverflow;
 		font-size: 1.2rem;
 		font-weight: bold;
 		text-align: center;
 	}
+
 	& .makeNewThing p{
 		font-size: $bodyFont + .3rem;
+		line-height: $bodyFont + .8rem;
 		margin-top: 1.5rem;
 	}
 }
@@ -323,16 +333,26 @@ button#closeDrawer{
 	}
 
 	h2{
-		font-size: $titleFont - 1.3rem;
+		font-size: $titleFont - 1.6rem;
 		line-height: $titleFont - 1.8rem;
 		padding: .5rem;
 	}
 	body, p{
-		font-size: $bodyFont - 2rem;
+		font-size: $bodyFont;
 	}
 
 	div#select .makeNewThing p{
 		font-size: $bodyFont;
+		line-height: $bodyFont + .2rem;
+		margin-top: .4rem;
+		height: ($bodyFont + .2rem) * 3;
+	}
+
+	div#select p{
+		@include hideTextOverflow;
+		font-size: $bodyFont - .3rem;
+		line-height: ($bodyFont - .3rem) + .2rem;
+		height: (($bodyFont - .3rem) + .2rem) * 3;
 	}
 
 	ul#thingStats li strong{

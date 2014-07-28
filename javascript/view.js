@@ -336,7 +336,7 @@ ThingView.prototype.convertLayoutToTablet = function() {
             return -browserWidth;
         }
     });
-}
+};
 
 ThingView.prototype.convertLayoutFromTablet = function() {
     $(".frame").removeClass("full-screen");
@@ -377,4 +377,25 @@ ThingView.prototype.convertToLongHeader = function(thing) {
     } else {
         header.text("This is a " + thing.name);
     }
-}
+};
+
+ThingView.prototype.convertSelectButtonText = function() {
+    $("#status .thing").each(function(index, element) {
+        //get object from data attribute
+        var thing = thingModel.stringToThing(element.attr("data"));
+        if (thing._isPet) {
+            element.children("p").text(thing.humanName + " (" + thing.name + ")");
+        }
+    });
+};
+
+ThingView.prototype.revertSelectButtonText = function() {
+    $("#status .thing").each(function(index, element) {
+        //get object from data attribute
+        var thing = thingModel.stringToThing(element.attr("data"));
+
+        if (thing._isPet) {
+            element.children("p").text(thing.humanName + " the " + thing.name);
+        }
+    });
+};

@@ -31,8 +31,6 @@ function toggleDrawer() {
     } else {
         openDrawer();
     }
-
-    //$("#closeDrawer").click(thingView.selectButtonHandler);
 }
 
 
