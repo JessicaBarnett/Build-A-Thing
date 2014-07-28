@@ -233,6 +233,7 @@ ThingView.prototype.refreshForm = function() {
             $(".animal").show();
     }
 
+    //if petradio isn't empty, and the value is true, show pet fields
     if ($('#petRadio input:checked').val() && $('#petRadio input:checked').val().indexOf("true") >= 0) {
         //long conditional and indexOf necessary because .val() returns a string, not a boolean
         $("#petFields").show();
@@ -313,6 +314,26 @@ ThingView.prototype.generateForm = function() {
 };
 
 /*******  Mobile Layout Conversion  ******/
+
+ThingView.prototype.convertLayoutToTablet = function() {
+    $(".frame").removeClass("half-screen");
+    $(".frame").addClass("full-screen");
+
+    //if drawer is open, show status window.  Otherwise, hide it.  
+    $(".status").css("left", function() {
+        if (drawerIsOpen) {
+            return 0;
+        } else {
+            //return browserWidth;
+            return -browserWidth;
+        }
+    });
+}
+
+ThingView.prototype.convertLayoutFromTablet = function() {
+    $(".frame").removeClass("full-screen");
+    $(".frame").addClass("half-screen");
+};
 
 ThingView.prototype.convertLayoutToWidePhone = function() {
     var $thingActions = $("#thingActions").detach();

@@ -12,24 +12,11 @@ function resizeHandler() {
     browserWidth = $(document).width();
     //console.log(browserWidth);
 
+    //if this is a tablet width or smaller
     if (mqTab.matches) {
-        $(".frame").removeClass("half-screen");
-        $(".frame").addClass("full-screen");
-
-        //if drawer is open, show status window.  Otherwise, hide it.  
-        $(".status").css("left", function() {
-            if (drawerIsOpen) {
-                return 0;
-            } else {
-                //return browserWidth;
-                return -browserWidth;
-            }
-        });
+        thingView.convertLayoutToTablet();
     } else {
-
-        $(".frame").removeClass("full-screen");
-        $(".frame").addClass("half-screen");
-
+        thingView.convertLayoutFromTablet();
     }
 
     //if this is a phone landscape layout...
@@ -45,5 +32,7 @@ function selectButtonHandler() {
     if (mqTab.matches) {
         toggleDrawer();
         $("#closeDrawer").click(selectButtonHandler); //re-adding handler because button was re-written to dom
+    } else {
+        $("#closeDrawer").click(selectButtonHandler);
     }
 }

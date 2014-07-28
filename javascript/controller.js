@@ -20,6 +20,7 @@ $("div#select ul li").on("click", selectButtonHandler);
 //handles when user clicks on a button in the select-a-thing grid
 function selectButtonHandler() {
     var self = this;
+    console.log(self);
 
     makeButtonActive(self);
 
@@ -43,7 +44,7 @@ function selectButtonHandler() {
 //from whichever button has it, and add "active" to current target
 function makeButtonActive(self) {
     //go through each li in ul.  if it has an "active" class, remove it
-    $("ul").find("li").each(function( /*index, element*/ ) {
+    $("#select ul").find("li").each(function( /*index, element*/ ) {
         if ($(this).hasClass("active")) //element.hasClass instead of "this"?
             $(this).removeClass("active");
     });
@@ -60,7 +61,9 @@ function makeThingButtonHandler() {
 
     var thingArgs = []; //will contain arguments from the text fields to use to make a new thing
 
-    $("#variableFields").children("input:visible").each(function() { //adds value of text field only if field is visible
+    //adds value of text field only if field is visible 
+    //(which it will be if it's not necessary for this type of thing)
+    $("#variableFields").children("input:visible").each(function() {
         thingArgs.push($(this).val());
     });
 
