@@ -1,18 +1,18 @@
 //*******  Media Queries  *******//
 var mqTab = window.matchMedia("(max-width: 1025px)");
 var mqPhone = window.matchMedia("screen and (min-width: 200px) and (max-width: 750px)");
-var mqPhoneWide = window.matchMedia("screen and (min-width: 300px) and (max-width: 750px) and (orientation: landscape)");
 
+//var mqTabWide = window.matchMedia("screen and (min-width: 748px) and (max-width: 1024px) and (orientation: landscape)");
+//var mqTabTall = window.matchMedia("screen and (min-width: 748px) and (max-width: 1024px) and (orientation: portrait)");
+
+var mqPhoneWide = window.matchMedia("screen and (min-width: 300px) and (max-width: 748px) and (orientation: landscape)");
+//var mqPhoneTall = window.matchMedia("screen and (min-width: 100px) and (max-width: 480px) and (orientation: portrait)");
 
 /********** DOM MANIPULATORS/VIEW **********/
 
 function ThingView() {}
 
-//erases everything in the thingStatus window
-ThingView.prototype.clearStatus = function() {
-    $("div#status").children().remove();
-};
-
+//*********  Select Thing Grid  **********//
 
 //initializes the Grid using all objects currently in ThingModel.allThings
 ThingView.prototype.makeGrid = function(thingModel) {
@@ -54,8 +54,12 @@ ThingView.prototype.addGridSquare = function(thing) {
 
 };
 
+//********* Thing Status *********//
 
-
+//erases everything in the thingStatus window
+ThingView.prototype.clearStatus = function() {
+    $("div#status").children().remove();
+};
 
 //Prints the Stats and Actions of passed thing in the "ThingStats" window
 ThingView.prototype.printThing = function(thing) {
@@ -158,7 +162,6 @@ ThingView.prototype.getAllStats = function(thing) {
     return $allStats;
 };
 
-
 //returns an array of jQuery elements containing the passed Thing's essential/updatable stats
 ThingView.prototype.getEssentialStats = function(thing) {
     var $essentialStats = [];
@@ -173,6 +176,8 @@ ThingView.prototype.getEssentialStats = function(thing) {
 
     return $essentialStats;
 };
+
+//********  Action and Profile Popout *********//
 
 //print profile to a popout window
 ThingView.prototype.printProfile = function(thing) {
@@ -217,6 +222,66 @@ ThingView.prototype.printToPopout = function($elements) {
 
     $statusWindow.append($popOut);
 }
+
+/*******  Mobile Layout Conversion  ******/
+
+ThingView.prototype.convertLayoutToTablet = function() {
+    $(".frame").removeClass("half-screen");
+    $(".frame").addClass("full-screen");
+
+    //if drawer is open, show status window.  Otherwise, hide it.  
+    $(".status").css("left", function() {
+        if (drawerIsOpen) {
+            return 0;
+        } else {
+            //return browserWidth;
+            return -browserWidth;
+        }
+    });
+};
+
+ThingView.prototype.convertLayoutFromTablet = function() {
+    $(".frame").removeClass("full-screen");
+    $(".frame").addClass("half-screen");
+};
+
+ThingView.prototype.convertLayoutToWidePhone = function() {
+    var $thingActions = $("#thingActions").detach();
+    $("#statsContainer").append($thingActions);
+
+    //attempting to put header in one of the columns to save space.
+    // var $thingHeader = $("#status h2").detach();
+    // $("#svgContainer").prepend($thingHeader);
+};
+
+ThingView.prototype.convertLayoutFromWidePhone = function() {
+    var $thingActions = $("#thingActions").detach();
+    $("#status").append($thingActions);
+
+    //attempting to put header in one of the columns to save space.
+    // var $thingHeader = $("#status h2").detach();
+    // $("#status").prepend($thingHeader);
+};
+
+ThingView.prototype.convertToShortHeader = function(thing) {
+    var header = $("#status h2");
+    if (thing._isPet) {
+        header.text(thing.humanName + " (" + thing.name + ")");
+    } else {
+        header.text(thing.name);
+    }
+};
+
+ThingView.prototype.convertToLongHeader = function(thing) {
+    var header = $("#status h2");
+    if (thing.isPet) {
+        header.text("This is " + thing.humanName + " the " + thing.name);
+    } else {
+        header.text("This is a " + thing.name);
+    }
+};
+
+/*********  Form Methods  **********/
 
 //when form is open, hides/shows fields depending on which Thing Type
 //is selected, and whether it is a Pet
@@ -308,10 +373,6 @@ ThingView.prototype.generateForm = function() {
         $('<label for="sound" class="animal">What sound does this thing make?</label>'),
         $('<input id="sound" class="animal" type="text">'));
 
-    // $petFieldset = $("<fieldset>").attr("id", "petFields");
-    // $petFieldset.append($("<label for='humanName'>What is this Pet's human name?</label>"),
-    //     $('<input id="humanName" type="text">'));
-    // $variableFieldset.append($petFieldset);
     $variableFieldset.append($('<button type="submit" id="makeThingButton">Make This Thing!</button>'));
 
     $makeThingWrapper.append($variableFieldset);
@@ -321,81 +382,106 @@ ThingView.prototype.generateForm = function() {
     this.refreshForm(); //to hide all non-applicable fields
 };
 
-/*******  Mobile Layout Conversion  ******/
+ThingView.prototype.formHandler = function() {
+    var $parentNode = $("div#status");
 
-ThingView.prototype.convertLayoutToTablet = function() {
-    $(".frame").removeClass("half-screen");
-    $(".frame").addClass("full-screen");
-
-    //if drawer is open, show status window.  Otherwise, hide it.  
-    $(".status").css("left", function() {
-        if (drawerIsOpen) {
-            return 0;
-        } else {
-            //return browserWidth;
-            return -browserWidth;
-        }
-    });
-};
-
-ThingView.prototype.convertLayoutFromTablet = function() {
-    $(".frame").removeClass("full-screen");
-    $(".frame").addClass("half-screen");
-};
-
-ThingView.prototype.convertLayoutToWidePhone = function() {
-    var $thingActions = $("#thingActions").detach();
-    $("#statsContainer").append($thingActions);
-
-    //attempting to put header in one of the columns to save space.
-    // var $thingHeader = $("#status h2").detach();
-    // $("#svgContainer").prepend($thingHeader);
-};
-
-ThingView.prototype.convertLayoutFromWidePhone = function() {
-    var $thingActions = $("#thingActions").detach();
-    $("#status").append($thingActions);
-
-    //attempting to put header in one of the columns to save space.
-    // var $thingHeader = $("#status h2").detach();
-    // $("#status").prepend($thingHeader);
-};
-
-ThingView.prototype.convertToShortHeader = function(thing) {
-    var header = $("#status h2");
-    if (thing._isPet) {
-        header.text(thing.humanName + " (" + thing.name + ")");
+    if (mqPhone.matches) {
+        $parentNode.append(this.formPage1());
     } else {
-        header.text(thing.name);
+        $parentNode.append(this.formPage1())
+        $parentNode.append(this.formPage2());
     }
 };
 
-ThingView.prototype.convertToLongHeader = function(thing) {
-    var header = $("#status h2");
-    if (thing.isPet) {
-        header.text("This is " + thing.humanName + " the " + thing.name);
-    } else {
-        header.text("This is a " + thing.name);
+
+ThingView.prototype.formButtons = function(isLastPage) {
+    $formContainer.append($('<button id="cancel">cancel</button>'));
+    if (isLastPage)
+        $formContainer.append($('<button id="make">Make!</button>'));
+    else
+        $formContainer.append($('<button id="next">next!</button>'));
+};
+
+ThingView.prototype.formPage1 = function() {
+
+    var $formContainer = $('<div id="formPage1"><div>');
+
+    var types = ["Thing", "Mineral", "Living Thing", "Plant", "Animal"];
+    var $tempLi;
+
+    $formContainer.append($('<h2>What type of Thing would you like to make?</h2>'));
+
+    $typesUl = $('<ul id="types"></ul>');
+
+    for (var i = 0; i < types.length; i++) {
+        $tempLi = $('<li>' +
+            '<div class="svgContainer">' +
+            '<img src="images/' + types[i].replace(/\s/g, '') + '.svg" alt="' + types[i] + '">' +
+            '</div>' +
+            '</li>');
+        $text = "A " + types[i] + "?";
+        $typesUl.append($tempLi);
+        $typesUl.append($text);
     }
+
+    $formContainer.append($typesUl);
+
+    return $formContainer;
 };
 
-ThingView.prototype.convertSelectButtonText = function() {
-    $("#status .thing").each(function(index, element) {
-        //get object from data attribute
-        var thing = thingModel.stringToThing(element.attr("data"));
-        if (thing._isPet) {
-            element.children("p").text(thing.humanName + " (" + thing.name + ")");
-        }
-    });
+ThingView.prototype.formPage2 = function(thingType) {
+    var $formContainer = $('<div id="formPage2"><div>');
+
+    $formContainer.append($("<h2>Is this " + thingType + " a Pet?</h2>"));
+
+    $formContainer.append(
+        $('<input type="radio" name="isPet" value="true">'),
+        $('<label for="isPet">Yes!!</label>'),
+        $('<input type="radio" name="isPet" value="false">'),
+        $('<label for="isPet">No</label>')
+    );
+
+    $formContainer.append($('<label class="petField">What is this Pet\'s Name?</label>'));
+    $formContainer.append($('<input class="petField" type="text">'))
+
+    return $formContainer;
 };
 
-ThingView.prototype.revertSelectButtonText = function() {
-    $("#status .thing").each(function(index, element) {
-        //get object from data attribute
-        var thing = thingModel.stringToThing(element.attr("data"));
+ThingView.prototype.formPage3 = function(thingType) {
+    var $formContainer = $('<div id="formPage3"><div>');
 
-        if (thing._isPet) {
-            element.children("p").text(thing.humanName + " the " + thing.name);
-        }
-    });
+    $formContainer.append($('<h2>What is this ' + thingType + ' like?</h2>'));
+
+    //each has a class that will be used as a handle for hiding/showing
+    $formContainer.append(
+        $('<label class="Thing" for="name">What is this ' + thingType + ' called?</label>'),
+        $('<input class="Thing" id="name" type="text">'),
+        $('<label class="Mineral" for="shape" class="mineral">How is this ' + thingType + ' shaped?</label>'),
+        $('<input class="Mineral" id="shape" class="mineral" type="text">'),
+        $('<label class="LivingThing" for="food" class="livingThing">What does this ' + thingType + ' eat?</label>'),
+        $('<input class="LivingThing" id="food" class="livingThing" type="text">'),
+        $('<label class="Plant" for="height" class="plant" >How tall is this ' + thingType + '?</label>'),
+        $('<input class="Plant" id="height" class="plant" type="text">'),
+        $('<label class="Animal" for="movement" class="animal">How does this ' + thingType + ' move?</label>'),
+        $('<input class="Animal" id="movement"  class="animal" type="text">'),
+        $('<label class="Animal" for="habitat" class="animal">Where does this ' + thingType + ' live?</label>'),
+        $('<input class="Animal" id="habitat" class="animal" type="text">'),
+        $('<label class="Animal" for="sound" class="animal">What sound does this ' + thingType + ' make?</label>'),
+        $('<input class="Animal" id="sound" class="animal" type="text">')
+    );
+
+    $formContainer.append($('<button id="cancel">cancel</button>'));
+    $formContainer.append($('<button type="submit" id="make">Make!</button>'));
+
+    return $formContainer;
 };
+
+
+
+
+
+
+
+
+
+/*RANDOM COMMENT!!!*/
