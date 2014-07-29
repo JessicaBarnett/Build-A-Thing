@@ -405,7 +405,7 @@ ThingView.prototype.formController = function() {
 
 //appends next and make buttons and adds handlers 
 ThingView.prototype.formButtons = function(isLastPage) {
-    var $formContainer = $('<div id="formButtons"></div>');
+    var $formContainer = $('<div id="formButtons" class="group"></div>');
 
     $formContainer.append($('<button id="cancel">cancel</button>'));
     $formContainer.children("button#cancel").click(cancelButtonHandler);

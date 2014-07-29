@@ -29,6 +29,7 @@ $actionButton: $darkestBlue;
 $bodyFont: 1.4rem;
 $titleFont: 3rem;
 
+
 /* Mixins */
 
 
@@ -133,8 +134,9 @@ button{
 
 //affects all 3 forms and form buttons
 div[id^="form"]{
-
-
+	//align all inline-block elements (esp. labels) center
+	text-align: center;
+	width: 100%;
 
 	//Select-a-Thing-Type list
 	ul{
@@ -176,15 +178,14 @@ div[id^="form"]{
 
 	//this container is for positioning buttons within absolutely-positioned parent
 	fieldset#radioToggle{
-		width:50%;
+		width: 50%;
 		margin-left: 25%;
-		//background-color: dodgerblue;
 	}
 
 	input[type="radio"], input[type="radio"] + label {
 		width: 40%;
 		margin: 5%;
-		height: 4rem;
+		height: 3rem;
 		display: inline-block;
 	}
 
@@ -202,10 +203,10 @@ div[id^="form"]{
 	input[type="radio"] + label { 
 		background-color: $awesomeGreen;
 		text-align: center;
-		line-height: 3.5rem;
+		line-height: 3rem;
 	}
 
-	input[type="radio"] + label:hover{
+	input[type="radio"]:hover + label{
 		background-color: white;
 	}
 
@@ -214,8 +215,45 @@ div[id^="form"]{
 		background-color: white;
 	}
 
+	/*General text fields/buttons*/
 
+	input[type="text"]{
+		@include rounded;
+		height: 3rem;
+		border: 4px solid black;
+		width: 80%;
+		margin: 0 auto;
 
+		line-height: 2rem;
+		padding: .25rem;
+		font-size: $bodyFont;
+	}
+
+	button{
+		@include rounded;
+		margin: 2rem 4% 4rem 4%;
+	}
+
+	button#cancel {
+		float: left;
+		font-size: $bodyFont + .25rem;
+		height: 3rem;
+		width: 20%;
+		margin-top: 3rem;
+	}
+
+	button#next, button#make{
+		float: right;
+		height: 4rem;
+		width: 25%;
+		font-size: $bodyFont + .5rem;
+	}
+
+	button#make{
+		height: 5rem;
+		width: 30%;
+		font-size: $bodyFont + 1rem;
+	}
 
 }
 
