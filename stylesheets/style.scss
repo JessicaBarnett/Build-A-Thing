@@ -131,16 +131,94 @@ button{
 
 //Make-A-Thing Form Styles
 
-input[type="radio"]{
-	display: inline-block;
-	float: left;
-	//width: 4rem;
+//affects all 3 forms and form buttons
+div[id^="form"]{
+
+
+
+	//Select-a-Thing-Type list
+	ul{
+		width: 94%;
+		margin: 2% auto;
+	}
+	.svgContainer{
+		width: 90%;
+		margin: 0 auto;
+		//background-color: tomato;
+	}
+	li {
+		max-width: 28%;
+		margin: 2% 2%;
+		display: inline-block;
+		float: left;
+		text-align: center;
+
+		@include rounded;
+		background-color: $midBlueDark;
+		color: white;
+		padding: .5rem;
+	}
+	li:hover {
+		background-color: white;
+		color: black;
+	}
+
+	//to make isPet radio buttons into toggle buttons
+
+	//had to position a parent relatively so absolute-position radio buttons will scroll
+	div#relativeWrap{
+		width: 100%;
+		position: relative;
+		// margin: 0 auto;
+		// text-align: center;
+		//background-color: tomato;
+	}
+
+	//this container is for positioning buttons within absolutely-positioned parent
+	fieldset#radioToggle{
+		width:50%;
+		margin-left: 25%;
+		//background-color: dodgerblue;
+	}
+
+	input[type="radio"], input[type="radio"] + label {
+		width: 40%;
+		margin: 5%;
+		height: 4rem;
+		display: inline-block;
+	}
+
+	input[type="radio"]{
+		position: absolute;
+		top: -1rem;
+		left: 13%;
+		opacity: 0;
+	}
+
+	input[type="radio"]:last-of-type {
+		left: 38%;
+	}
+
+	input[type="radio"] + label { 
+		background-color: $awesomeGreen;
+		text-align: center;
+		line-height: 3.5rem;
+	}
+
+	input[type="radio"] + label:hover{
+		background-color: white;
+	}
+
+	//when radio button is in checked state, change the label directly after it
+	input[type="radio"]:checked + label { 
+		background-color: white;
+	}
+
+
+
+
 }
 
-.thing{
-	width: 8rem;	
-	height: 2.5rem;	
-}
 
 
 //Thing Status Styles
@@ -227,6 +305,7 @@ div#select{
 	margin-bottom: 2.5rem;
 
 	.thing{
+			@include rounded;
 			padding: .5rem;
 			padding-top: .25rem;
 			display: inline-block;

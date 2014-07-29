@@ -11,6 +11,7 @@ thingView.makeGrid(thingModel);
 $("div#select ul li").on("click", selectButtonHandler);
 
 //handles when user clicks on a button in the select-a-thing grid
+//directs to either make-a-thing functions or print-thing functions
 function selectButtonHandler() {
     var self = this;
 
@@ -20,12 +21,17 @@ function selectButtonHandler() {
 
     //if this is the makeNewThing button, show the makeThing form
     if ($(this).hasClass("makeNewThing")) { //generates a new form
-        thingView.generateForm();
+        thingView.formController();
+        if (mqTab.matches)
+            toggleDrawer();
+
+
+        //thingView.generateForm();
 
         //adds Form Event Listeners 
-        $("#typeSelector").change(thingView.refreshForm); //adds listener to refresh form when user chooses a new Thing Type
-        $("#petRadio input").change(thingView.refreshForm); //adds listener to refresh form when is/isn't pet changes
-        $("#makeThingForm button").on("click", makeThingButtonHandler);
+        // $("#typeSelector").change(thingView.refreshForm); //adds listener to refresh form when user chooses a new Thing Type
+        // $("#petRadio input").change(thingView.refreshForm); //adds listener to refresh form when is/isn't pet changes
+        // $("#makeThingForm button").on("click", makeThingButtonHandler);
 
     } else //get object current li relates to, print status of that object
     {
@@ -85,6 +91,7 @@ function makeThingButtonHandler() {
     //this is because these functions are only being called later on, in controller
     if (mqTab.matches) {
         $("#closeDrawer").on("click", toggleDrawer);
+        11
     }
 
 }

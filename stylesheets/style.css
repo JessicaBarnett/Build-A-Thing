@@ -57,13 +57,51 @@ button {
   button:hover {
     color: black; }
 
-input[type="radio"] {
+div[id^="form"] ul {
+  width: 94%;
+  margin: 2% auto; }
+div[id^="form"] .svgContainer {
+  width: 90%;
+  margin: 0 auto; }
+div[id^="form"] li {
+  max-width: 28%;
+  margin: 2% 2%;
   display: inline-block;
-  float: left; }
-
-.thing {
-  width: 8rem;
-  height: 2.5rem; }
+  float: left;
+  text-align: center;
+  border-radius: 10px;
+  background-color: #1a65d9;
+  color: white;
+  padding: .5rem; }
+div[id^="form"] li:hover {
+  background-color: white;
+  color: black; }
+div[id^="form"] div#relativeWrap {
+  width: 100%;
+  position: relative; }
+div[id^="form"] fieldset#radioToggle {
+  width: 50%;
+  margin-left: 25%; }
+div[id^="form"] input[type="radio"], div[id^="form"] input[type="radio"] + label {
+  width: 40%;
+  margin: 5%;
+  height: 4rem;
+  display: inline-block; }
+div[id^="form"] input[type="radio"] {
+  position: absolute;
+  top: -1rem;
+  left: 13%;
+  opacity: 0; }
+div[id^="form"] input[type="radio"]:last-of-type {
+  left: 38%; }
+div[id^="form"] input[type="radio"] + label {
+  background-color: #33e820;
+  text-align: center;
+  line-height: 3.5rem; }
+div[id^="form"] input[type="radio"] + label:hover {
+  background-color: white; }
+div[id^="form"] input[type="radio"]:checked + label {
+  background-color: white; }
 
 h2 {
   border-radius: 10px;
@@ -129,6 +167,7 @@ select {
 div#select {
   margin-bottom: 2.5rem; }
   div#select .thing {
+    border-radius: 10px;
     padding: .5rem;
     padding-top: .25rem;
     display: inline-block;
