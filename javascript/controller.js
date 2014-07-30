@@ -148,15 +148,15 @@ ThingForm.prototype.formController = function() {
     this.collectThingData.apply(this); 
 
     if ($('[id*="form"]').length <= 0) { //if no form exists yet
-        if (mqPhone.matches) {
+        if (mqPhone.matches || !mqTab.matches) { //if phone or web view
             this.$parentNode.empty().append(this.formPage1()); 
-        } else {
+        } else { //if tab view
             this.$parentNode.empty().append(this.formPage1());
             this.$parentNode.append(this.formPage2());
         }
-    } else if ($("div#formPage1").length  > 0 && !$("div#formPage2").length) { //if phone view page 1
+    } else if ($("div#formPage1").length  > 0 && !$("div#formPage2").length) { //if phone or web view page 1
         this.$parentNode.empty().append(this.formPage2());
-    } else if ($("div#formPage2").length  > 0) { //if phone view page 2 or tab/web view.  either way we're going to page 3
+    } else if ($("div#formPage2").length  > 0) { //if phone/web view page 2 or tab view.  either way we're going to page 3
         this.$parentNode.empty().append(this.formPage3());
         this.filterFields();
     } 
@@ -209,7 +209,7 @@ ThingForm.prototype.formPage1 = function() {
 
         $text = types[i] === "Animal" ? "An " + types[i] + "?" : "A " + types[i] + "?";;
 
-        $tempLi.append($text);
+        $tempLi.append('<p>'+ $text +'</p>');
         $typesUl.append($tempLi);
     }
 

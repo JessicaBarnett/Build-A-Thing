@@ -68,6 +68,7 @@ div[id^="form"] {
     width: 90%;
     margin: 0 auto; }
   div[id^="form"] li {
+    min-height: 12rem;
     max-width: 28%;
     margin: 2% 2%;
     display: inline-block;
@@ -133,15 +134,15 @@ div[id^="form"] {
   div[id^="form"] button:disabled:hover {
     background-color: #304152;
     color: gray; }
-  div[id^="form"] button:disabled:hover:after {
-    content: "Hmm, Something's still missing...";
-    height: 3.5rem;
-    width: 20%;
-    position: absolute;
-    top: 85%;
-    right: 10%;
-    background-color: white;
+  div[id^="form"] button:disabled:hover:before {
     border-radius: 10px;
+    content: "Hmm, Something's still missing...";
+    min-height: 3.5rem;
+    min-width: 15%;
+    max-width: 15rem;
+    position: absolute;
+    margin: -2rem 0 0 -12rem;
+    background-color: white;
     font-size: 1.4rem;
     padding: .5rem;
     color: black; }
@@ -152,16 +153,16 @@ div[id^="form"] {
     float: left;
     font-size: 2.4rem;
     height: 4rem;
-    width: 25%;
+    min-width: 25%;
     margin-top: 2.5rem; }
   div[id^="form"] button#next, div[id^="form"] button#make {
     float: right;
     height: 5rem;
-    width: 30%;
+    min-width: 30%;
     font-size: 2.9rem; }
   div[id^="form"] button#make {
     height: 6rem;
-    width: 35%;
+    min-width: 35%;
     font-size: 3.4rem; }
 
 h2 {
@@ -259,7 +260,7 @@ div#select {
 button#closeDrawer {
   display: none; }
 
-@media screen and (max-width: 1025px) {
+@media screen and (max-width: 1000px) {
   .status.frame {
     position: absolute;
     z-index: 5;
@@ -306,7 +307,7 @@ button#closeDrawer {
 
   #action + button {
     margin-top: 8rem; } }
-@media screen and (min-width: 700px) and (max-width: 1025px), screen and (min-width: 1200px) {
+@media screen and (min-width: 700px) and (max-width: 1000px), screen and (min-width: 1200px) {
   div#select .svgContainer {
     width: 32%; } }
 @media screen and (min-width: 200px) and (max-width: 750px) {

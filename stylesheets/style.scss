@@ -151,6 +151,7 @@ div[id^="form"]{
 		//background-color: tomato;
 	}
 	li {
+		min-height: 12rem;
 		max-width: 28%;
 		margin: 2% 2%;
 		display: inline-block;
@@ -161,6 +162,7 @@ div[id^="form"]{
 		background-color: $midBlueDark;
 		color: white;
 		padding: .5rem;
+
 	}
 
 	li.checked {
@@ -260,16 +262,18 @@ div[id^="form"]{
 		color: gray;
 	}
 
-	button:disabled:hover:after{
+	button:disabled:hover:before{
+		@include rounded;
 		content: "Hmm, Something's still missing...";
-		height: 3.5rem;
-		width: 20%;
+		min-height: 3.5rem;
+
+		min-width: 15%;
+		max-width: 15rem; 
+		
 		position: absolute;
-		top: 85%;
-		right: 10%;
+		margin: -2rem 0 0 -12rem;
 		
 		background-color: white;
-		@include rounded;
 		font-size: $bodyFont; 
 		padding: .5rem;
 		color: black;
@@ -284,20 +288,20 @@ div[id^="form"]{
 		float: left;
 		font-size: $bodyFont + 1rem;
 		height: 4rem;
-		width: 25%;
+		min-width: 25%;
 		margin-top: 2.5rem;
 	}
 
 	button#next, button#make{
 		float: right;
 		height: 5rem;
-		width: 30%;
+		min-width: 30%;
 		font-size: $bodyFont + 1.5rem;
 	}
 
 	button#make{
 		height: 6rem;
-		width: 35%;
+		min-width: 35%;
 		font-size: $bodyFont + 2rem;
 	}
 
@@ -435,7 +439,7 @@ button#closeDrawer{
 }
 
 //tablet and below
-@media screen and (max-width: 1025px){
+@media screen and (max-width: 1000px){
 
 	.status.frame{ //selects wrapper of "status" div
 		position: absolute;
@@ -499,7 +503,7 @@ button#closeDrawer{
 
 //adjusting svg size in select buttons to prevent text overflow
 //affects extra-wide web layout and wider tablet sizes
-@media screen and (min-width: 700px) and (max-width: 1025px), screen and (min-width: 1200px){
+@media screen and (min-width: 700px) and (max-width: 1000px), screen and (min-width: 1200px){
 	div#select .svgContainer {
 		width: 32%;
 	}	
@@ -563,6 +567,11 @@ button#closeDrawer{
 
 	#actionWindow {
 		display: none;
+	}
+
+
+	div[id^="form"]{
+
 	}
 
 }

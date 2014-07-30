@@ -1,6 +1,13 @@
 //Note: JS Media Queries awesome reference: http://www.sitepoint.com/javascript-media-queries/
 //Note: matchMediaObject.matches returns a true or false depending on query result 
 
+
+//*******  Media Queries from top of view.js  *******//
+
+// var mqTab = window.matchMedia("(max-width: 1000px)");
+// var mqPhone = window.matchMedia("screen and (min-width: 200px) and (max-width: 750px)");
+// var mqPhoneWide = window.matchMedia("screen and (min-width: 300px) and (max-width: 748px) and (orientation: landscape)");
+
 //********  Drawer  *********/
 
 var browserWidth = $(document).width();
@@ -11,9 +18,9 @@ var drawerIsOpen = false;
 function openDrawer() {
     $(".status.frame").animate({
         left: 0
-    }, 500, function() {
+    }, 500/*, function() {
         $("div.select").hide();
-    });
+    }*/); //this causes more problems than it solves.  must find another solution to the excessive scrollspace problem
     drawerIsOpen = true;
 }
 
@@ -64,7 +71,6 @@ function resizeHandler() {
     }
 }
 
-
 //adds drawer listener if this is a tablet viewport size or smaller
 function mobileSelectButtonHandler() {
     if (mqTab.matches) {
@@ -77,3 +83,8 @@ function mobileSelectButtonHandler() {
         $("#closeDrawer").on("click", toggleDrawer);
     }
 }
+
+
+
+
+
