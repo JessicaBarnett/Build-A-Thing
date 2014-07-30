@@ -357,10 +357,11 @@ ThingForm.prototype.isFormComplete = function(){
             });
     }
 
-    if (!textFieldsComplete)
+    if (textFieldsComplete === false)
         return false;
 
-    if($('#types .checked').length < 1) //if no type is selected
+    //if there is a type selector and no type is selected
+    if($('#types').length > 1 && $('#types .checked').length < 1) 
         return false;
 
     //if it is a pet, but you didn't give it a name.
