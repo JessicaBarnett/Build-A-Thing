@@ -160,6 +160,12 @@ div[id^="form"]{
 		color: white;
 		padding: .5rem;
 	}
+
+	li.checked {
+		background-color: white;
+		color: black;
+	}
+
 	li:hover {
 		background-color: white;
 		color: black;
@@ -201,21 +207,29 @@ div[id^="form"]{
 	}
 
 	input[type="radio"] + label { 
-		background-color: $awesomeGreen;
+		@include rounded;
+		background-color: $midBlueDark;
+		color: white;
 		text-align: center;
 		line-height: 3rem;
 	}
 
 	input[type="radio"]:hover + label{
 		background-color: white;
+		color: black;
 	}
 
 	//when radio button is in checked state, change the label directly after it
 	input[type="radio"]:checked + label { 
 		background-color: white;
+		color: black;
 	}
 
 	/*General text fields/buttons*/
+
+	input[type="text"], label{
+		//display: none;
+	}
 
 	input[type="text"]{
 		@include rounded;
@@ -231,28 +245,33 @@ div[id^="form"]{
 
 	button{
 		@include rounded;
-		margin: 2rem 4% 4rem 4%;
+		margin: 2rem 4% 3rem 4%;
+	}
+
+	button:hover{
+		background-color: white;
+		color: black;
 	}
 
 	button#cancel {
 		float: left;
-		font-size: $bodyFont + .25rem;
-		height: 3rem;
-		width: 20%;
-		margin-top: 3rem;
+		font-size: $bodyFont + 1rem;
+		height: 4rem;
+		width: 25%;
+		margin-top: 2.5rem;
 	}
 
 	button#next, button#make{
 		float: right;
-		height: 4rem;
-		width: 25%;
-		font-size: $bodyFont + .5rem;
+		height: 5rem;
+		width: 30%;
+		font-size: $bodyFont + 1.5rem;
 	}
 
 	button#make{
-		height: 5rem;
-		width: 30%;
-		font-size: $bodyFont + 1rem;
+		height: 6rem;
+		width: 35%;
+		font-size: $bodyFont + 2rem;
 	}
 
 }

@@ -77,6 +77,9 @@ div[id^="form"] {
     background-color: #1a65d9;
     color: white;
     padding: .5rem; }
+  div[id^="form"] li.checked {
+    background-color: white;
+    color: black; }
   div[id^="form"] li:hover {
     background-color: white;
     color: black; }
@@ -99,13 +102,17 @@ div[id^="form"] {
   div[id^="form"] input[type="radio"]:last-of-type {
     left: 38%; }
   div[id^="form"] input[type="radio"] + label {
-    background-color: #33e820;
+    border-radius: 10px;
+    background-color: #1a65d9;
+    color: white;
     text-align: center;
     line-height: 3rem; }
   div[id^="form"] input[type="radio"]:hover + label {
-    background-color: white; }
+    background-color: white;
+    color: black; }
   div[id^="form"] input[type="radio"]:checked + label {
-    background-color: white; }
+    background-color: white;
+    color: black; }
   div[id^="form"] input[type="text"] {
     border-radius: 10px;
     height: 3rem;
@@ -117,22 +124,25 @@ div[id^="form"] {
     font-size: 1.4rem; }
   div[id^="form"] button {
     border-radius: 10px;
-    margin: 2rem 4% 4rem 4%; }
+    margin: 2rem 4% 3rem 4%; }
+  div[id^="form"] button:hover {
+    background-color: white;
+    color: black; }
   div[id^="form"] button#cancel {
     float: left;
-    font-size: 1.65rem;
-    height: 3rem;
-    width: 20%;
-    margin-top: 3rem; }
-  div[id^="form"] button#next, div[id^="form"] button#make {
-    float: right;
+    font-size: 2.4rem;
     height: 4rem;
     width: 25%;
-    font-size: 1.9rem; }
-  div[id^="form"] button#make {
+    margin-top: 2.5rem; }
+  div[id^="form"] button#next, div[id^="form"] button#make {
+    float: right;
     height: 5rem;
     width: 30%;
-    font-size: 2.4rem; }
+    font-size: 2.9rem; }
+  div[id^="form"] button#make {
+    height: 6rem;
+    width: 35%;
+    font-size: 3.4rem; }
 
 h2 {
   border-radius: 10px;
