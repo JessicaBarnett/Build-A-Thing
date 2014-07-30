@@ -59,7 +59,7 @@ function makeButtonActive(self) {
     $(self).addClass("active");
 }
 
-//handles when a user clicks on the "Make This Thing!" button
+//DEPRECATED!!!   now using ThingForm.newForm
 function makeThingButtonHandler() {
     var thingType = $("#typeSelector").val(),
         thingName = $("#makeThingForm input#name").val();
@@ -136,6 +136,7 @@ function ThingForm(){
     this.type= "Thing";
 }
 
+//created a new parent note in thingForm and calls formController
 ThingForm.prototype.newForm = function($parentNode){
     this.$parentNode = $parentNode; 
     this.formController.apply(this);
@@ -164,9 +165,9 @@ ThingForm.prototype.formController = function() {
         this.$parentNode.append(this.formButtons.call(this, true));
     else
         this.$parentNode.append(this.formButtons.call(this, false));
-};
+}; 
 
-//appends next and make buttons and adds handlers 
+//appends next and make buttons and adds handlers
 ThingForm.prototype.formButtons = function(isLastPage) {
     var $formContainer = $('<div id="formButtons" class="group"></div>');
 
@@ -283,6 +284,8 @@ ThingForm.prototype.typePickerHandler = function(){
     thingForm.refreshThingLabels($("#types .checked").attr("data"));
 };
 
+//takes input from typePickerHandler and updates thingForm.type with it
+//chnges thing type presented in labels depending on the new type
 ThingForm.prototype.refreshThingLabels = function(type){
     //refreshes text on page to reflect selected type
     this.type = type; 
@@ -291,6 +294,7 @@ ThingForm.prototype.refreshThingLabels = function(type){
     }
 };
 
+//hides/shows form fields depending on the value stored in thingForm.type
 ThingForm.prototype.filterFields = function(){
 
     $('#formPage3 label, #formPage3 input').hide();
@@ -325,6 +329,8 @@ ThingForm.prototype.togglePetHandler = function() {
     this.refreshButtons();
 };
 
+//removes/adds disabled attribute to make/next/complete buttons
+//depends on outcome of isFormComplete method
 ThingForm.prototype.refreshButtons = function(){
     var isComplete = this.isFormComplete.apply(this);
 
@@ -342,6 +348,8 @@ ThingForm.prototype.refreshButtons = function(){
     }
 };
 
+//returns true if all visible and necessary input fields are completed
+//buggy...
 ThingForm.prototype.isFormComplete = function(){
 
     var textFieldsComplete = true;
@@ -361,7 +369,7 @@ ThingForm.prototype.isFormComplete = function(){
         return false;
 
     //if there is a type selector and no type is selected
-    if($('#types').length > 1 && $('#types .checked').length < 1) 
+    if($('#types').length >= 1 && $('#types .checked').length < 1) 
         return false;
 
     //if it is a pet, but you didn't give it a name.
@@ -383,6 +391,9 @@ ThingForm.prototype.cancelButtonHandler = function() {
 
 ThingForm.prototype.backButtonHandler = function(){} //Make this!!!
 
+
+//handles make Button event.  makes new thing depending on data collected in thingForm.data, 
+//adds it to the dom, and does necessary resetting of things.
 ThingForm.prototype.makeButtonHandler = function() {
     this.collectThingData();
 
