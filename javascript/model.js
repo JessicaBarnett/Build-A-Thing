@@ -9,6 +9,7 @@ function ThingModel() {
 
 ThingModel.prototype.makeStarterThings = function() {
     // PARAMETERS CHEATSHEET 
+    // makeAnyThing: Type, petName or null, arguments
     // Thing: name
     // Mineral: name, shape
     // LivingThing: name, food

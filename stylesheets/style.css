@@ -113,6 +113,8 @@ div[id^="form"] {
   div[id^="form"] input[type="radio"]:checked + label {
     background-color: white;
     color: black; }
+  div[id^="form"] input[type="text"], div[id^="form"] label {
+    display: none; }
   div[id^="form"] input[type="text"] {
     border-radius: 10px;
     height: 3rem;

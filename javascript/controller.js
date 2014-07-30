@@ -123,18 +123,17 @@ function thingActionHandler() {
 
 function ThingForm(){
     this.thingData = { "name": "",
-                "type": "",
-                "shape": "",
+                "type": "" ,
+                "shape": "" ,
                 "food": "",
                 "height": "",
                 "movement": "",
                 "habitat": "",
-                "sound": "",
-                "happy": "",
-                "humanName": ""
+                "sound": "" ,
+                "humanName": null
             };
-        this.$parentNode = ""; 
-        this.type= "Thing";
+    this.$parentNode = ""; 
+    this.type= "Thing";
 }
 
 ThingForm.prototype.newForm = function($parentNode){
@@ -309,12 +308,10 @@ ThingForm.prototype.togglePetHandler = function() {
         //note that .val() returns a string, not a boolean.
         $("#humanName").hide();
         $('label[for="humanName"]').hide();
-        //$("#humanName").css("background-color", "lightGray").attr("disabled", "disabled");
     }
     else{
         $("#humanName").show();
         $('label[for="humanName"]').show();
-        //$("#humanName").css("background-color", "white").removeAttr("disabled");
     }
 };
 
@@ -328,42 +325,47 @@ ThingForm.prototype.cancelButtonHandler = function() {
     this.constructor(); //to clear data and start fresh with a new form
 };
 
+ThingForm.prototype.backButtonHandler = function(){} //Make this!!!
 
 ThingForm.prototype.makeButtonHandler = function() {
     this.collectThingData();
 
+    var thingArgs = [this.thingData.name]; //will contain arguments from the text fields to use to make a new thing
 
+    //definitely not as elegant as the old solution, 
+    //but I can't pull from an object in order, so it can't be helped
 
-    var thingArgs = []; //will contain arguments from the text fields to use to make a new thing
+    if (this.type === "Mineral")
+        thingArgs.push(this.thingData.shape);
+    else if (this.type === "LivingThing" || this.type === "Animal" || this.type === "Plant") {
+        thingArgs.push(this.thingData.food)
 
-    //adds value of text field only if field is visible 
-    //(which it will be if it's not necessary for this type of thing)
-    $("#variableFields").children("input:visible").each(function() {
-        thingArgs.push($(this).val());
-    });
+        if (this.type === "Plant")
+            thingArgs.push(this.thingData.height)
+        else if (this.type === "Animal"){
+            thingArgs.push(this.thingData.movement)
+            thingArgs.push(this.thingData.habitat)
+            thingArgs.push(this.thingData.sound)
+        }
+            
+    }
 
-    //makes new Thing with thingArgs array
-    var newThing = thingModel.makeAnyThing(thingType, petName, thingArgs);
-    //adds it to the model
+    console.log(this.thingData.type + " ***** " + this.thingData.petName  + " ***** " +  thingArgs);
+    //makes new Thing with thingArgs array and adds it to the model
+    var newThing = thingModel.makeAnyThing(this.thingData["type"], this.thingData["petName"], thingArgs);
     thingModel.addThing(newThing);
 
-    //hides form
-    //$("#makeThingForm").hide();
-
-    //removes "active" class from makeNewThing Button
+    //removes "active" class from makeNewThing Button/makes new select button for the new Thing
     $("ul li.makeNewThing").removeClass("active");
-
-    //create new select button for the new Thing
     thingView.addGridSquare(newThing);
 
-    //add active class to it
+    //adds active clss to it
     $('li[data="' + newThing.name + '"]').addClass("active");
 
     //print's new thing's Status
     thingView.printThing(newThing);
 
-    //has access to toggleDrawer, even though mobile.js (which has toggleDrawer in it) is loaded after view in index.html
-    //this is because these functions are only being called later on, in controller
+    //adds listener for back button on small screens
     if (mqTab.matches) {
         $("#closeDrawer").on("click", toggleDrawer);
     }
@@ -371,6 +373,7 @@ ThingForm.prototype.makeButtonHandler = function() {
 
 //collects data from fields in $parentNode and stores them in thingData
 ThingForm.prototype.collectThingData = function() {
+
     //iterates IDs in thingData
     //if/when an element matching a thingData ID is found, 
     //it's value is added to the object as the value of that id
