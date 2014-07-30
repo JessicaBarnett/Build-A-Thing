@@ -25,8 +25,6 @@
 var tempView = new ThingView;
 var $body = $("body");
 
-
-
 function makeGridTest(thingModel) {
     //thingView.addGridSquare(thingModel.allThings["Seagull"]);
     thingView.makeGrid(thingModel);

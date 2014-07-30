@@ -33,7 +33,6 @@ function toggleDrawer() {
     }
 }
 
-
 //******** Mobile specific handlers ********//
 
 $(window).ready(resizeHandler).resize(resizeHandler);
@@ -68,7 +67,7 @@ function resizeHandler() {
 
 //adds drawer listener if this is a tablet viewport size or smaller
 function mobileSelectButtonHandler() {
-    if (mqTab.matches) { //this mq check is a little redundant
+    if (mqTab.matches) {
         toggleDrawer();
 
         //re-adding handler because, if this thing was just selected, 

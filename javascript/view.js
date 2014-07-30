@@ -61,6 +61,12 @@ ThingView.prototype.clearStatus = function() {
     $("div#status").children().remove();
 };
 
+
+ThingView.prototype.backToStart = function() {
+    $("div#status").children().remove();
+    $("div#status").append('<h2>Choose a Thing to get started!!</h2>');
+};
+
 //Prints the Stats and Actions of passed thing in the "ThingStats" window
 ThingView.prototype.printThing = function(thing) {
     var $h2, h2contents, $ul;
@@ -381,107 +387,3 @@ ThingView.prototype.generateForm = function() {
     $variableFieldset.children().hide();
     this.refreshForm(); //to hide all non-applicable fields
 };
-
-ThingView.prototype.formHandler = function() {
-    var $parentNode = $("div#status");
-
-    if (mqPhone.matches) {
-        $parentNode.append(this.formPage1());
-    } else {
-        $parentNode.append(this.formPage1())
-        $parentNode.append(this.formPage2());
-    }
-};
-
-
-ThingView.prototype.formButtons = function(isLastPage) {
-    $formContainer.append($('<button id="cancel">cancel</button>'));
-    if (isLastPage)
-        $formContainer.append($('<button id="make">Make!</button>'));
-    else
-        $formContainer.append($('<button id="next">next!</button>'));
-};
-
-ThingView.prototype.formPage1 = function() {
-
-    var $formContainer = $('<div id="formPage1"><div>');
-
-    var types = ["Thing", "Mineral", "Living Thing", "Plant", "Animal"];
-    var $tempLi;
-
-    $formContainer.append($('<h2>What type of Thing would you like to make?</h2>'));
-
-    $typesUl = $('<ul id="types"></ul>');
-
-    for (var i = 0; i < types.length; i++) {
-        $tempLi = $('<li>' +
-            '<div class="svgContainer">' +
-            '<img src="images/' + types[i].replace(/\s/g, '') + '.svg" alt="' + types[i] + '">' +
-            '</div>' +
-            '</li>');
-        $text = "A " + types[i] + "?";
-        $typesUl.append($tempLi);
-        $typesUl.append($text);
-    }
-
-    $formContainer.append($typesUl);
-
-    return $formContainer;
-};
-
-ThingView.prototype.formPage2 = function(thingType) {
-    var $formContainer = $('<div id="formPage2"><div>');
-
-    $formContainer.append($("<h2>Is this " + thingType + " a Pet?</h2>"));
-
-    $formContainer.append(
-        $('<input type="radio" name="isPet" value="true">'),
-        $('<label for="isPet">Yes!!</label>'),
-        $('<input type="radio" name="isPet" value="false">'),
-        $('<label for="isPet">No</label>')
-    );
-
-    $formContainer.append($('<label class="petField">What is this Pet\'s Name?</label>'));
-    $formContainer.append($('<input class="petField" type="text">'))
-
-    return $formContainer;
-};
-
-ThingView.prototype.formPage3 = function(thingType) {
-    var $formContainer = $('<div id="formPage3"><div>');
-
-    $formContainer.append($('<h2>What is this ' + thingType + ' like?</h2>'));
-
-    //each has a class that will be used as a handle for hiding/showing
-    $formContainer.append(
-        $('<label class="Thing" for="name">What is this ' + thingType + ' called?</label>'),
-        $('<input class="Thing" id="name" type="text">'),
-        $('<label class="Mineral" for="shape" class="mineral">How is this ' + thingType + ' shaped?</label>'),
-        $('<input class="Mineral" id="shape" class="mineral" type="text">'),
-        $('<label class="LivingThing" for="food" class="livingThing">What does this ' + thingType + ' eat?</label>'),
-        $('<input class="LivingThing" id="food" class="livingThing" type="text">'),
-        $('<label class="Plant" for="height" class="plant" >How tall is this ' + thingType + '?</label>'),
-        $('<input class="Plant" id="height" class="plant" type="text">'),
-        $('<label class="Animal" for="movement" class="animal">How does this ' + thingType + ' move?</label>'),
-        $('<input class="Animal" id="movement"  class="animal" type="text">'),
-        $('<label class="Animal" for="habitat" class="animal">Where does this ' + thingType + ' live?</label>'),
-        $('<input class="Animal" id="habitat" class="animal" type="text">'),
-        $('<label class="Animal" for="sound" class="animal">What sound does this ' + thingType + ' make?</label>'),
-        $('<input class="Animal" id="sound" class="animal" type="text">')
-    );
-
-    $formContainer.append($('<button id="cancel">cancel</button>'));
-    $formContainer.append($('<button type="submit" id="make">Make!</button>'));
-
-    return $formContainer;
-};
-
-
-
-
-
-
-
-
-
-/*RANDOM COMMENT!!!*/

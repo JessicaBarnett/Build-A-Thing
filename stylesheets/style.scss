@@ -29,6 +29,7 @@ $actionButton: $darkestBlue;
 $bodyFont: 1.4rem;
 $titleFont: 3rem;
 
+
 /* Mixins */
 
 
@@ -131,16 +132,150 @@ button{
 
 //Make-A-Thing Form Styles
 
-input[type="radio"]{
-	display: inline-block;
-	float: left;
-	//width: 4rem;
+//affects all 3 forms and form buttons
+div[id^="form"]{
+	//align all inline-block elements (esp. labels) center
+	text-align: center;
+	width: 100%;
+
+	//Select-a-Thing-Type list
+	ul{
+		width: 94%;
+		margin: 2% auto;
+	}
+	.svgContainer{
+		width: 90%;
+		margin: 0 auto;
+		//background-color: tomato;
+	}
+	li {
+		max-width: 28%;
+		margin: 2% 2%;
+		display: inline-block;
+		float: left;
+		text-align: center;
+
+		@include rounded;
+		background-color: $midBlueDark;
+		color: white;
+		padding: .5rem;
+	}
+
+	li.checked {
+		background-color: white;
+		color: black;
+	}
+
+	li:hover {
+		background-color: white;
+		color: black;
+	}
+
+	//to make isPet radio buttons into toggle buttons
+
+	//had to position a parent relatively so absolute-position radio buttons will scroll
+	div#relativeWrap{
+		width: 100%;
+		position: relative;
+		// margin: 0 auto;
+		// text-align: center;
+		//background-color: tomato;
+	}
+
+	//this container is for positioning buttons within absolutely-positioned parent
+	fieldset#radioToggle{
+		width: 50%;
+		margin-left: 25%;
+	}
+
+	input[type="radio"], input[type="radio"] + label {
+		width: 40%;
+		margin: 5%;
+		height: 3rem;
+		display: inline-block;
+	}
+
+	input[type="radio"]{
+		position: absolute;
+		top: -1rem;
+		left: 13%;
+		opacity: 0;
+	}
+
+	input[type="radio"]:last-of-type {
+		left: 38%;
+	}
+
+	input[type="radio"] + label { 
+		@include rounded;
+		background-color: $midBlueDark;
+		color: white;
+		text-align: center;
+		line-height: 3rem;
+	}
+
+	input[type="radio"]:hover + label{
+		background-color: white;
+		color: black;
+	}
+
+	//when radio button is in checked state, change the label directly after it
+	input[type="radio"]:checked + label { 
+		background-color: white;
+		color: black;
+	}
+
+	/*General text fields/buttons*/
+
+	input[type="text"], label{
+		display: none;
+	}
+
+	input[type="text"]{
+		@include rounded;
+		height: 3rem;
+		border: 4px solid black;
+		width: 80%;
+		margin: 0 auto;
+
+		line-height: 2rem;
+		padding: .25rem;
+		font-size: $bodyFont;
+	}
+
+	button{
+		@include rounded;
+		margin: 2rem 4% 3rem 4%;
+	}
+
+	button:hover{
+		background-color: white;
+		color: black;
+	}
+
+	button#cancel {
+		float: left;
+		font-size: $bodyFont + 1rem;
+		height: 4rem;
+		width: 25%;
+		margin-top: 2.5rem;
+	}
+
+	button#next, button#make{
+		float: right;
+		height: 5rem;
+		width: 30%;
+		font-size: $bodyFont + 1.5rem;
+	}
+
+	button#make{
+		height: 6rem;
+		width: 35%;
+		font-size: $bodyFont + 2rem;
+	}
+
 }
 
-.thing{
-	width: 8rem;	
-	height: 2.5rem;	
-}
 
 
 //Thing Status Styles
@@ -227,6 +362,7 @@ div#select{
 	margin-bottom: 2.5rem;
 
 	.thing{
+			@include rounded;
 			padding: .5rem;
 			padding-top: .25rem;
 			display: inline-block;
