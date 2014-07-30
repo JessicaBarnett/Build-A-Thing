@@ -119,7 +119,7 @@ function thingActionHandler() {
 
 
 
-/***********  Form Controller  *************/
+/***********  Form View/Controller  *************/
 
 function ThingForm(){
     this.thingData = { "name": "",
@@ -138,13 +138,13 @@ function ThingForm(){
 
 ThingForm.prototype.newForm = function($parentNode){
     this.$parentNode = $parentNode; 
-    this.formController();
+    this.formController.apply(this);
 };
 
 //this starts the from-making process, and is added as a handler to both next buttons
 ThingForm.prototype.formController = function() {
 
-    this.collectThingData();
+    this.collectThingData.apply(this);
 
     if ($('[id*="form"]').length <= 0) { //if no form exists yet
         if (mqPhone.matches) {
@@ -161,9 +161,9 @@ ThingForm.prototype.formController = function() {
     } 
 
     if($("div#formPage3").length  > 0) //have my jQuery selectors been returning arrays this whole time????  How didn't I notice??
-        this.$parentNode.append(this.formButtons(true));
+        this.$parentNode.append(this.formButtons.call(this, true));
     else
-        this.$parentNode.append(this.formButtons(false));
+        this.$parentNode.append(this.formButtons.call(this, false));
 };
 
 //appends next and make buttons and adds handlers 
@@ -174,10 +174,10 @@ ThingForm.prototype.formButtons = function(isLastPage) {
     $formContainer.children("button#cancel").click($.proxy(this.cancelButtonHandler, this));
 
     if (isLastPage) {
-        $formContainer.append($('<button id="make">Make!</button>'));
+        $formContainer.append($('<button id="make" disabled>Make!</button>'));
         $formContainer.children("button#make").click($.proxy(this.makeButtonHandler, this));
     } else {
-        $formContainer.append($('<button id="next">next!</button>'));
+        $formContainer.append($('<button id="next" disabled>next!</button>'));
         $formContainer.children("button#next").click($.proxy(this.formController, this));
     }
 
@@ -229,14 +229,15 @@ ThingForm.prototype.formPage2 = function() {
     $formContainer.find("#togglePet").append(
         $('<input type="radio" name="isPet" value="true">'),
         $('<label for="isPet">Yes!!</label>'),
-        $('<input type="radio" name="isPet" value="false">'),
-        $('<label for="isPet">No</label>')
+        $('<input type="radio" name="isPet" value="false">'),  
+        $('<label for="isPet" checked>No</label>')
     );
 
     $formContainer.append($('<label for="humanName">What is this Pet\'s Name?</label>'));
     $formContainer.append($('<input id="humanName" class="petField" type="text">'))
 
     $formContainer.find('#togglePet input[type="radio"]').click($.proxy(this.togglePetHandler, this)); 
+    $formContainer.find('input[type="text"]').change($.proxy(this.formCompleteHandler, this)); 
 
     return $formContainer;
 };
@@ -274,6 +275,8 @@ ThingForm.prototype.typePickerHandler = function(){
     $("#types li").removeClass("checked");
     $(this).addClass("checked");
 
+    $('button#next').removeAttr("disabled");
+
     thingForm.refreshThingLabels($("#types .checked").attr("data"));
 };
 
@@ -308,11 +311,39 @@ ThingForm.prototype.togglePetHandler = function() {
         //note that .val() returns a string, not a boolean.
         $("#humanName").hide();
         $('label[for="humanName"]').hide();
+        $('button#next').removeAttr("disabled"); //enables next button
     }
     else{
         $("#humanName").show();
         $('label[for="humanName"]').show();
+        $('button#next').attr("disabled", "disabled"); //disables next button
     }
+};
+
+ThingForm.prototype.formCompleteHandler = function(){
+    var isComplete = this.isFormComplete.apply(this);
+
+    if (isComplete){
+        if($('button#make').length > 0) 
+            $('button#make').removeAttr("disabled");
+        if($('button#next').length > 0) 
+            $('button#next').removeAttr("disabled"); //enables next button   
+    }
+    else{
+        if($('button#make').length > 0) 
+            $('button#make').attr("disabled", "disabled");
+        if($('button#next').length > 0)
+            $('button#next').attr("disabled", "disabled"); //disables next button
+    }
+};
+
+ThingForm.prototype.isFormComplete = function(){
+    //for each text input in $parentNode
+    this.$parentNode.children('input[type="text"]').each(function(index, element){
+        if (!element.val())//if an empty field is encountered
+            return false;
+        });
+    return true;
 };
 
 //handles cancel button events
@@ -350,7 +381,7 @@ ThingForm.prototype.makeButtonHandler = function() {
             
     }
 
-    console.log(this.thingData.type + " ***** " + this.thingData.petName  + " ***** " +  thingArgs);
+    console.log(this.thingData["type"] + " ***** " + this.thingData["petName"]  + " ***** " +  thingArgs);
     //makes new Thing with thingArgs array and adds it to the model
     var newThing = thingModel.makeAnyThing(this.thingData["type"], this.thingData["petName"], thingArgs);
     thingModel.addThing(newThing);
@@ -373,19 +404,20 @@ ThingForm.prototype.makeButtonHandler = function() {
 
 //collects data from fields in $parentNode and stores them in thingData
 ThingForm.prototype.collectThingData = function() {
-
     //iterates IDs in thingData
     //if/when an element matching a thingData ID is found, 
     //it's value is added to the object as the value of that id
-    $.each(this.thingData, $.proxy(matchFieldsID, this));
-
-    this.thingData.type = $("#types .checked").attr("data"); 
-
     function matchFieldsID(property, value) {
-        if (this.$parentNode.find("#".concat(property)).length > 0){ //if property exists in $source 
-            this.thingData[property] = this.$parentNode.find(property).val();
+        if (this.$parentNode.find("#".concat(property)).length > 0){ //if property exists in $parentNode
+            this.thingData[property] = this.$parentNode.find("#".concat(property)).val();
         }
     }
+
+    $.each(this.thingData, bind(matchFieldsID, this));
+    //$(this.thingData).each(matchFieldsID.apply(this)); //this construct seems to only work for arrays
+
+    if($("#types .checked").length > 0)
+        this.thingData["type"] = $("#types .checked").attr("data"); 
 
     return this.thingData;
 }
