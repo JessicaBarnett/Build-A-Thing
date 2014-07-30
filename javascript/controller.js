@@ -28,8 +28,8 @@ function selectButtonHandler() {
     if ($(this).hasClass("makeNewThing")) { //generates a new form
         thingForm.newForm($('div#status'));
 
-        if (mqTab.matches)
-            toggleDrawer();
+        if (mqTab.matches){}
+            //toggleDrawer();
 
 
         //code for old form:
@@ -60,46 +60,46 @@ function makeButtonActive(self) {
 }
 
 //DEPRECATED!!!   now using ThingForm.newForm
-function makeThingButtonHandler() {
-    var thingType = $("#typeSelector").val(),
-        thingName = $("#makeThingForm input#name").val();
-    var petName = $('input#humanName').val() || null;
+// function makeThingButtonHandler() {
+//     var thingType = $("#typeSelector").val(),
+//         thingName = $("#makeThingForm input#name").val();
+//     var petName = $('input#humanName').val() || null;
 
-    var thingArgs = []; //will contain arguments from the text fields to use to make a new thing
+//     var thingArgs = []; //will contain arguments from the text fields to use to make a new thing
 
-    //adds value of text field only if field is visible 
-    //(which it will be if it's not necessary for this type of thing)
-    $("#variableFields").children("input:visible").each(function() {
-        thingArgs.push($(this).val());
-    });
+//     //adds value of text field only if field is visible 
+//     //(which it will be if it's not necessary for this type of thing)
+//     $("#variableFields").children("input:visible").each(function() {
+//         thingArgs.push($(this).val());
+//     });
 
-    //makes new Thing with thingArgs array
-    var newThing = thingModel.makeAnyThing(thingType, petName, thingArgs);
-    //adds it to the model
-    thingModel.addThing(newThing);
+//     //makes new Thing with thingArgs array
+//     var newThing = thingModel.makeAnyThing(thingType, petName, thingArgs);
+//     //adds it to the model
+//     thingModel.addThing(newThing);
 
-    //hides form
-    //$("#makeThingForm").hide();
+//     //hides form
+//     //$("#makeThingForm").hide();
 
-    //removes "active" class from makeNewThing Button
-    $("ul li.makeNewThing").removeClass("active");
+//     //removes "active" class from makeNewThing Button
+//     $("ul li.makeNewThing").removeClass("active");
 
-    //create new select button for the new Thing
-    thingView.addGridSquare(newThing);
+//     //create new select button for the new Thing
+//     thingView.addGridSquare(newThing);
 
-    //add active class to it
-    $('li[data="' + newThing.name + '"]').addClass("active");
+//     //add active class to it
+//     $('li[data="' + newThing.name + '"]').addClass("active");
 
-    //print's new thing's Status
-    thingView.printThing(newThing);
+//     //print's new thing's Status
+//     thingView.printThing(newThing);
 
-    //has access to toggleDrawer, even though mobile.js (which has toggleDrawer in it) is loaded after view in index.html
-    //this is because these functions are only being called later on, in controller
-    if (mqTab.matches) {
-        $("#closeDrawer").on("click", toggleDrawer);
-    }
+//     //has access to toggleDrawer, even though mobile.js (which has toggleDrawer in it) is loaded after view in index.html
+//     //this is because these functions are only being called later on, in controller
+//     if (mqTab.matches) {
+//         $("#closeDrawer").on("click", toggleDrawer);
+//     }
 
-}
+// }
 
 
 function thingActionHandler() {
@@ -145,7 +145,7 @@ ThingForm.prototype.newForm = function($parentNode){
 //this starts the from-making process, and is added as a handler to both next buttons
 ThingForm.prototype.formController = function() {
 
-    this.collectThingData.apply(this);
+    this.collectThingData.apply(this); 
 
     if ($('[id*="form"]').length <= 0) { //if no form exists yet
         if (mqPhone.matches) {
@@ -165,6 +165,9 @@ ThingForm.prototype.formController = function() {
         this.$parentNode.append(this.formButtons.call(this, true));
     else
         this.$parentNode.append(this.formButtons.call(this, false));
+
+    //adds button for mobile.  hidden by default, unless in mobile view
+    this.$parentNode.prepend($('<button id="closeDrawer"><img src="images/Arrow.svg" alt="back"></button>'));
 }; 
 
 //appends next and make buttons and adds handlers
@@ -349,7 +352,6 @@ ThingForm.prototype.refreshButtons = function(){
 };
 
 //returns true if all visible and necessary input fields are completed
-//buggy...
 ThingForm.prototype.isFormComplete = function(){
 
     var textFieldsComplete = true;
@@ -457,6 +459,9 @@ ThingForm.prototype.collectThingData = function() {
 
     return this.thingData;
 }
+
+
+
 
 
 
