@@ -191,9 +191,9 @@ div[id^="form"]{
 	}
 
 	input[type="radio"], input[type="radio"] + label {
-		width: 40%;
+		width: 30%;
 		margin: 5%;
-		height: 3rem;
+		height: 4rem;
 		display: inline-block;
 	}
 
@@ -213,7 +213,7 @@ div[id^="form"]{
 		background-color: $midBlueDark;
 		color: white;
 		text-align: center;
-		line-height: 3rem;
+		line-height: 4rem;
 	}
 
 	input[type="radio"]:hover + label{
@@ -261,7 +261,7 @@ div[id^="form"]{
 	}
 
 	button:disabled:hover:after{
-		content: "Please complete all the form fields!";
+		content: "Hmm, Something's still missing...";
 		height: 3.5rem;
 		width: 20%;
 		position: absolute;

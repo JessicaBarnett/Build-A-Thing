@@ -360,7 +360,7 @@ ThingForm.prototype.isFormComplete = function(){
     if (!textFieldsComplete)
         return false;
 
-    if($('#types .checked') < 0) //if no type is selected
+    if($('#types .checked').length < 1) //if no type is selected
         return false;
 
     //if it is a pet, but you didn't give it a name.
