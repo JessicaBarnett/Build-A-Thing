@@ -127,6 +127,24 @@ div[id^="form"] {
   div[id^="form"] button {
     border-radius: 10px;
     margin: 2rem 4% 3rem 4%; }
+  div[id^="form"] button:disabled {
+    background-color: #304152;
+    color: gray; }
+  div[id^="form"] button:disabled:hover {
+    background-color: #304152;
+    color: gray; }
+  div[id^="form"] button:disabled:hover:after {
+    content: "Please complete all the form fields!";
+    height: 3.5rem;
+    width: 20%;
+    position: absolute;
+    top: 85%;
+    right: 10%;
+    background-color: white;
+    border-radius: 10px;
+    font-size: 1.4rem;
+    padding: .5rem;
+    color: black; }
   div[id^="form"] button:hover {
     background-color: white;
     color: black; }

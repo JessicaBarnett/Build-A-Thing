@@ -213,7 +213,7 @@ ThingForm.prototype.formPage1 = function() {
 
     
     $formContainer.find("#types li").on("click", this.typePickerHandler);
-
+    $formContainer.find('input[type="text"]').change($.proxy(this.formCompleteHandler, this)); 
 
     return $formContainer;
 };
@@ -230,13 +230,13 @@ ThingForm.prototype.formPage2 = function() {
         $('<input type="radio" name="isPet" value="true">'),
         $('<label for="isPet">Yes!!</label>'),
         $('<input type="radio" name="isPet" value="false">'),  
-        $('<label for="isPet" checked>No</label>')
+        $('<label for="isPet">No</label>')
     );
 
     $formContainer.append($('<label for="humanName">What is this Pet\'s Name?</label>'));
     $formContainer.append($('<input id="humanName" class="petField" type="text">'))
 
-    $formContainer.find('#togglePet input[type="radio"]').click($.proxy(this.togglePetHandler, this)); 
+    $formContainer.find('input[type="radio"]').click($.proxy(this.togglePetHandler, this)); 
     $formContainer.find('input[type="text"]').change($.proxy(this.formCompleteHandler, this)); 
 
     return $formContainer;
@@ -252,20 +252,22 @@ ThingForm.prototype.formPage3 = function() {
     $formContainer.append(
         $('<label class="Thing" for="name">What is this ' + this.type + ' called?</label>'),
         $('<input class="Thing" id="name" type="text">'),
-        $('<label class="Mineral" for="shape" class="mineral">How is this ' + this.type + ' shaped?</label>'),
-        $('<input class="Mineral" id="shape" class="mineral" type="text">'),
-        $('<label class="LivingThing" for="food" class="livingThing">What does this ' + this.type + ' eat?</label>'),
-        $('<input class="LivingThing" id="food" class="livingThing" type="text">'),
-        $('<label class="Plant" for="height" class="plant" >How tall is this ' + this.type + '?</label>'),
-        $('<input class="Plant" id="height" class="plant" type="text">'),
-        $('<label class="Animal" for="movement" class="animal">How does this ' + this.type + ' move?</label>'),
-        $('<input class="Animal" id="movement"  class="animal" type="text">'),
-        $('<label class="Animal" for="habitat" class="animal">Where does this ' + this.type + ' live?</label>'),
-        $('<input class="Animal" id="habitat" class="animal" type="text">'),
-        $('<label class="Animal" for="sound" class="animal">What sound does this ' + this.type + ' make?</label>'),
-        $('<input class="Animal" id="sound" class="animal" type="text">')
+        $('<label class="Mineral" for="shape">How is this ' + this.type + ' shaped?</label>'),
+        $('<input class="Mineral" id="shape" type="text">'),
+        $('<label class="LivingThing" for="food" >What does this ' + this.type + ' eat?</label>'),
+        $('<input class="LivingThing" id="food" type="text">'),
+        $('<label class="Plant" for="height">How tall is this ' + this.type + '?</label>'),
+        $('<input class="Plant" id="height" type="text">'),
+        $('<label class="Animal" for="movement">How does this ' + this.type + ' move?</label>'),
+        $('<input class="Animal" id="movement" type="text">'),
+        $('<label class="Animal" for="habitat">Where does this ' + this.type + ' live?</label>'),
+        $('<input class="Animal" id="habitat" type="text">'),
+        $('<label class="Animal" for="sound">What sound does this ' + this.type + ' make?</label>'),
+        $('<input class="Animal" id="sound" type="text">')
     );
 
+
+    $formContainer.find('input[type="text"]').change($.proxy(this.formCompleteHandler, this)); 
     return $formContainer;
 };
 
@@ -291,6 +293,8 @@ ThingForm.prototype.refreshThingLabels = function(type){
 ThingForm.prototype.filterFields = function(){
 
     $('#formPage3 label, #formPage3 input').hide();
+
+    $(".Thing").show();
 
     if (this.type === "Mineral")
         $(".Mineral").show();
@@ -343,6 +347,13 @@ ThingForm.prototype.isFormComplete = function(){
         if (!element.val())//if an empty field is encountered
             return false;
         });
+
+    if($parentNode.children('#types .checked') < 0)
+        return false;
+
+    if($parentNode.children('#togglePet input[type="radio"]:checked').val() === "true" && 
+        $parentNode.children('#humanName').val() === "")
+
     return true;
 };
 

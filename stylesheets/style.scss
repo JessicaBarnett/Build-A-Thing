@@ -29,6 +29,8 @@ $actionButton: $darkestBlue;
 $bodyFont: 1.4rem;
 $titleFont: 3rem;
 
+$disabledButtonColor: #304152;
+
 
 /* Mixins */
 
@@ -246,6 +248,31 @@ div[id^="form"]{
 	button{
 		@include rounded;
 		margin: 2rem 4% 3rem 4%;
+	}
+
+	button:disabled{
+		background-color: $disabledButtonColor;
+		color: gray;
+	}
+
+	button:disabled:hover{
+		background-color: $disabledButtonColor;
+		color: gray;
+	}
+
+	button:disabled:hover:after{
+		content: "Please complete all the form fields!";
+		height: 3.5rem;
+		width: 20%;
+		position: absolute;
+		top: 85%;
+		right: 10%;
+		
+		background-color: white;
+		@include rounded;
+		font-size: $bodyFont; 
+		padding: .5rem;
+		color: black;
 	}
 
 	button:hover{
