@@ -213,7 +213,7 @@ ThingForm.prototype.formPage1 = function() {
 
     
     $formContainer.find("#types li").on("click", this.typePickerHandler);
-    $formContainer.find('input[type="text"]').change($.proxy(this.formCompleteHandler, this)); 
+    $formContainer.find('input[type="text"]').change($.proxy(this.refreshButtons, this)); 
 
     return $formContainer;
 };
@@ -237,7 +237,7 @@ ThingForm.prototype.formPage2 = function() {
     $formContainer.append($('<input id="humanName" class="petField" type="text">'))
 
     $formContainer.find('input[type="radio"]').click($.proxy(this.togglePetHandler, this)); 
-    $formContainer.find('input[type="text"]').change($.proxy(this.formCompleteHandler, this)); 
+    $formContainer.find('input[type="text"]').change($.proxy(this.refreshButtons, this)); 
 
     return $formContainer;
 };
@@ -267,7 +267,7 @@ ThingForm.prototype.formPage3 = function() {
     );
 
 
-    $formContainer.find('input[type="text"]').change($.proxy(this.formCompleteHandler, this)); 
+    $formContainer.find('input[type="text"]').change($.proxy(this.refreshButtons, this)); 
     return $formContainer;
 };
 
@@ -277,8 +277,9 @@ ThingForm.prototype.typePickerHandler = function(){
     $("#types li").removeClass("checked");
     $(this).addClass("checked");
 
-    $('button#next').removeAttr("disabled");
-
+    //using thingForm instead of calling with a proxy because I need 
+    //access to the clicked element
+    thingForm.refreshButtons();
     thingForm.refreshThingLabels($("#types .checked").attr("data"));
 };
 
@@ -315,16 +316,16 @@ ThingForm.prototype.togglePetHandler = function() {
         //note that .val() returns a string, not a boolean.
         $("#humanName").hide();
         $('label[for="humanName"]').hide();
-        $('button#next').removeAttr("disabled"); //enables next button
     }
     else{
         $("#humanName").show();
         $('label[for="humanName"]').show();
-        $('button#next').attr("disabled", "disabled"); //disables next button
     }
+
+    this.refreshButtons();
 };
 
-ThingForm.prototype.formCompleteHandler = function(){
+ThingForm.prototype.refreshButtons = function(){
     var isComplete = this.isFormComplete.apply(this);
 
     if (isComplete){
@@ -342,17 +343,29 @@ ThingForm.prototype.formCompleteHandler = function(){
 };
 
 ThingForm.prototype.isFormComplete = function(){
-    //for each text input in $parentNode
-    this.$parentNode.children('input[type="text"]').each(function(index, element){
-        if (!element.val())//if an empty field is encountered
-            return false;
-        });
 
-    if($parentNode.children('#types .checked') < 0)
+    var textFieldsComplete = true;
+
+    if ($('div#status input[type="text"]').length > 0){
+        //for each text input in $parentNode
+        $('div#status input[type="text"]:visible').each(function(index, $element){
+            $element = $($element); //makes it a jQuery object
+            
+            if ($element.val() === "")//if an empty field is encountered
+                if ($element.attr("id") !== "humanName")//excluding humanName field
+                    textFieldsComplete = false;
+            });
+    }
+
+    if (!textFieldsComplete)
         return false;
 
-    if($parentNode.children('#togglePet input[type="radio"]:checked').val() === "true" && 
-        $parentNode.children('#humanName').val() === "")
+    if($('#types .checked') < 0) //if no type is selected
+        return false;
+
+    //if it is a pet, but you didn't give it a name.
+    if($('#togglePet input:checked').val() === "true" &&  $('#humanName').val() === "")
+        return false;
 
     return true;
 };
