@@ -356,7 +356,18 @@ button#closeDrawer {
     margin-top: 4rem; }
 
   #actionWindow {
-    display: none; } }
+    display: none; }
+
+  /********Select-a-Thing-Type list*/
+  /********/
+  div[id^="form"] li {
+    min-height: 6rem;
+    max-width: 45%; }
+    div[id^="form"] li .svgContainer {
+      max-width: 100%; }
+    div[id^="form"] li p {
+      line-height: 1.3rem;
+      font-size: 1.1rem; } }
 @media screen and (min-width: 300px) and (max-width: 750px) and (orientation: landscape) {
   #thingActions button {
     width: 48%;

@@ -162,7 +162,10 @@ ThingForm.prototype.formPage1 = function() {
             '</div>' +
             '</li>');
 
-        $text = types[i] === "Animal" ? "An " + types[i] + "?" : "A " + types[i] + "?";;
+        $text = types[i] === "Animal" ? "An " + types[i] + "?" : "A " + types[i] + "?";
+        if(mqPhone.matches){
+            $text = types[i];
+        }
 
         $tempLi.append('<p>'+ $text +'</p>');
         $typesUl.append($tempLi);

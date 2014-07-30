@@ -287,7 +287,14 @@ ThingView.prototype.convertToLongHeader = function(thing) {
     }
 };
 
-/*********  Form Methods  **********/
+
+
+
+
+
+
+
+/*********  DEPRECATED FORM METHODS  **********/
 
 //when form is open, hides/shows fields depending on which Thing Type
 //is selected, and whether it is a Pet

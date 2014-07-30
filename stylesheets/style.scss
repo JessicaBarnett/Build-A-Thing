@@ -570,8 +570,46 @@ button#closeDrawer{
 	}
 
 
-	div[id^="form"]{
+/********Select-a-Thing-Type list*/
+	// ul{
+	// 	width: 94%;
+	// 	margin: 2% auto;
+	// }
+	// .svgContainer{
+	// 	width: 90%;
+	// 	margin: 0 auto;
+	// }
+	// li {
+	// 	min-height: 12rem;
+	// 	max-width: 28%;
+	// 	margin: 2% 2%;
+	// 	display: inline-block;
+	// 	float: left;
+	// 	text-align: center;
 
+	// 	@include rounded;
+	// 	background-color: $midBlueDark;
+	// 	color: white;
+	// 	padding: .5rem;
+
+	// }
+/********/
+
+	div[id^="form"]{
+		li{
+			min-height: 6rem;
+			max-width: 45%;
+
+			.svgContainer{
+				max-width: 100%;
+			}
+			
+			p{
+
+				line-height: $bodyFont - .1rem;
+				font-size: $bodyFont - .3rem;
+			}
+		}
 	}
 
 }
