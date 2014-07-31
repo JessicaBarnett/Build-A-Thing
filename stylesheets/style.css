@@ -61,6 +61,9 @@ div[id^="form"] {
   text-align: center;
   width: 100%;
   /*General text fields/buttons*/ }
+  @media screen and (min-width: 200px) and (max-width: 750px) {
+    div[id^="form"] {
+      font-size: 1.4rem; } }
   div[id^="form"] ul {
     width: 94%;
     margin: 2% auto; }
@@ -149,21 +152,30 @@ div[id^="form"] {
   div[id^="form"] button:hover {
     background-color: white;
     color: black; }
-  div[id^="form"] button#cancel {
+  div[id^="form"] #cancel {
     float: left;
     font-size: 2.4rem;
     height: 4rem;
     min-width: 25%;
     margin-top: 2.5rem; }
-  div[id^="form"] button#next, div[id^="form"] button#make {
+    @media screen and (min-width: 200px) and (max-width: 750px) {
+      div[id^="form"] #cancel {
+        font-size: 0.9rem; } }
+  div[id^="form"] #next, div[id^="form"] #make {
     float: right;
     height: 5rem;
     min-width: 30%;
     font-size: 2.9rem; }
-  div[id^="form"] button#make {
+    @media screen and (min-width: 200px) and (max-width: 750px) {
+      div[id^="form"] #next, div[id^="form"] #make {
+        font-size: 1.4rem; } }
+  div[id^="form"] #make {
     height: 6rem;
     min-width: 35%;
     font-size: 3.4rem; }
+    @media screen and (min-width: 200px) and (max-width: 750px) {
+      div[id^="form"] #make {
+        font-size: 1.4rem; } }
 
 h2 {
   border-radius: 10px;
@@ -358,16 +370,11 @@ button#closeDrawer {
   #actionWindow {
     display: none; }
 
-  /********Select-a-Thing-Type list*/
-  /********/
-  div[id^="form"] li {
-    min-height: 6rem;
-    max-width: 45%; }
-    div[id^="form"] li .svgContainer {
-      max-width: 100%; }
-    div[id^="form"] li p {
-      line-height: 1.3rem;
-      font-size: 1.1rem; } }
+  button:disabled:hover:before {
+    display: none; }
+
+  button#next:disabled:hover {
+    color: black; } }
 @media screen and (min-width: 300px) and (max-width: 750px) and (orientation: landscape) {
   #thingActions button {
     width: 48%;
@@ -401,6 +408,9 @@ button#closeDrawer {
   #popOut {
     min-height: 10rem; } }
 @media screen and (min-width: 200px) and (max-width: 550px) and (orientation: portrait) {
+  div#status h2 {
+    margin-top: -1rem; }
+
   #thingActions button {
     width: 45%;
     height: 3rem; }
@@ -417,4 +427,17 @@ button#closeDrawer {
     margin: 0 5% 0 25%; }
 
   #statsContainer {
-    width: 100%; } }
+    width: 100%; }
+
+  div[id^="form"] li {
+    min-height: 6rem;
+    max-width: 45%;
+    padding-bottom: 0;
+    margin-bottom: 0; }
+    div[id^="form"] li .svgContainer {
+      max-width: 100%;
+      max-height: 4rem; }
+  div[id^="form"] button {
+    max-height: 3rem;
+    min-width: 5%;
+    font-size: 1rem; } }

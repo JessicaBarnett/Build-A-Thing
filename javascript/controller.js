@@ -151,7 +151,10 @@ ThingForm.prototype.formPage1 = function() {
     var types = ["Thing", "Mineral", "Living Thing", "Plant", "Animal"];
     var $tempLi, $typesUl;
 
-    $formContainer.append($('<h2>What type of '+this.type + ' would you like to make?</h2>'));
+    if(mqPhone.matches)
+        $formContainer.append($('<h2>What type of '+this.type + '?</h2>'));
+    else
+        $formContainer.append($('<h2>What type of '+this.type + ' would you like to make?</h2>'));
 
     $typesUl = $('<ul id="types" class="group"></ul>');
 
@@ -164,8 +167,10 @@ ThingForm.prototype.formPage1 = function() {
 
         $text = types[i] === "Animal" ? "An " + types[i] + "?" : "A " + types[i] + "?";
         if(mqPhone.matches){
-            $text = types[i];
+            //$text = types[i];
+            $text = "";
         }
+
 
         $tempLi.append('<p>'+ $text +'</p>');
         $typesUl.append($tempLi);
