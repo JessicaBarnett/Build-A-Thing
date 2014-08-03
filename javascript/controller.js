@@ -116,13 +116,14 @@ ThingForm.prototype.formController = function() {
         this.filterFields();
     } 
 
-    if($("div#formPage3").length  > 0) //have my jQuery selectors been returning arrays this whole time????  How didn't I notice??
+    if($("div#formPage3").length  > 0) //if this is form page 3
         this.$parentNode.append(this.formButtons.call(this, true));
     else
         this.$parentNode.append(this.formButtons.call(this, false));
 
     //adds button for mobile.  hidden by default, unless in mobile view
     this.$parentNode.prepend($('<button id="closeDrawer"><img src="images/Arrow.svg" alt="back"></button>'));
+    this.$parentNode.find("#closeDrawer").unbind("click", toggleDrawer).click(toggleDrawer);
 }; 
 
 //appends next and make buttons and adds handlers
@@ -355,7 +356,6 @@ ThingForm.prototype.cancelButtonHandler = function() {
 };
 
 ThingForm.prototype.backButtonHandler = function(){} //Make this!!!
-
 
 //handles make Button event.  makes new thing depending on data collected in thingForm.data, 
 //adds it to the dom, and does necessary resetting of things.
