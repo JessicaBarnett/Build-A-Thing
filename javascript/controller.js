@@ -382,9 +382,9 @@ ThingForm.prototype.makeButtonHandler = function() {
             
     }
 
-    console.log(this.thingData["type"] + " ***** " + this.thingData["petName"]  + " ***** " +  thingArgs);
+    console.log(this.thingData["type"] + " ***** " + this.thingData["humanName"]  + " ***** " +  thingArgs);
     //makes new Thing with thingArgs array and adds it to the model
-    var newThing = thingModel.makeAnyThing(this.thingData["type"], this.thingData["petName"], thingArgs);
+    var newThing = thingModel.makeAnyThing(this.thingData["type"], this.thingData["humanName"], thingArgs);
     thingModel.addThing(newThing);
 
     //removes "active" class from makeNewThing Button/makes new select button for the new Thing
