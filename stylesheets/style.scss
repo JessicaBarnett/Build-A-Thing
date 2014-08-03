@@ -159,10 +159,12 @@ div[id^="form"]{
 	.svgContainer{
 		width: 90%;
 		margin: 0 auto;
-		//background-color: tomato;
+		@media screen and (min-width: 300px) and (max-width: 750px) and (orientation: landscape){
+			width: 75%;
+		}
 	}
 	li {
-		min-height: 12rem;
+		min-height: 10rem;
 		max-width: 28%;
 		margin: 2% 2%;
 		display: inline-block;
@@ -173,6 +175,13 @@ div[id^="form"]{
 		background-color: $midBlueDark;
 		color: white;
 		padding: .5rem;
+
+		@media screen and (min-width: 300px) and (max-width: 750px) and (orientation: landscape){
+			min-height: 0rem;
+			max-height: 5rem;
+			max-width: 24%;
+			margin: 1% 2%;
+		}
 
 	}
 
@@ -261,6 +270,10 @@ div[id^="form"]{
 	button{
 		@include rounded;
 		margin: 2rem 4% 3rem 4%;
+		@media screen and (min-width: 200px) and (max-width: 750px){
+			margin: 1rem 2% 0 2%;
+		}
+
 	}
 
 	button:disabled{
@@ -303,7 +316,13 @@ div[id^="form"]{
 		margin-top: 2.5rem;
 
 		@media screen and (min-width: 200px) and (max-width: 750px){
-			font-size: $bodyFont - .5rem;
+			font-size: $bodyFont;
+			max-height: 3rem;
+			margin-top: 1.5rem;
+			margin-left: 5%;
+		}
+		@media screen and (min-width: 300px) and (max-width: 750px) and (orientation: landscape){
+			margin-top: .5rem;
 		}
 
 	}
@@ -315,7 +334,12 @@ div[id^="form"]{
 		font-size: $bodyFont + 1.5rem;
 
 		@media screen and (min-width: 200px) and (max-width: 750px){
-			font-size: $bodyFont;
+			font-size: $bodyFont + .25rem;
+			max-height: 4rem;
+		}
+		@media screen and (min-width: 300px) and (max-width: 750px) and (orientation: landscape){
+			margin-top: 0;
+			margin-right: 14%;
 		}
 	}
 
@@ -325,7 +349,11 @@ div[id^="form"]{
 		font-size: $bodyFont + 2rem;
 
 		@media screen and (min-width: 200px) and (max-width: 750px){
-			font-size: $bodyFont;
+			font-size: $bodyFont + .5rem;
+			max-height: 4rem;
+		}
+		@media screen and (min-width: 300px) and (max-width: 750px) and (orientation: landscape){
+
 		}
 	}
 
@@ -464,7 +492,7 @@ button#closeDrawer{
 
 //tablet and below
 //screen and (max-width: 1000px)
-@media screen and (max-width: 1000px){
+@media screen and (max-width: 900px){
 
 	.status.frame{ //selects wrapper of "status" div
 		position: absolute;
@@ -528,7 +556,7 @@ button#closeDrawer{
 
 //adjusting svg size in select buttons to prevent text overflow
 //affects extra-wide web layout and wider tablet sizes
-@media screen and (min-width: 700px) and (max-width: 1000px), screen and (min-width: 1200px){
+@media screen and (min-width: 700px) and (max-width: 900px), screen and (min-width: 1200px){
 	div#select .svgContainer {
 		width: 32%;
 	}	
@@ -603,6 +631,26 @@ button#closeDrawer{
 		color: black;
 	}
 
+
+	// button {
+	// 	height: 4rem;
+	// 	min-width: 5%;
+	// 	font-size: 4rem;
+		
+	// 	&#cancel{
+	// 		font-size: $bodyFont - 2rem;
+	// 	}
+
+	// 	&#next{
+	// 		font-size: $bodyFont - 1.5rem;
+	// 	}
+	// 	&#make{
+	// 		font-size: $bodyFont - 1rem;
+	// 		max-width: 8%;
+	// 		height: 6rem;
+	// 	}
+	// }	
+
 }
 
 
@@ -649,6 +697,29 @@ button#closeDrawer{
 	#popOut {
 		min-height: 10rem;
 	}
+
+	// button {
+	// 	max-height: 3rem;
+	// 	min-width: 5%;
+	// 	font-size: 1rem;
+		
+	// 	&#cancel{
+	// 		height: 2rem;
+	// 		font-size: $bodyFont - 2rem;
+	// 	}
+
+	// 	&#next{
+	// 		height: 3rem;
+	// 		font-size: $bodyFont - 1.5rem;
+	// 	}
+	// 	&#make{
+	// 		height: 4rem;
+	// 		font-size: $bodyFont - 1rem;
+	// 	}
+	// 	&#closeDrawer{
+	// 		width: 10%;
+	// 	}
+	// }
 }
 
 //phone portrait
@@ -693,24 +764,25 @@ button#closeDrawer{
 			padding-bottom: 0;
 			margin-bottom: 0;
 		}
-		button {
-			max-height: 3rem;
-			min-width: 5%;
-			font-size: 1rem;
-		
-			// &#cancel{
-			// 	height: 2rem;
-			// 	font-size: $bodyFont - 2rem;
-			// }
-
-			// &#next{
-			// 	height: 3rem;
-			// 	font-size: $bodyFont - 1.5rem;
-			// }
-			// &#make{
-			// 	height: 4rem;
-			// 	font-size: $bodyFont - 1rem;
-			// }
-		}
 	}
+
+	// button {
+	// 	max-height: 3rem;
+	// 	min-width: 5%;
+	// 	font-size: 1rem;
+		
+	// 	&#cancel{
+	// 		height: 2rem;
+	// 		font-size: $bodyFont - 2rem;
+	// 	}
+
+	// 	&#next{
+	// 		height: 3rem;
+	// 		font-size: $bodyFont - 1.5rem;
+	// 	}
+	// 	&#make{
+	// 		height: 4rem;
+	// 		font-size: $bodyFont - 1rem;
+	// 	}
+	// }
 }
