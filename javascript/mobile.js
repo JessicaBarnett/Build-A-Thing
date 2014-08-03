@@ -74,7 +74,7 @@ function resizeHandler() {
 //adds drawer listener if this is a tablet viewport size or smaller
 function mobileSelectButtonHandler() {
     if (mqTab.matches) {
-        toggleDrawer();
+        toggleDrawer(); 
 
         //re-adding handler because, if this thing was just selected, 
         //the back button was re-written during thingView.printThing,
