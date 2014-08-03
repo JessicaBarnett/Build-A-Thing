@@ -63,14 +63,19 @@ div[id^="form"] {
   /*General text fields/buttons*/ }
   @media screen and (min-width: 200px) and (max-width: 750px) {
     div[id^="form"] {
-      font-size: 1.4rem; } }
+      font-size: 0.4rem; } }
+  @media screen and (min-width: 200px) and (max-width: 750px) {
+    div[id^="form"] h2 {
+      line-height: 1.5rem;
+      margin-top: .8rem;
+      margin-left: 4%; } }
   div[id^="form"] ul {
     width: 94%;
     margin: 2% auto; }
   div[id^="form"] .svgContainer {
     width: 90%;
     margin: 0 auto; }
-    @media screen and (min-width: 300px) and (max-width: 750px) and (orientation: landscape) {
+    @media screen and (min-width: 200px) and (max-width: 750px) {
       div[id^="form"] .svgContainer {
         width: 75%; } }
   div[id^="form"] li {
@@ -119,7 +124,8 @@ div[id^="form"] {
     background-color: #1a65d9;
     color: white;
     text-align: center;
-    line-height: 4rem; }
+    line-height: 4rem;
+    font-size: 1.4rem; }
   div[id^="form"] input[type="radio"]:hover + label {
     background-color: white;
     color: black; }
@@ -200,6 +206,35 @@ div[id^="form"] {
       div[id^="form"] #make {
         font-size: 1.9rem;
         max-height: 4rem; } }
+
+@media screen and (min-width: 200px) and (max-width: 750px) {
+  div#formPage3 label, div#formPage2 label {
+    width: 100%;
+    margin: 0 auto;
+    line-height: 1.5rem;
+    padding: .25rem;
+    font-size: 1.1rem; } }
+@media screen and (min-width: 200px) and (max-width: 750px) {
+  div#formPage3 input, div#formPage2 input {
+    height: 2rem;
+    width: 100%;
+    margin: 0 auto;
+    line-height: 1.5rem;
+    padding: .25rem;
+    font-size: 1rem; } }
+@media screen and (min-width: 200px) and (max-width: 750px) {
+  div#formPage3 #togglePet input, div#formPage3 #togglePet label, div#formPage2 #togglePet input, div#formPage2 #togglePet label {
+    height: 3rem;
+    width: 90%;
+    margin: 2%; }
+    div#formPage3 #togglePet input[type="radio"], div#formPage3 #togglePet label[type="radio"], div#formPage2 #togglePet input[type="radio"], div#formPage2 #togglePet label[type="radio"] {
+      z-index: 10;
+      left: 2.2%; }
+    div#formPage3 #togglePet input[type="radio"]:first-of-type, div#formPage3 #togglePet label[type="radio"]:first-of-type, div#formPage2 #togglePet input[type="radio"]:first-of-type, div#formPage2 #togglePet label[type="radio"]:first-of-type {
+      top: 0rem; }
+    div#formPage3 #togglePet input[type="radio"]:last-of-type, div#formPage3 #togglePet label[type="radio"]:last-of-type, div#formPage2 #togglePet input[type="radio"]:last-of-type, div#formPage2 #togglePet label[type="radio"]:last-of-type {
+      top: 3.6rem;
+      right: 0; } }
 
 h2 {
   border-radius: 10px;

@@ -148,7 +148,15 @@ div[id^="form"]{
 	width: 100%;
 
 	@media screen and (min-width: 200px) and (max-width: 750px){
-		font-size: $bodyFont;
+		font-size: $bodyFont - 1rem;
+	}
+
+	h2 {
+		@media screen and (min-width: 200px) and (max-width: 750px){
+			line-height: 1.5rem;
+			margin-top: .8rem;
+			margin-left: 4%;
+		}
 	}
 
 	//Select-a-Thing-Type list
@@ -159,7 +167,7 @@ div[id^="form"]{
 	.svgContainer{
 		width: 90%;
 		margin: 0 auto;
-		@media screen and (min-width: 300px) and (max-width: 750px) and (orientation: landscape){
+		@media screen and (min-width: 200px) and (max-width: 750px){
 			width: 75%;
 		}
 	}
@@ -236,6 +244,7 @@ div[id^="form"]{
 		color: white;
 		text-align: center;
 		line-height: 4rem;
+		font-size: $bodyFont;
 	}
 
 	input[type="radio"]:hover + label{
@@ -359,6 +368,51 @@ div[id^="form"]{
 
 }
 
+div#formPage3, div#formPage2 {
+	label{
+		@media screen and (min-width: 200px) and (max-width: 750px){
+			width: 100%;
+			margin: 0 auto;
+
+			line-height: 1.5rem;
+			padding: .25rem;
+			font-size: $bodyFont - .3rem;
+		}
+	}	
+	input{
+		@media screen and (min-width: 200px) and (max-width: 750px){
+			height: 2rem;
+			width: 100%;
+			margin: 0 auto;
+
+			line-height: 1.5rem;
+			padding: .25rem;
+			font-size: 1rem;
+		}
+	}
+	#togglePet input, #togglePet label{
+		@media screen and (min-width: 200px) and (max-width: 750px){
+			height: 3rem;
+			width: 90%;
+			margin: 2%;
+
+			&[type="radio"]{
+				z-index: 10;
+				left: 2.2%;
+			}
+		
+			&[type="radio"]:first-of-type{
+				top: 0rem;
+			}
+			&[type="radio"]:last-of-type{
+				top: 3.6rem;
+				right: 0;
+			}
+
+		}
+	}
+
+}
 
 
 //Thing Status Styles
