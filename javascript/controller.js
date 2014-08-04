@@ -72,8 +72,6 @@ function thingActionHandler() {
 }
 
 
-
-
 /***********  Form View/Controller  *************/
 
 function ThingForm(){
@@ -303,16 +301,21 @@ ThingForm.prototype.refreshButtons = function(){
     var isComplete = this.isFormComplete.apply(this);
 
     if (isComplete){
-        if($('button#make').length > 0) 
+        if($('button#make').length > 0) {
             $('button#make').removeAttr("disabled");
-        if($('button#next').length > 0) 
-            $('button#next').removeAttr("disabled"); //enables next button   
+            $("button#make").focus(); //makes it possible to hit tab/enter instead of hitting make button
+        }
+        if($('button#next').length > 0) {
+            $('button#next').removeAttr("disabled"); //enables next button  
+        } 
     }
     else{
-        if($('button#make').length > 0) 
+        if($('button#make').length > 0) {
             $('button#make').attr("disabled", "disabled");
-        if($('button#next').length > 0)
+        }
+        if($('button#next').length > 0){
             $('button#next').attr("disabled", "disabled"); //disables next button
+        }
     }
 };
 
