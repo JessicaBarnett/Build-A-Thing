@@ -106,7 +106,7 @@ div[id^="form"] {
       div[id^="form"] li {
         min-height: 0rem;
         max-height: 5rem;
-        max-width: 13%;
+        max-width: 16%;
         margin: 1%; } }
   div[id^="form"] li.checked {
     background-color: white;
@@ -132,7 +132,7 @@ div[id^="form"] {
         margin-right: 6%; } }
   div[id^="form"] input[type="radio"] {
     position: absolute;
-    opacity: .5;
+    opacity: 0;
     top: 0;
     left: 10%; }
     @media screen and (min-width: 200px) and (max-width: 750px) and (orientation: portrait) {
