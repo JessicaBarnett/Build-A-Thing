@@ -26,6 +26,7 @@ function selectButtonHandler() {
 
     //if this is the makeNewThing button, show the makeThing form
     if ($(this).hasClass("makeNewThing")) { //generates a new form
+        thingForm = new ThingForm();
         thingForm.newForm($('div#status'));
 
 
@@ -93,6 +94,7 @@ function ThingForm(){
 ThingForm.prototype.newForm = function($parentNode){
     this.$parentNode = $parentNode; 
     this.formController.apply(this);
+    this.type="Thing";
 };
 
 //this starts the from-making process, and is added as a handler to both next buttons
@@ -102,15 +104,15 @@ ThingForm.prototype.formController = function() {
 
     if ($('[id*="form"]').length <= 0) { //if no form exists yet
         if (mqPhone.matches || !mqPhone.matches && !mqTab.matches) { //if phone or web view
-            this.$parentNode.empty().append(this.formPage1()); 
+            this.$parentNode.empty().append(this.formPage1.call(this)); 
         } else { //if tab view
-            this.$parentNode.empty().append(this.formPage1());
-            this.$parentNode.append(this.formPage2());
+            this.$parentNode.empty().append(this.formPage1.call(this));
+            this.$parentNode.append(this.formPage2.call(this));
         }
     } else if ($("div#formPage1").length  > 0 && !$("div#formPage2").length) { //if phone or web view page 1
-        this.$parentNode.empty().append(this.formPage2());
+        this.$parentNode.empty().append(this.formPage2.call(this));
     } else if ($("div#formPage2").length  > 0) { //if phone/web view page 2 or tab view.  either way we're going to page 3
-        this.$parentNode.empty().append(this.formPage3());
+        this.$parentNode.empty().append(this.formPage3.call(this));
         this.filterFields();
     } 
 
@@ -425,52 +427,6 @@ ThingForm.prototype.collectThingData = function() {
         this.thingData["type"] = $("#types .checked").attr("data"); 
 
     return this.thingData;
-}
-
-
-
-
-// DEPRECATED!!!
-// now using ThingForm.newForm
-// function makeThingButtonHandler() {
-//     var thingType = $("#typeSelector").val(),
-//         thingName = $("#makeThingForm input#name").val();
-//     var petName = $('input#humanName').val() || null;
-
-//     var thingArgs = []; //will contain arguments from the text fields to use to make a new thing
-
-//     //adds value of text field only if field is visible 
-//     //(which it will be if it's not necessary for this type of thing)
-//     $("#variableFields").children("input:visible").each(function() {
-//         thingArgs.push($(this).val());
-//     });
-
-//     //makes new Thing with thingArgs array
-//     var newThing = thingModel.makeAnyThing(thingType, petName, thingArgs);
-//     //adds it to the model
-//     thingModel.addThing(newThing);
-
-//     //hides form
-//     //$("#makeThingForm").hide();
-
-//     //removes "active" class from makeNewThing Button
-//     $("ul li.makeNewThing").removeClass("active");
-
-//     //create new select button for the new Thing
-//     thingView.addGridSquare(newThing);
-
-//     //add active class to it
-//     $('li[data="' + newThing.name + '"]').addClass("active");
-
-//     //print's new thing's Status
-//     thingView.printThing(newThing);
-
-//     //has access to toggleDrawer, even though mobile.js (which has toggleDrawer in it) is loaded after view in index.html
-//     //this is because these functions are only being called later on, in controller
-//     if (mqTab.matches) {
-//         $("#closeDrawer").on("click", toggleDrawer);
-//     }
-
-// }
+};
 
 
