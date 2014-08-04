@@ -177,7 +177,7 @@ div[id^="form"]{
 			width: 75%;
 		}
 		@media screen and (min-width: 300px) and (max-width: 750px) and (orientation: landscape){
-			width: 50%;
+			width: 80%;
 		}
 	}
 	li {
@@ -202,8 +202,8 @@ div[id^="form"]{
 		@media screen and (min-width: 300px) and (max-width: 750px) and (orientation: landscape){
 			min-height: 0rem;
 			max-height: 5rem;
-			max-width: 25%;
-			margin: 1% 2%;
+			max-width: 16%;
+			margin: 1%;
 		}
 
 	}
