@@ -213,24 +213,25 @@ ThingForm.prototype.formPage2 = function() {
 //returns JQuery tree for thing Detail fields, including handlers
 ThingForm.prototype.formPage3 = function() {
     var $formContainer = $('<div id="formPage3"><div>');
+    var noun = mqPhone.matches ? "it" : "this " +  this.type ;
 
     $formContainer.append($('<h2>What is this ' + this.type + ' like?</h2>'));
 
     //each has a class that will be used as a handle for hiding/showing
     $formContainer.append(
-        $('<label class="Thing" for="name">What is this ' + this.type + ' called?</label>'),
+        $('<label class="Thing" for="name">What is ' + noun + ' called?</label>'),
         $('<input class="Thing" id="name" type="text">'),
-        $('<label class="Mineral" for="shape">How is this ' + this.type + ' shaped?</label>'),
+        $('<label class="Mineral" for="shape">How is ' + noun + ' shaped?</label>'),
         $('<input class="Mineral" id="shape" type="text">'),
-        $('<label class="LivingThing" for="food" >What does this ' + this.type + ' eat?</label>'),
+        $('<label class="LivingThing" for="food" >What does ' + noun + ' eat?</label>'),
         $('<input class="LivingThing" id="food" type="text">'),
-        $('<label class="Plant" for="height">How tall is this ' + this.type + '?</label>'),
+        $('<label class="Plant" for="height">How tall is ' + noun + '?</label>'),
         $('<input class="Plant" id="height" type="text">'),
-        $('<label class="Animal" for="movement">How does this ' + this.type + ' move?</label>'),
+        $('<label class="Animal" for="movement">How does ' + noun + ' move?</label>'),
         $('<input class="Animal" id="movement" type="text">'),
-        $('<label class="Animal" for="habitat">Where does this ' + this.type + ' live?</label>'),
+        $('<label class="Animal" for="habitat">Where does ' + noun + ' live?</label>'),
         $('<input class="Animal" id="habitat" type="text">'),
-        $('<label class="Animal" for="sound">What sound does this ' + this.type + ' make?</label>'),
+        $('<label class="Animal" for="sound">What sound does ' + noun + ' make?</label>'),
         $('<input class="Animal" id="sound" type="text">')
     );
 

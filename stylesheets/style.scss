@@ -154,8 +154,13 @@ div[id^="form"]{
 	h2 {
 		@media screen and (min-width: 200px) and (max-width: 750px){
 			line-height: 1.5rem;
-			margin-top: .8rem;
+			margin-top: .8rem ;
 			margin-left: 4%;
+		}
+		@media screen and (min-width: 300px) and (max-width: 750px) and (orientation: landscape){
+			margin-top: 0;
+			margin-bottom: 0;
+			max-width: 80%;
 		}
 	}
 
@@ -215,9 +220,10 @@ div[id^="form"]{
 	}
 
 	//this container is for positioning buttons within absolutely-positioned parent
-	fieldset#radioToggle{
-		width: 50%;
-		margin-left: 25%;
+	fieldset#togglePet{
+		@media screen and (min-width: 300px) and (max-width: 750px) and (orientation: landscape){
+			margin-left: -8%;
+		}
 	}
 
 	input[type="radio"], input[type="radio"] + label {
@@ -225,17 +231,38 @@ div[id^="form"]{
 		margin: 5%;
 		height: 4rem;
 		display: inline-block;
+		@media screen and (min-width: 300px) and (max-width: 750px) and (orientation: landscape){
+			max-width: 20%;
+			margin: 2%;
+			margin-right: 6%;
+		}
 	}
 
 	input[type="radio"]{
 		position: absolute;
-		top: -1rem;
-		left: 13%;
-		opacity: 0;
+		opacity: .5;
+		top: 0;
+		left: 10%;		
+
+		@media screen and (min-width: 200px) and (max-width: 750px) and (orientation: portrait){
+			top: -1rem;
+			left: 13%;
+		}
+		
+		@media screen and (min-width: 300px) and (max-width: 750px) and (orientation: landscape){
+			left: 17%;
+			top: .1rem;
+		}
 	}
 
 	input[type="radio"]:last-of-type {
-		left: 38%;
+		left: 50%;
+		@media screen and (min-width: 200px) and (max-width: 750px) and (orientation: portrait){
+			left: 38%;
+		}
+		@media screen and (min-width: 300px) and (max-width: 750px) and (orientation: landscape){
+			left: 48%;
+		}
 	}
 
 	input[type="radio"] + label { 
@@ -262,6 +289,10 @@ div[id^="form"]{
 
 	input[type="text"], label{
 		display: none;
+		font-size: $bodyFont;
+		@media screen and (min-width: 200px) and (max-width: 750px){
+			font-size: $bodyFont - .5rem;
+		}
 	}
 
 	input[type="text"]{
@@ -273,7 +304,6 @@ div[id^="form"]{
 
 		line-height: 2rem;
 		padding: .25rem;
-		font-size: $bodyFont;
 	}
 
 	button{
@@ -310,6 +340,12 @@ div[id^="form"]{
 		font-size: $bodyFont; 
 		padding: .5rem;
 		color: black;
+
+		@media screen and (min-width: 200px) and (max-width: 750px){
+			font-size: $bodyFont - .5rem;
+			max-width: 40%;
+			margin: -2rem 0 0 -6rem;
+		}
 	}
 
 	button:hover{
@@ -371,16 +407,17 @@ div[id^="form"]{
 div#formPage3, div#formPage2 {
 	label{
 		@media screen and (min-width: 200px) and (max-width: 750px){
+			font-size: $bodyFont - .3rem;
+			line-height: 2rem;
+			padding: .25rem;
+		}
+		@media screen and (min-width: 200px) and (max-width: 750px) and (orientation: portrait){
 			width: 100%;
 			margin: 0 auto;
-
-			line-height: 1.5rem;
-			padding: .25rem;
-			font-size: $bodyFont - .3rem;
 		}
 	}	
 	input{
-		@media screen and (min-width: 200px) and (max-width: 750px){
+		@media screen and (min-width: 200px) and (max-width: 750px) and (orientation: portrait){
 			height: 2rem;
 			width: 100%;
 			margin: 0 auto;
@@ -391,7 +428,7 @@ div#formPage3, div#formPage2 {
 		}
 	}
 	#togglePet input, #togglePet label{
-		@media screen and (min-width: 200px) and (max-width: 750px){
+		@media screen and (min-width: 200px) and (max-width: 750px) and (orientation: portrait){
 			height: 3rem;
 			width: 90%;
 			margin: 2%;
@@ -409,6 +446,9 @@ div#formPage3, div#formPage2 {
 				right: 0;
 			}
 
+		}
+		@media screen and (min-width: 200px) and (max-width: 750px) and (orientation: landscape){
+			height: 3rem;
 		}
 	}
 
@@ -674,10 +714,6 @@ button#closeDrawer{
 	}
 
 	#actionWindow {
-		display: none;
-	}
-
-	button:disabled:hover:before{ 
 		display: none;
 	}
 
