@@ -95,6 +95,7 @@ h1 {
 }
 .status.frame{
 	background-color: $statusBG;
+	//overflow: hidden;
 }
 
 img {
@@ -155,11 +156,11 @@ div[id^="form"]{
 		@media screen and (min-width: 200px) and (max-width: 750px){
 			line-height: 1.5rem;
 			margin-top: .8rem ;
+			margin-bottom: .5rem;
 			margin-left: 4%;
 		}
 		@media screen and (min-width: 300px) and (max-width: 750px) and (orientation: landscape){
 			margin-top: 0;
-			margin-bottom: 0;
 			max-width: 80%;
 		}
 	}
@@ -256,7 +257,7 @@ div[id^="form"]{
 	}
 
 	input[type="radio"]:last-of-type {
-		left: 50%;
+		left: 45%;
 		@media screen and (min-width: 200px) and (max-width: 750px) and (orientation: portrait){
 			left: 38%;
 		}
@@ -402,6 +403,13 @@ div[id^="form"]{
 		}
 	}
 
+
+}
+
+div#formButtons{
+	@media screen and (min-width: 200px) and (max-width: 750px) and (orientation: landscape){
+		margin-top: 1rem;
+	}
 }
 
 div#formPage3, div#formPage2 {
@@ -410,21 +418,36 @@ div#formPage3, div#formPage2 {
 			font-size: $bodyFont - .3rem;
 			line-height: 2rem;
 			padding: .25rem;
+			margin-top: 0;
+			margin-left: -8%;
 		}
 		@media screen and (min-width: 200px) and (max-width: 750px) and (orientation: portrait){
 			width: 100%;
 			margin: 0 auto;
 		}
 	}	
+	input[type="radio"] + label{
+		margin-left: 0%;
+	}
 	input{
-		@media screen and (min-width: 200px) and (max-width: 750px) and (orientation: portrait){
+		@media screen and (min-width: 200px) and (max-width: 750px){
 			height: 2rem;
-			width: 100%;
 			margin: 0 auto;
+		}
+		@media screen and (min-width: 200px) and (max-width: 750px) and (orientation: landscape){
+			margin-bottom: .5rem;
+		}
+		@media screen and (min-width: 200px) and (max-width: 750px) and (orientation: portrait){
+			width: 100%;
 
 			line-height: 1.5rem;
 			padding: .25rem;
 			font-size: 1rem;
+		}
+	}
+	input[type="text"]{
+		@media screen and (min-width: 200px) and (max-width: 750px) and (orientation: landscape){
+			margin-left: 5%;
 		}
 	}
 	#togglePet input, #togglePet label{
@@ -489,7 +512,6 @@ h2{
 		//margin-top so the back button will be around where the popOut button was
 		//looking for better way. sass if statement?  if height > x, margin-top = y, else margin-top = z?
 	}
-
 }
 
 p#actionWindow {
@@ -677,6 +699,12 @@ button#closeDrawer{
 	body, p{
 		font-size: $bodyFont;
 	}
+	#profile{
+		body, p{
+			font-size: $bodyFont - .25rem;
+			line-height: $bodyFont - .5rem;
+		}
+	}
 
 	div#select p{
 		@include hideTextOverflow;
@@ -720,26 +748,6 @@ button#closeDrawer{
 	button#next:disabled:hover{
 		color: black;
 	}
-
-
-	// button {
-	// 	height: 4rem;
-	// 	min-width: 5%;
-	// 	font-size: 4rem;
-		
-	// 	&#cancel{
-	// 		font-size: $bodyFont - 2rem;
-	// 	}
-
-	// 	&#next{
-	// 		font-size: $bodyFont - 1.5rem;
-	// 	}
-	// 	&#make{
-	// 		font-size: $bodyFont - 1rem;
-	// 		max-width: 8%;
-	// 		height: 6rem;
-	// 	}
-	// }	
 
 }
 
@@ -788,28 +796,6 @@ button#closeDrawer{
 		min-height: 10rem;
 	}
 
-	// button {
-	// 	max-height: 3rem;
-	// 	min-width: 5%;
-	// 	font-size: 1rem;
-		
-	// 	&#cancel{
-	// 		height: 2rem;
-	// 		font-size: $bodyFont - 2rem;
-	// 	}
-
-	// 	&#next{
-	// 		height: 3rem;
-	// 		font-size: $bodyFont - 1.5rem;
-	// 	}
-	// 	&#make{
-	// 		height: 4rem;
-	// 		font-size: $bodyFont - 1rem;
-	// 	}
-	// 	&#closeDrawer{
-	// 		width: 10%;
-	// 	}
-	// }
 }
 
 //phone portrait
@@ -855,24 +841,4 @@ button#closeDrawer{
 			margin-bottom: 0;
 		}
 	}
-
-	// button {
-	// 	max-height: 3rem;
-	// 	min-width: 5%;
-	// 	font-size: 1rem;
-		
-	// 	&#cancel{
-	// 		height: 2rem;
-	// 		font-size: $bodyFont - 2rem;
-	// 	}
-
-	// 	&#next{
-	// 		height: 3rem;
-	// 		font-size: $bodyFont - 1.5rem;
-	// 	}
-	// 	&#make{
-	// 		height: 4rem;
-	// 		font-size: $bodyFont - 1rem;
-	// 	}
-	// }
 }

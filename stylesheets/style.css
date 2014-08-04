@@ -68,11 +68,11 @@ div[id^="form"] {
     div[id^="form"] h2 {
       line-height: 1.5rem;
       margin-top: 0.8rem;
+      margin-bottom: .5rem;
       margin-left: 4%; } }
   @media screen and (min-width: 300px) and (max-width: 750px) and (orientation: landscape) {
     div[id^="form"] h2 {
       margin-top: 0;
-      margin-bottom: 0;
       max-width: 80%; } }
   div[id^="form"] ul {
     width: 94%;
@@ -136,7 +136,7 @@ div[id^="form"] {
         left: 17%;
         top: .1rem; } }
   div[id^="form"] input[type="radio"]:last-of-type {
-    left: 50%; }
+    left: 45%; }
     @media screen and (min-width: 200px) and (max-width: 750px) and (orientation: portrait) {
       div[id^="form"] input[type="radio"]:last-of-type {
         left: 38%; } }
@@ -239,23 +239,39 @@ div[id^="form"] {
         font-size: 1.9rem;
         max-height: 4rem; } }
 
+@media screen and (min-width: 200px) and (max-width: 750px) and (orientation: landscape) {
+  div#formButtons {
+    margin-top: 1rem; } }
+
 @media screen and (min-width: 200px) and (max-width: 750px) {
   div#formPage3 label, div#formPage2 label {
     font-size: 1.1rem;
     line-height: 2rem;
-    padding: .25rem; } }
+    padding: .25rem;
+    margin-top: 0;
+    margin-left: -8%; } }
 @media screen and (min-width: 200px) and (max-width: 750px) and (orientation: portrait) {
   div#formPage3 label, div#formPage2 label {
     width: 100%;
     margin: 0 auto; } }
-@media screen and (min-width: 200px) and (max-width: 750px) and (orientation: portrait) {
+div#formPage3 input[type="radio"] + label, div#formPage2 input[type="radio"] + label {
+  margin-left: 0%; }
+@media screen and (min-width: 200px) and (max-width: 750px) {
   div#formPage3 input, div#formPage2 input {
     height: 2rem;
+    margin: 0 auto; } }
+@media screen and (min-width: 200px) and (max-width: 750px) and (orientation: landscape) {
+  div#formPage3 input, div#formPage2 input {
+    margin-bottom: .5rem; } }
+@media screen and (min-width: 200px) and (max-width: 750px) and (orientation: portrait) {
+  div#formPage3 input, div#formPage2 input {
     width: 100%;
-    margin: 0 auto;
     line-height: 1.5rem;
     padding: .25rem;
     font-size: 1rem; } }
+@media screen and (min-width: 200px) and (max-width: 750px) and (orientation: landscape) {
+  div#formPage3 input[type="text"], div#formPage2 input[type="text"] {
+    margin-left: 5%; } }
 @media screen and (min-width: 200px) and (max-width: 750px) and (orientation: portrait) {
   div#formPage3 #togglePet input, div#formPage3 #togglePet label, div#formPage2 #togglePet input, div#formPage2 #togglePet label {
     height: 3rem;
@@ -435,6 +451,10 @@ button#closeDrawer {
 
   body, p {
     font-size: 1.4rem; }
+
+  #profile body, #profile p {
+    font-size: 1.15rem;
+    line-height: 0.9rem; }
 
   div#select p {
     text-overflow: ellipsis;
