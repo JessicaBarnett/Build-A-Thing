@@ -271,7 +271,7 @@ ThingForm.prototype.filterFields = function(){
 
     if (this.type === "Mineral")
         $(".Mineral").show();
-    else if (this.type === "LivingThing" || this.type === "Animal" || this.type === "Plant") {
+    else if (this.type === "Living Thing" || this.type === "Animal" || this.type === "Plant") {
         $(".LivingThing").show();
 
         if (this.type === "Plant")
@@ -375,7 +375,7 @@ ThingForm.prototype.makeButtonHandler = function() {
 
     if (this.type === "Mineral")
         thingArgs.push(this.thingData.shape);
-    else if (this.type === "LivingThing" || this.type === "Animal" || this.type === "Plant") {
+    else if (this.type === "Living Thing" || this.type === "Animal" || this.type === "Plant") {
         thingArgs.push(this.thingData.food)
 
         if (this.type === "Plant")
