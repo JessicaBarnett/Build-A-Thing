@@ -1,13 +1,3 @@
-//(function (){  //took this out because I wanted to use a couple different js files to keep things organized
-
-//so, using this thingy, if I add another js file to keep stuff organized, I won't be able to access it, right?
-//I like keeping all of my stuff out of the global scope, 
-//but I'm seeing lots of problems with this "best practice."  
-//I'm probably missing something...
-
-//thinking it might be a good idea to separate constructors into another file at this point though.  
-//scrolling through all this is getting to be a hassle.
-
 /********  	PROTOTYPES   ********/
 
 function Thing(name) {
@@ -24,9 +14,6 @@ Thing.prototype.kick = function() {
     return "You kicked the " + this.name + "!  Thunk!";
 };
 
-// Thing.prototype.getPrintableProperties = function(){
-// 	return ["name: "+this.name, "type: "+this.type];
-// };
 
 //will not be modified/extended by any Thing descendants
 //WILL be modified by Pet
@@ -50,17 +37,11 @@ function Mineral(name, shape) {
 }
 
 Mineral.prototype._print = function() {
-    //Thing.prototype._print.apply(this);
     return Thing.prototype._print.apply(this) + "\nIt has a " + this.shape + " shape.";
 };
 
 Mineral.prototype = clone(Thing.prototype);
 Mineral.prototype.constructor = Mineral;
-
-// Mineral.prototype.getPrintableProperties = function(){
-// 	//return Thing.prototype.getPropertyStrings.apply(this).concat(["shape: "+this.shape]); //too much work...
-// 	return ["name: "+this.name, "type: "+this.type, "shape: "+this.shape]; //mush easier to read if I just retype the whole thing
-// };
 
 
 //livingThing inherits Thing
@@ -91,13 +72,9 @@ LivingThing.prototype._printEnergy = function() {
 };
 
 LivingThing.prototype._print = function() {
-    //Thing.prototype._print.apply(this);//extending Thing._print
     return Thing.prototype._print.apply(this) + "\nIt eats " + this.food + " and has " + this.energy + " energy.";
 };
 
-// LivingThing.prototype.getPrintableProperties = function(){
-// 	return ["name: "+this.name, "type: "+this.type, "food: "+this.food, "energy: "+this.energy];
-// };
 
 //Plant inherits LivingThing (And thus Thing)
 
@@ -125,10 +102,6 @@ Plant.prototype._print = function() {
     return LivingThing.prototype._print.apply(this) + this._printHeight();
 };
 
-// Plant.prototype.getPrintableProperties = function(){
-// 	return ["name: "+this.name, "type: "+this.type, "food: "+this.food, "energy: "+this.energy, "height: "+this.height];
-// };
-
 
 //Animal inherits LivingThing (and thus Thing)
 
@@ -146,7 +119,6 @@ Animal.prototype.constructor = Animal;
 
 //Extends LivingThing._print
 Animal.prototype._print = function() {
-    //LivingThing.prototype._print.apply(this); //Extends LivingThing._print
     return LivingThing.prototype._print.apply(this) + "\nIt lives in the " + this.habitat + ", moves by " + this.movement + "ing and makes a " + this.sound + " sound.";
 };
 
@@ -164,10 +136,7 @@ Animal.prototype.listen = function() {
     return "You hear a mysterious \'" + this.sound + "\' coming from the " + this.habitat + ".";
 };
 
-// Animal.prototype.getprintableProperties = function(){
-// 	return ["name: "+this.name, "type: "+this.type, "food: "+this.food, "energy: "+this.energy, 
-// 			"movement: "+this.movement+"ing", "habitat: "+this.habitat, "sound: "+this.sound];
-// };
+
 
 
 //Pet can mix with ANY object, but ideally something related to thing
@@ -207,9 +176,6 @@ Pet.prototype.kick = function() {
     return Object.getPrototypeOf(this).kick.apply(this);
 };
 
-// Pet.prototype.getPrintableProperties = function(){
-// 	return ["human Name: "+this.humanName, "happiness: "+this._isHappy()].concat(Object.getPrototypeOf(this).getPrintableProperties.apply(this));
-// };
 
 Pet.prototype._getHeader = function() {
     return "This is " + this.humanName + " the " + this.name;
@@ -231,5 +197,3 @@ Pet.prototype._isHappy = function() {
 Pet.prototype._isPetProperty = function(propertyName) {
     return (propertyName == "happy" || propertyName == "humanName" || propertyName == "pet" || propertyName == "_isHappy" || propertyName == "_isPet");
 };
-
-//})();

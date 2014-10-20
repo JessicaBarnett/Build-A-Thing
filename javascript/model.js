@@ -39,7 +39,7 @@ ThingModel.prototype.makeStarterThings = function() {
     this.addThing(this.makeAnyThing("Mineral", "Rocky", "Rock", "upside-down"));
 };
 
-//note: if you give a new thing the same name as an old thing, 
+//Bug: if you give a new thing the same name as an old thing, 
 //old thing will be overwritten
 ThingModel.prototype.addThing = function(Thing) {
     this.numThings++;

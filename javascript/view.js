@@ -2,11 +2,7 @@
 var mqTab = window.matchMedia("(max-width: 900px)");
 var mqPhone = window.matchMedia("screen and (min-width: 200px) and (max-width: 750px)");
 
-//var mqTabWide = window.matchMedia("screen and (min-width: 748px) and (max-width: 1024px) and (orientation: landscape)");
-//var mqTabTall = window.matchMedia("screen and (min-width: 748px) and (max-width: 1024px) and (orientation: portrait)");
-
 var mqPhoneWide = window.matchMedia("screen and (min-width: 300px) and (max-width: 748px) and (orientation: landscape)");
-//var mqPhoneTall = window.matchMedia("screen and (min-width: 100px) and (max-width: 480px) and (orientation: portrait)");
 
 /********** DOM MANIPULATORS/VIEW **********/
 
@@ -207,7 +203,7 @@ ThingView.prototype.printActionPopout = function(thing, action) {
 };
 
 //takes a jquery element.  adds a popout window to thingStats and appends those elements to it. 
-//saves state of page before appendint.  adds a click handler for the okay button, which will restore the page.  
+//saves state of page before appending.  adds a click handler for the okay button, which will restore the page.  
 ThingView.prototype.printToPopout = function($elements) {
     var $statusWindow = $("div#status"),
         $savedWindow,
@@ -254,19 +250,11 @@ ThingView.prototype.convertLayoutFromTablet = function() {
 ThingView.prototype.convertLayoutToWidePhone = function() {
     var $thingActions = $("#thingActions").detach();
     $("#statsContainer").append($thingActions);
-
-    //attempting to put header in one of the columns to save space.
-    // var $thingHeader = $("#status h2").detach();
-    // $("#svgContainer").prepend($thingHeader);
 };
 
 ThingView.prototype.convertLayoutFromWidePhone = function() {
     var $thingActions = $("#thingActions").detach();
     $("#status").append($thingActions);
-
-    //attempting to put header in one of the columns to save space.
-    // var $thingHeader = $("#status h2").detach();
-    // $("#status").prepend($thingHeader);
 };
 
 ThingView.prototype.convertToShortHeader = function(thing) {
@@ -289,108 +277,3 @@ ThingView.prototype.convertToLongHeader = function(thing) {
 
 
 
-
-
-
-
-
-/*********  DEPRECATED FORM METHODS  **********/
-
-//when form is open, hides/shows fields depending on which Thing Type
-//is selected, and whether it is a Pet
-ThingView.prototype.refreshForm = function() {
-    var type = $("select#typeSelector").val();
-    // get thingType from select box
-
-    $("#variableFields").children().hide();
-
-    $("#variableFields  input#name").show();
-    $("#variableFields label[for=name]").show();
-    $("#variableFields button").show();
-
-    if (type === "Mineral")
-        $(".mineral").show();
-    else if (type === "LivingThing" || type === "Animal" || type === "Plant") {
-        $(".livingThing").show();
-
-        if (type === "Plant")
-            $(".plant").show();
-        else if (type === "Animal")
-            $(".animal").show();
-    }
-
-    //if petradio isn't empty, and the value is true, show pet fields
-    if ($('#petRadio input:checked').val() && $('#petRadio input:checked').val().indexOf("true") >= 0) {
-        //long conditional and indexOf necessary because .val() returns a string, not a boolean
-        $("#petFields").show();
-    }
-
-};
-
-//I KNOW there's a better way to do this... just not sure how yet.
-//JSON maybe?
-ThingView.prototype.generateForm = function() {
-    var $parentNode = $("div#status");
-
-    var $makeThingWrapper = $("<fieldset>").attr("id", "makeThingForm");
-
-    //create back drawer tab button for mobile view
-    $parentNode.append($('<button id="closeDrawer"><img src="images/Arrow.svg" alt="back"></button>'));
-
-    //adds h2
-    var $heading = $('<h2>Make A New Thing!</h2>');
-    $makeThingWrapper.append($heading);
-
-    //adds type selector select box
-    var $typeSelectorDiv = $('<div>');
-    var $typeSelector = $('<select>').attr("id", "typeSelector")
-        .append($('<option selected value="Thing">Thing</option>'),
-            $('<option value="Mineral">Mineral</option>'),
-            $('<option value="LivingThing">Living Thing</option>'),
-            $('<option value="Plant">Plant</option>'),
-            $('<option value="Animal">Animal</option>'));
-    $makeThingWrapper.append($typeSelectorDiv.append($typeSelector));
-
-    //adds "is this a pet?" radio buttons
-    $petSelectorDiv = $("<div>").attr("id", "petRadio");
-    $petSelectorDiv.append($('<label for="isPet">Is this thing a pet?</label>'),
-        $('<input type="radio" name="isPet" value="true">'),
-        $('<label for="isPet">Yes!</label>'),
-        $('<input type="radio" name="isPet" value="false">'),
-        $('<label for="isPet">No</label>')
-    );
-
-    $makeThingWrapper.append($petSelectorDiv);
-
-    //adds all possible fields
-    var $variableFieldset = $('<fieldset>').attr("id", "variableFields"),
-        $petFieldset = $("<fieldset>").attr("id", "petFields");
-
-    $petFieldset.append($("<label for='humanName'>What is this Pet's human name?</label>"),
-        $('<input id="humanName" type="text">'));
-    $variableFieldset.append($petFieldset);
-
-    $variableFieldset.append(
-        $('<label for="name">Name: </label>'),
-        $('<input id="name" type="text">'),
-        $('<label for="shape" class="mineral">Shape: </label>'),
-        $('<input id="shape" class="mineral" type="text">'),
-        $('<label for="food" class="livingThing">Food: </label>'),
-        $('<input id="food" class="livingThing" type="text">'),
-        $('<label for="height" class="plant" >How tall is this thing?  (in inches)</label>'),
-        $('<input id="height" class="plant" type="text">'),
-        $('<label for="movement" class="animal">How does this thing move?</label>'),
-        $('<input id="movement"  class="animal" type="text">'),
-        $('<label for="habitat" class="animal">Where does this thing live?</label>'),
-        $('<input id="habitat" class="animal" type="text">'),
-        $('<label for="sound" class="animal">What sound does this thing make?</label>'),
-        $('<input id="sound" class="animal" type="text">'));
-
-    $variableFieldset.append($('<button type="submit" id="makeThingButton">Make This Thing!</button>'));
-
-    $makeThingWrapper.append($variableFieldset);
-
-    $parentNode.append($makeThingWrapper);
-    $variableFieldset.children().hide();
-    this.refreshForm(); //to hide all non-applicable fields
-};
