@@ -1,0 +1,2 @@
+#ignore OSX Finder artifacts
+.DS_Store
